@@ -4,11 +4,38 @@ public class ModTRSRequest {
     
     private int id;
     private int userId;
+    private int modId;
+    private long modTimestamp;
     private long timestamp;
     private String world;
     private int x, y, z;
     private String text;
+    private int status;
     
+    public int getModId() {
+        return modId;
+    }
+
+    public void setModId(int modId) {
+        this.modId = modId;
+    }
+
+    public long getModTimestamp() {
+        return modTimestamp;
+    }
+
+    public void setModTimestamp(long modTimestamp) {
+        this.modTimestamp = modTimestamp;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public ModTRSRequest() {
     }
 
