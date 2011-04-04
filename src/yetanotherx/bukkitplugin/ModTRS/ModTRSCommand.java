@@ -64,12 +64,9 @@ public class ModTRSCommand {
 	    ModTRSUser filedUser = ModTRSUser.getUserFromId(request.getUserId(), parent);
 	    ModTRSUser modUser = ModTRSUser.getUserFromId(request.getModId(), parent);
 	    
-	    Object[] filedByParameters = { filedUser.getName(), sdf.format(calendar.getTime()) };
+	    Object[] filedByParameters = { filedUser.getName(), sdf.format(calendar.getTime()), request.getX(), request.getY(), request.getZ() };
 	    
 
-	    
-	    player.sendMessage( ModTRSMessage.lineBreak );
-	    
 	    player.sendMessage( ModTRSMessage.parse( ModTRSMessage.infoForRequest, parameters ) );
 	    player.sendMessage( ModTRSMessage.parse( ModTRSMessage.filedBy, filedByParameters ) );
 	    
@@ -79,14 +76,7 @@ public class ModTRSCommand {
 	    }
 	    
 	    player.sendMessage( ModTRSMessage.parse( ModTRSMessage.requestText, parameters ) );
-	    
-	    player.sendMessage( ModTRSMessage.parse( ModTRSMessage.commandsOne, parameters ) );
-	    player.sendMessage( ModTRSMessage.parse( ModTRSMessage.commandsTwo, parameters ) );
-	    player.sendMessage( ModTRSMessage.parse( ModTRSMessage.commandsThree, parameters ) );
-	    
-	    player.sendMessage( ModTRSMessage.lineBreak );
-	    
-	    
+
 	}
 	else {
 	    player.sendMessage( ModTRSMessage.noSuchRequest );
