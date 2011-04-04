@@ -12,6 +12,7 @@ public class ModTRSMessage {
     public static String internalError = ChatColor.RED + "Internal error.";
     
     public static String modlist = ChatColor.AQUA + "Moderators: " + ChatColor.YELLOW + "{0}";
+    public static String modbroadcast = ChatColor.WHITE + "[" + ChatColor.RED + "Mod-Only Broadcast" + ChatColor.WHITE + "] " + ChatColor.GREEN + "{0}";
     
     
     public static String parse( String string, Object[] arguments ) {

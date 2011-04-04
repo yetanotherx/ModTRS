@@ -65,8 +65,22 @@ public class ModTRSCommand {
     }
 
     public static boolean onModBroadcastCommand( ModTRS parent, Player player, String[] args, String joined ) {
-	System.out.println(joined);
-	return false;
+	
+	Player[] players = player.getServer().getOnlinePlayers();
+	
+	if( !ModTRS.Permissions.has(player, "modtrs.command.mod-broadcast") ) {
+	    return true;
+	}
+	
+	String[] message = {joined};
+	
+	for( Player user : players ) {
+	    if( ModTRS.Permissions.has(user, "modtrs.mod") ) {
+		user.sendMessage(ModTRSMessage.parse( ModTRSMessage.modbroadcast, message ) );
+	    }
+	}
+	
+	return true;
 
     }
 
