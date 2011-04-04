@@ -15,5 +15,12 @@ public class ModTRSSQL {
     public static String getUserInfo = "SELECT * FROM user WHERE user_name = ? LIMIT 1";
     public static String addUserInfo = "INSERT INTO user (user_name) VALUES (?)";
     public static String setUserInfo = "UPDATE user SET user_name=?, user_last_request_id=? WHERE user_id=?";
+   
+    /**
+     * Request commands
+     */
+    public static String getRequestInfo = "SELECT * FROM request WHERE request_id = ? LIMIT 1";
+    public static String addRequestInfo = "INSERT INTO 'request' ( 'request_user_id' , 'request_mod_user_id' , 'request_timestamp' , 'request_mod_timestamp' , 'request_world' , 'request_x' , 'request_y' , 'request_z' , 'request_text' ) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? )";
+    public static String setRequestInfo = "UPDATE 'request' SET 'request_user_id' = ? , 'request_mod_user_id' = ? , 'request_timestamp' = ? , 'request_mod_timestamp' = ? , 'request_world' = ? , 'request_x' = ? , 'request_y' = ? , 'request_z' = ? , 'request_text' = ? , 'request_status' = ? WHERE request_id = ?";
 
 }

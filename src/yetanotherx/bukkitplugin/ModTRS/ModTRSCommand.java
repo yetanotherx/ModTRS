@@ -21,7 +21,7 @@ public class ModTRSCommand {
 	request.setX(player.getLocation().getBlockX());
 	request.setY(player.getLocation().getBlockY());
 	request.setZ(player.getLocation().getBlockZ());
-	request.insert();
+	request.insert(parent);
 	
 	System.out.println(user.getName());
 	
