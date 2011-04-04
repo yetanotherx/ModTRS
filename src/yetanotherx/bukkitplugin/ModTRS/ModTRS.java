@@ -1,7 +1,6 @@
 package yetanotherx.bukkitplugin.ModTRS;
 
 //Bukkit imports
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -154,7 +153,7 @@ public class ModTRS extends JavaPlugin {
 		    }
 		    catch( Exception e ) {
 			e.printStackTrace();
-			player.sendMessage(ChatColor.RED + "Internal error, message could not be sent.");
+			player.sendMessage( ModTRSMessage.messageNotSent );
 			return true;
 		    }
 
@@ -170,7 +169,7 @@ public class ModTRS extends JavaPlugin {
 		}
 		catch( Exception e ) {
 		    e.printStackTrace();
-		    player.sendMessage(ChatColor.RED + "Internal error.");
+		    player.sendMessage( ModTRSMessage.internalError );
 		    return false;
 		}
 	    }
@@ -180,7 +179,7 @@ public class ModTRS extends JavaPlugin {
 		}
 		catch( Exception e ) {
 		    e.printStackTrace();
-		    player.sendMessage(ChatColor.RED + "Internal error.");
+		    player.sendMessage( ModTRSMessage.internalError );
 		    return false;
 		}
 	    }
@@ -190,7 +189,7 @@ public class ModTRS extends JavaPlugin {
 		}
 		catch( Exception e ) {
 		    e.printStackTrace();
-		    player.sendMessage(ChatColor.RED + "Internal error.");
+		    player.sendMessage( ModTRSMessage.internalError );
 		    return false;
 		}
 	    }
@@ -200,7 +199,7 @@ public class ModTRS extends JavaPlugin {
 		}
 		catch( Exception e ) {
 		    e.printStackTrace();
-		    player.sendMessage(ChatColor.RED + "Internal error.");
+		    player.sendMessage( ModTRSMessage.internalError );
 		    return false;
 		}
 	    }
@@ -210,7 +209,7 @@ public class ModTRS extends JavaPlugin {
 		}
 		catch( Exception e ) {
 		    e.printStackTrace();
-		    player.sendMessage(ChatColor.RED + "Internal error.");
+		    player.sendMessage( ModTRSMessage.internalError );
 		    return false;
 		}
 	    }
@@ -220,7 +219,7 @@ public class ModTRS extends JavaPlugin {
 		}
 		catch( Exception e ) {
 		    e.printStackTrace();
-		    player.sendMessage(ChatColor.RED + "Internal error.");
+		    player.sendMessage( ModTRSMessage.internalError );
 		    return false;
 		}
 	    }
@@ -230,7 +229,7 @@ public class ModTRS extends JavaPlugin {
 		}
 		catch( Exception e ) {
 		    e.printStackTrace();
-		    player.sendMessage(ChatColor.RED + "Internal error.");
+		    player.sendMessage( ModTRSMessage.internalError );
 		    return false;
 		}
 	    }

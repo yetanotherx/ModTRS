@@ -108,7 +108,7 @@ public class ModTRSRequest {
 	this.text = text;
     }
 
-    public void insert( ModTRS parent ) throws SQLException {ModTRS.log.info(ModTRSSQL.addRequestInfo);
+    public boolean insert( ModTRS parent ) throws SQLException {ModTRS.log.info(ModTRSSQL.addRequestInfo);
 	PreparedStatement insertPrep = parent.sqlite.prepareStatement(ModTRSSQL.addRequestInfo);
 	insertPrep.setInt(1, this.userId );
 	insertPrep.setInt(2, this.modId);
@@ -119,7 +119,7 @@ public class ModTRSRequest {
 	insertPrep.setInt(7, this.y);
 	insertPrep.setInt(8, this.z);
 	insertPrep.setString(9, this.text);
-	insertPrep.execute();
+	return insertPrep.execute();
 	
     }
 

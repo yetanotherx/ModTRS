@@ -21,11 +21,16 @@ public class ModTRSCommand {
 	request.setX(player.getLocation().getBlockX());
 	request.setY(player.getLocation().getBlockY());
 	request.setZ(player.getLocation().getBlockZ());
-	request.insert(parent);
 	
-	System.out.println(user.getName());
+	if( request.insert(parent) ) {
+	    player.sendMessage( ModTRSMessage.messageSent );
+
+	    return true;
+	}
 	
-	return false;
+	player.sendMessage( ModTRSMessage.messageNotSent );
+
+	return true;
 
     }
 
@@ -34,7 +39,7 @@ public class ModTRSCommand {
 	return false;
 
     }
-    
+
     public static boolean onModReqInfoCommand( ModTRS parent, Player player, String[] args, String joined ) {
 	System.out.println("Info");
 	return false;
@@ -66,9 +71,23 @@ public class ModTRSCommand {
     }
 
     public static boolean onModlistCommand( ModTRS parent, Player player, String[] args, String joined ) {
-	System.out.println("List");
-	return false;
+	
+	Player[] players = player.getServer().getOnlinePlayers();
+	String mods = "";
+	
+	for( Player user : players ) {
+	    if( ModTRS.Permissions.has(user, "modtrs.mod") ) {
+		mods = mods + user.getName() + ", ";
+	    }
+	}
+	
+	mods = mods.substring(0, mods.length() - 2);
+	String[] modlist = {mods};
+	
+	player.sendMessage( ModTRSMessage.parse( ModTRSMessage.modlist, modlist) );
+	
+	return true;
 
     }
-    
+
 }
