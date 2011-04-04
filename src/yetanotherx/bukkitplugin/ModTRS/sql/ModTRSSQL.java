@@ -13,6 +13,7 @@ public class ModTRSSQL {
      * User commands
      */
     public static String getUserInfo = "SELECT * FROM user WHERE user_name = ? LIMIT 1";
+    public static String getUserInfoFromId = "SELECT * FROM user WHERE user_id = ? LIMIT 1";
     public static String addUserInfo = "INSERT INTO user (user_name) VALUES (?)";
     public static String setUserInfo = "UPDATE user SET user_name=?, user_last_request_id=? WHERE user_id=?";
    

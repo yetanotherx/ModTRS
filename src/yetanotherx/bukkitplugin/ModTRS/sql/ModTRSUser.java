@@ -76,6 +76,27 @@ public class ModTRSUser {
 	return user;
 	
     }
+
+
+    public static ModTRSUser getUserFromId( int id , ModTRS parent ) throws SQLException {
+	
+	PreparedStatement prep = parent.sqlite.prepareStatement(ModTRSSQL.getUserInfoFromId);
+	prep.setInt(1, id);
+	ResultSet rs = prep.executeQuery();
+	
+	while(rs.next()) {
+	    ModTRSUser user = new ModTRSUser();
+	    user.setId(id);
+	    user.setName(rs.getString("user_name"));
+	    rs.close();
+	    return user;
+	}
+	
+	rs.close();
+	
+	return null;
+	
+    }
     
 
 }

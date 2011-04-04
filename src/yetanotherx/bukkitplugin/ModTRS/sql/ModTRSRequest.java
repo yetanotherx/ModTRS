@@ -1,7 +1,10 @@
 package yetanotherx.bukkitplugin.ModTRS.sql;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import org.bukkit.ChatColor;
 
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 
@@ -108,7 +111,7 @@ public class ModTRSRequest {
 	this.text = text;
     }
 
-    public boolean insert( ModTRS parent ) throws SQLException {ModTRS.log.info(ModTRSSQL.addRequestInfo);
+    public boolean insert( ModTRS parent ) throws SQLException {
 	PreparedStatement insertPrep = parent.sqlite.prepareStatement(ModTRSSQL.addRequestInfo);
 	insertPrep.setInt(1, this.userId );
 	insertPrep.setInt(2, this.modId);
@@ -120,7 +123,74 @@ public class ModTRSRequest {
 	insertPrep.setInt(8, this.z);
 	insertPrep.setString(9, this.text);
 	return insertPrep.execute();
+
+    }
+
+    public boolean requestExists( ModTRS parent ) throws SQLException {
+
+	PreparedStatement prep = parent.sqlite.prepareStatement(ModTRSSQL.getRequestInfo);
+	prep.setInt(1, this.id);
+	ResultSet rs = prep.executeQuery();
+	boolean next = rs.next();
+	rs.close();
+
+	return next;
+    }
+
+    public void getData(ModTRS parent) throws SQLException {
+
+	PreparedStatement prep = parent.sqlite.prepareStatement(ModTRSSQL.getRequestInfo);
+	prep.setInt(1, this.id);
+	ResultSet rs = prep.executeQuery();
+
+	while( rs.next() ) {
+	    this.userId = rs.getInt("request_user_id");
+	    this.modId = rs.getInt("request_mod_user_id");
+	    this.timestamp = rs.getLong("request_timestamp");
+	    this.modTimestamp = rs.getInt("request_mod_timestamp");
+	    this.world = rs.getString("request_world");
+	    this.x = rs.getInt("request_x");
+	    this.y = rs.getInt("request_y");
+	    this.z = rs.getInt("request_z");
+	    this.text = rs.getString("request_text");
+	    this.status = rs.getInt("request_status");
+	}
+
+	rs.close();
+
+
+
+    }
+
+    public String getStatusText( boolean color ) {
 	
+	if( color ) {
+	    switch( this.status ) {
+
+	    case 0:
+		return ChatColor.YELLOW + "Open";
+	    case 1:
+		return ChatColor.RED + "Claimed";
+	    case 2:
+		return ChatColor.LIGHT_PURPLE + "On Hold";
+	    case 3:
+		return ChatColor.GREEN + "Closed";
+	    }
+	}
+	else {
+	    switch( this.status ) {
+
+	    case 0:
+		return "Open";
+	    case 1:
+		return "Claimed";
+	    case 2:
+		return "On Hold";
+	    case 3:
+		return "Closed";
+	    }
+	}
+	return "";
     }
 
 
