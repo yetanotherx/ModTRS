@@ -18,10 +18,10 @@ public class ModTRSMessage {
     
     
     public static String noSuchRequest = ChatColor.RED + "No request found with that ID number.";
-    public static String infoForRequest = ChatColor.AQUA + "--------- Mod Request #{0} - {10} " + ChatColor.AQUA + "---------";
-    public static String filedBy = ChatColor.YELLOW + "Filed by " + ChatColor.GREEN + "{0}" + ChatColor.YELLOW + " at " + ChatColor.GREEN + " {1}" + ChatColor.YELLOW + " at " + ChatColor.GREEN + "{2}, {3}, {4}";
+    public static String infoForRequest = ChatColor.AQUA + "--------- Mod Request #{0} - {1} " + ChatColor.AQUA + "---------";
+    public static String filedBy = ChatColor.YELLOW + "Filed by " + ChatColor.GREEN + "{2}" + ChatColor.YELLOW + " at " + ChatColor.GREEN + " {3}" + ChatColor.YELLOW + " at " + ChatColor.GREEN + "{4}, {5}, {6}";
     public static String handledBy = ChatColor.YELLOW + "Handled by " + ChatColor.LIGHT_PURPLE + "{0}" + ChatColor.YELLOW + " at " + ChatColor.LIGHT_PURPLE + " {1}";
-    public static String requestText = ChatColor.GRAY + "{8}";
+    public static String requestText = ChatColor.GRAY + "{7}";
     
     public static String lineBreak = ChatColor.AQUA + "-------------------------------------------";
     

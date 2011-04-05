@@ -8,7 +8,7 @@ import yetanotherx.bukkitplugin.ModTRS.ModTRSSettings;
 
 public class ModTRSRequestTable {
     
-    public ModTRSRequest getRequestFromId( int id ) throws SQLException {
+    public static ModTRSRequest getRequestFromId( int id ) throws SQLException {
 
 	PreparedStatement prep = ModTRSSettings.sqlite.prepareStatement(ModTRSSQL.getRequestInfo);
 	prep.setInt(1, id);
@@ -18,6 +18,7 @@ public class ModTRSRequestTable {
 	    
 	    ModTRSRequest request = new ModTRSRequest();
 	    
+	    request.setId( rs.getInt("request_id") );
 	    request.setUserId( rs.getInt("request_user_id") );
 	    request.setModId( rs.getInt("request_mod_user_id") );
 	    request.setTimestamp( rs.getLong("request_timestamp") );
