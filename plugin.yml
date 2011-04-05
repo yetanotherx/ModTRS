@@ -1,23 +1,23 @@
 name: ModTRS
 main: yetanotherx.bukkitplugin.ModTRS.ModTRS
-version: 0.1
+version: 0.2
 commands:
     modreq:
         description: Request help from a moderator
         usage: /<command> [message]
-    modreq-check:
+    check:
         description: List all the currently open requests. Use p:# to go to a page, and t:open/t:all to change the type of the request
         usage: /<command> [p:#] [t:open|all]
-    modreq-info:
+    check-id:
         description: Read a request
         usage: /<command> [id]
-    modreq-claim:
+    claim:
         description: Claim a request
         usage: /<command> [id]
-    modreq-complete:
+    complete:
         description: Mark a request as complete
         usage: /<command> [id]
-    modreq-hold:
+    hold:
         description: Put request on hold
         usage: /<command> [id]
     mod-broadcast:
