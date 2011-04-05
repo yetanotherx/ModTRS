@@ -35,8 +35,6 @@ public class CommandHandler implements CommandExecutor {
 	handler.registerCommand( "mod-broadcast", new BroadcastCommand(parent));
 	handler.registerCommand( "modlist", new ModlistCommand(parent));
 	
-	//TODO: Check for permissions
-	
 	return handler;
     }
 

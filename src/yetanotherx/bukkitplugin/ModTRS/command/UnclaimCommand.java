@@ -26,7 +26,7 @@ public class UnclaimCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 
 	Player player = (Player) sender;
-	
+
 	if( !ModTRSPermissions.has(player, "modtrs.command.complete") ) {
 	    player.sendMessage(ModTRSMessage.noPermission);
 	    return true;
@@ -46,19 +46,20 @@ public class UnclaimCommand implements CommandExecutor {
 		    user.insert();
 		    user = ModTRSUserTable.getUserFromName(player.getName());
 		}
-		
-		if( request.getModId() != user.getId() ) {
-		    //TODO: Admin override
-		    player.sendMessage( ModTRSMessage.cantunclaim );
 
-		    return true;
+		if( request.getModId() != user.getId() ) {
+		    if( !ModTRSPermissions.has(player, "modtrs.command.complete.override") ) {
+			player.sendMessage(ModTRSMessage.cantunclaim);
+			return true;
+		    }
+
 		}
 
 		request.setModId(0);
 		request.setModTimestamp( (long) 0 );
 		request.setStatus(0);
 		request.update();
-		
+
 		player.sendMessage( ModTRSMessage.parse( ModTRSMessage.unclaimed, new Object[] { request.getId() } ) );
 
 	    }

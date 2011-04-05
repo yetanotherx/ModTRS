@@ -55,7 +55,6 @@ public class ModreqCommand implements CommandExecutor {
 	    request.insert();
 	    player.sendMessage( ModTRSMessage.messageSent );
 
-	    //TODO: Notify the mods
 	    //TODO: On join message
 
 	    Player[] players = player.getServer().getOnlinePlayers();
