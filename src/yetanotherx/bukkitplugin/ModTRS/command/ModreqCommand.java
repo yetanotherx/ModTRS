@@ -54,6 +54,9 @@ public class ModreqCommand implements CommandExecutor {
 	    request.setZ(player.getLocation().getBlockZ());
 	    request.insert();
 	    player.sendMessage( ModTRSMessage.messageSent );
+	    
+	    //TODO: Notify the mods
+	    //TODO: MOTD
 
 	    //TODO: Error checking
 	}

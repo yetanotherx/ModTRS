@@ -30,10 +30,6 @@ public class BroadcastCommand implements CommandExecutor {
 	
 	Player[] players = player.getServer().getOnlinePlayers();
 
-	if( !ModTRSPermissions.has(player, "modtrs.command.broadcast") ) {
-	    return true;
-	}
-
 	String[] message = {joined};
 
 	for( Player user : players ) {

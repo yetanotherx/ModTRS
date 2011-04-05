@@ -68,7 +68,7 @@ public class CheckCommand implements CommandExecutor {
 			substring
 		};
 		player.sendMessage( ModTRSMessage.parse(ModTRSMessage.listItem, params ) );
-		
+		//TODO: Notify if it's taken
 		count++;
 	    }
 	
