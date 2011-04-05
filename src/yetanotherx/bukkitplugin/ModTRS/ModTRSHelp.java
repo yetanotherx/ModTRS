@@ -6,12 +6,10 @@ import org.bukkit.entity.Player;
 
 public class ModTRSHelp {
     
-    //private static ModTRS parent;
     private static ArrayList<String[]> helpCommands = new ArrayList<String[]>();
     
     public static void load( ModTRS parent ) {
-	//ModTRSHelp.parent = parent;
-	
+
 	helpCommands.add( new String[] {"modreq [message]", "Request help from a moderator", "modtrs.command.modreq"} );
 	helpCommands.add( new String[] {"check", "List all open requests", "modtrs.command.check"} );
 	helpCommands.add( new String[] {"check-id [#]", "Get info about a request", "modtrs.command.check"} );
