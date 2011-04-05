@@ -23,6 +23,6 @@ public class ModTRSSQL {
     public static String getRequestInfo = "SELECT * FROM request WHERE request_id = ? LIMIT 1";
     public static String addRequestInfo = "INSERT INTO 'request' ( 'request_user_id' , 'request_mod_user_id' , 'request_timestamp' , 'request_mod_timestamp' , 'request_world' , 'request_x' , 'request_y' , 'request_z' , 'request_text' ) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? )";
     public static String setRequestInfo = "UPDATE 'request' SET 'request_user_id' = ? , 'request_mod_user_id' = ? , 'request_timestamp' = ? , 'request_mod_timestamp' = ? , 'request_world' = ? , 'request_x' = ? , 'request_y' = ? , 'request_z' = ? , 'request_text' = ? , 'request_status' = ? WHERE request_id = ?";
-    public static String getOpenRequests = "SELECT * FROM request WHERE request_status = 0 OR request_status = 1";
+    public static String getOpenRequests = "SELECT * FROM request";
 
 }
