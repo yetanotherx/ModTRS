@@ -29,12 +29,12 @@ public class CommandHandler implements CommandExecutor {
 	handler.registerCommand( "check", new CheckCommand(parent));
 	handler.registerCommand( "check-id", new CheckIdCommand(parent));
 	handler.registerCommand( "claim", new ClaimCommand(parent));
+	handler.registerCommand( "unclaim", new UnclaimCommand(parent));
 	handler.registerCommand( "complete", new CompleteCommand(parent));
 	handler.registerCommand( "hold", new HoldCommand(parent));
 	handler.registerCommand( "mod-broadcast", new BroadcastCommand(parent));
 	handler.registerCommand( "modlist", new ModlistCommand(parent));
 	
-	//TODO: Unclaim command
 	//TODO: Check for permissions
 	
 	return handler;

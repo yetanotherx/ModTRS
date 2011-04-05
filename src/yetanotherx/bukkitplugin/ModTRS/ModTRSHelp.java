@@ -13,13 +13,14 @@ public class ModTRSHelp {
 	//ModTRSHelp.parent = parent;
 	
 	helpCommands.add( new String[] {"modreq [message]", "Request help from a moderator", "modtrs.command.modreq"} );
-	helpCommands.add( new String[] {"check", "Request help from a moderator", "modtrs.command.check"} );
-	helpCommands.add( new String[] {"check-id [#]", "Request help from a moderator", "modtrs.command.check"} );
-	helpCommands.add( new String[] {"claim [#]", "Request help from a moderator", "modtrs.command.complete"} );
-	helpCommands.add( new String[] {"complete [#]", "Request help from a moderator", "modtrs.command.complete"} );
-	helpCommands.add( new String[] {"hold [#]", "Request help from a moderator", "modtrs.command.complete"} );
-	helpCommands.add( new String[] {"mod-broadcast [message]", "Request help from a moderator", "modtrs.command.broadcast"} );
-	helpCommands.add( new String[] {"modlist", "Request help from a moderator", "modtrs.command.modlist"} );
+	helpCommands.add( new String[] {"check", "List all open requests", "modtrs.command.check"} );
+	helpCommands.add( new String[] {"check-id [#]", "Get info about a request", "modtrs.command.check"} );
+	helpCommands.add( new String[] {"claim [#]", "Claim the request", "modtrs.command.complete"} );
+	helpCommands.add( new String[] {"unclaim [#]", "Unclaim the request", "modtrs.command.complete"} );
+	helpCommands.add( new String[] {"complete [#]", "Mark the request as completed", "modtrs.command.complete"} );
+	helpCommands.add( new String[] {"hold [#]", "Put the request on hold", "modtrs.command.complete"} );
+	helpCommands.add( new String[] {"mod-broadcast [message]", "Send a message to all moderators", "modtrs.command.broadcast"} );
+	helpCommands.add( new String[] {"modlist", "List all moderators", "modtrs.command.modlist"} );
     }
     
     public static ArrayList<String> getMessages( Player player ) {

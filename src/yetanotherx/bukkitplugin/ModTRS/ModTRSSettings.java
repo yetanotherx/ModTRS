@@ -14,8 +14,9 @@ public class ModTRSSettings {
 
     public static boolean debugMode = false;
     
+    //TODO: Multiple databases
+    
     public static Configuration config = null;
-
     public static Connection sqlite;
     
     public static void load( ModTRS parent ) throws SQLException {
