@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerListener;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSPermissions;
+import yetanotherx.bukkitplugin.ModTRS.ModTRSSettings;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequest;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequestTable;
 
@@ -21,6 +22,10 @@ public class ModTRSPlayerListener extends PlayerListener{
     public void onPlayerJoin(PlayerJoinEvent event) {
 
 	Player player = event.getPlayer();
+	
+	if( !ModTRSSettings.notifyMods ) {
+	    return;
+	}
 	
 	if( ModTRSPermissions.has(player, "modtrs.mod") ) {
 

@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSPermissions;
+import yetanotherx.bukkitplugin.ModTRS.ModTRSSettings;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequest;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUser;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUserTable;
@@ -55,13 +56,16 @@ public class ModreqCommand implements CommandExecutor {
 	    request.insert();
 	    player.sendMessage( ModTRSMessage.messageSent );
 
-	    Player[] players = player.getServer().getOnlinePlayers();
+	    if( ModTRSSettings.notifyMods ) {
+		Player[] players = player.getServer().getOnlinePlayers();
 
-	    for( Player each_user : players ) {
-		if( ModTRSPermissions.has(each_user, "modtrs.mod") ) {
-		    each_user.sendMessage( ModTRSMessage.newRequests );
-		    //TODO: allow this to be disabled
+
+		for( Player each_user : players ) {
+		    if( ModTRSPermissions.has(each_user, "modtrs.mod") ) {
+			each_user.sendMessage( ModTRSMessage.newRequests );
+		    }
 		}
+
 	    }
 
 	    //TODO: Error checking

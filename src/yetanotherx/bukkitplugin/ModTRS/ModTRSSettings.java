@@ -13,6 +13,7 @@ import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSSQL;
 public class ModTRSSettings {
 
     public static boolean debugMode = false;
+    public static boolean notifyMods = true;
     
     //TODO: Multiple databases
     
@@ -25,7 +26,7 @@ public class ModTRSSettings {
 	
 	dataDirectory.mkdirs();
 	
-	File file = new File("plugins" + File.separator + "BoosterTrax", "blocks.yml");
+	File file = new File("plugins" + File.separator + "ModTRS", "config.yml");
 	
 	ModTRS.log.debug("Loading config file: " + file.getPath() );
 	
@@ -35,6 +36,7 @@ public class ModTRSSettings {
 	if( !file.exists() ) {
 	    ModTRS.log.debug("Config file not found, saving bare-bones file");
 	    config.setProperty("modtrs.debug", false );
+	    config.setProperty("modtrs.notify_mods", true );
 	    config.save();
 	}
 	
@@ -50,7 +52,7 @@ public class ModTRSSettings {
     private static void setSettings() {
 	
 	debugMode = config.getBoolean("modtrs.debug", false );
-	
+	notifyMods = config.getBoolean("modtrs.notify_mods", true );
     }
     
     private static void setupSQLite( ModTRS parent ) throws SQLException {
