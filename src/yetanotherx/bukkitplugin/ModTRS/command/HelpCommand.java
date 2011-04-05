@@ -3,6 +3,7 @@ package yetanotherx.bukkitplugin.ModTRS.command;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 
@@ -22,6 +23,7 @@ public class HelpCommand implements CommandExecutor {
 	String[] split = args;
 	String joined = CommandHandler.implode(split, " ");
 	String commandName = command.getName().toLowerCase();
+	Player player = (Player) sender;
 
 	return false;
 
