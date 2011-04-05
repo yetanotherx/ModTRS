@@ -67,7 +67,9 @@ public class ModTRS extends JavaPlugin {
      * 
      */
     public void onEnable() {
-
+	
+	ModTRSUpdater.checkSQLite(this);
+	
 	try {
 	    ModTRSSettings.load( this );
 	}
@@ -81,8 +83,6 @@ public class ModTRS extends JavaPlugin {
 	ModTRSHelp.load(this);
 	this.listeners = ModTRSListeners.load(this);
 	this.commandHandler = CommandHandler.load(this);
-	
-	//TODO: Updater
 
 	//Print that the plugin has been enabled!
 	log.info("Plugin enabled! (version " + this.getDescription().getVersion() + ")");
