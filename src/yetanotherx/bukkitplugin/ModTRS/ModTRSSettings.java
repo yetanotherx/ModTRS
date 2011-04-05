@@ -1,5 +1,6 @@
 package yetanotherx.bukkitplugin.ModTRS;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.io.File;
@@ -17,7 +18,9 @@ public class ModTRSSettings {
     public static boolean debugMode = false;
     public static boolean notifyMods = true;
     public static HashMap<String, String> databases = new HashMap<String, String>();
-
+    public static List<String> blacklist = new ArrayList<String>();
+    
+    
     public static Configuration config = null;
     public static Connection sqlite;
 
@@ -39,6 +42,7 @@ public class ModTRSSettings {
 	    config.setProperty("modtrs.debug", debugMode );
 	    config.setProperty("modtrs.notify_mods", notifyMods );
 	    config.setProperty("modtrs.databases", databases );
+	    config.setProperty("modtrs.blacklist", blacklist );
 	    config.save();
 	}
 
@@ -64,6 +68,8 @@ public class ModTRSSettings {
 	    }
 
 	}
+	
+	blacklist = config.getStringList("modtrs.blacklist", new ArrayList<String>());
 
     }
 

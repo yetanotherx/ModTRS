@@ -35,6 +35,15 @@ public class ModreqCommand implements CommandExecutor {
 	}
 
 	try {
+	    
+	    for( String blacklist : ModTRSSettings.blacklist ) {
+		if( joined.matches(blacklist) ) {
+		    //TODO: Only matches exact blacklist messages
+		    player.sendMessage( ModTRSMessage.blocked );
+		    return true;
+		}
+	    }
+	    
 	    ModTRSUser user = ModTRSUserTable.getUserFromName(player.getName());
 
 	    if( user == null ) {

@@ -8,6 +8,7 @@ public class ModTRSMessage {
     
     public static String messageSent = ChatColor.GOLD + "Thank you. Your message has been sent.";
     public static String newRequests = ChatColor.GREEN + "New mod request filed; use /check to see them";
+    public static String blocked = ChatColor.RED + "Your message is invalid. Please read the instructions.";
     
     public static String messageNotSent = ChatColor.RED + "Your message could not be sent at this time.";
     public static String internalError = ChatColor.RED + "Internal error.";
