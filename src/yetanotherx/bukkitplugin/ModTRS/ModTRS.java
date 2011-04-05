@@ -8,7 +8,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import yetanotherx.bukkitplugin.ModTRS.command.CommandHandler;
 
 //Java imports
-import java.sql.Connection;
 import java.sql.SQLException;
 
 
@@ -20,10 +19,6 @@ public class ModTRS extends JavaPlugin {
      */
     public static final ModTRSLogger log = new ModTRSLogger();
 
-    /**
-     * SQLite stuff
-     */
-    public Connection sqlite;
 
     private CommandHandler commandHandler;
 
@@ -31,11 +26,11 @@ public class ModTRS extends JavaPlugin {
      * Outputs a message when disabled
      */
     public void onDisable() {
-	log.info("Plugin disabled. (version" + this.getDescription().getVersion() + ")");
+	log.info("Plugin disabled. (version " + this.getDescription().getVersion() + ")");
 
 	try {
-	    if( sqlite != null ) {
-		sqlite.close();
+	    if( ModTRSSettings.sqlite != null ) {
+		ModTRSSettings.sqlite.close();
 	    }
 	} catch (SQLException e) {
 	    e.printStackTrace();
@@ -56,7 +51,7 @@ public class ModTRS extends JavaPlugin {
 	}
 	catch( SQLException e ) {
 	    e.printStackTrace();
-	    log.severe("SQL exception! Disabling plugin (version" + this.getDescription().getVersion() + ")");
+	    log.severe("SQL exception! Disabling plugin (version " + this.getDescription().getVersion() + ")");
 	    this.getServer().getPluginManager().disablePlugin(this);
 	}
 	
@@ -67,7 +62,7 @@ public class ModTRS extends JavaPlugin {
 	//TODO: Updater
 
 	//Print that the plugin has been enabled!
-	log.info("Plugin enabled! (version" + this.getDescription().getVersion() + ")");
+	log.info("Plugin enabled! (version " + this.getDescription().getVersion() + ")");
 	
 	log.debug("Debug mode enabled!");
     }

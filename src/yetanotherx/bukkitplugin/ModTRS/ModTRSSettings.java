@@ -16,7 +16,7 @@ public class ModTRSSettings {
     
     public static Configuration config = null;
 
-    private static Connection sqlite;
+    public static Connection sqlite;
     
     public static void load( ModTRS parent ) throws SQLException {
 	

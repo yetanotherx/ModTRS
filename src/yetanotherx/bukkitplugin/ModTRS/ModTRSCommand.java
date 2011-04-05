@@ -7,29 +7,6 @@ import org.bukkit.entity.Player;
 
 public class ModTRSCommand {
 
-    
-
-    public static boolean onModReqCommand( ModTRS parent, Player player, String[] args, String joined ) throws SQLException {
-
-	/*ModTRSUser user = ModTRSUser.getUserFromName(player.getName(), parent);
-	ModTRSRequest request = new ModTRSRequest();
-	request.setUserId(user.getId());
-	request.setText(joined);
-	request.setTimestamp(System.currentTimeMillis());
-	request.setWorld(player.getWorld().getName());
-	request.setX(player.getLocation().getBlockX());
-	request.setY(player.getLocation().getBlockY());
-	request.setZ(player.getLocation().getBlockZ());
-	request.insert(parent);
-	//TODO: Error handling
-	
-	player.sendMessage( ModTRSMessage.messageSent );
-*/
-	return true;
-	
-
-    }
-
     public static boolean onModReqCheckCommand( ModTRS parent, Player player, String[] args, String joined ) {
 	//System.out.println("Check");
 	return false;

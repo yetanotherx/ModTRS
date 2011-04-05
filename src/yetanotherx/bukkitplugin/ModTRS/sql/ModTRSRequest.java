@@ -1,12 +1,11 @@
 package yetanotherx.bukkitplugin.ModTRS.sql;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.bukkit.ChatColor;
 
-import yetanotherx.bukkitplugin.ModTRS.ModTRS;
+import yetanotherx.bukkitplugin.ModTRS.ModTRSSettings;
 
 public class ModTRSRequest {
 
@@ -111,8 +110,8 @@ public class ModTRSRequest {
 	this.text = text;
     }
 
-    public boolean insert( ModTRS parent ) throws SQLException {
-	PreparedStatement insertPrep = parent.sqlite.prepareStatement(ModTRSSQL.addRequestInfo);
+    public boolean insert() throws SQLException {
+	PreparedStatement insertPrep = ModTRSSettings.sqlite.prepareStatement(ModTRSSQL.addRequestInfo);
 	insertPrep.setInt(1, this.userId );
 	insertPrep.setInt(2, this.modId);
 	insertPrep.setLong(3, this.timestamp);
@@ -125,40 +124,19 @@ public class ModTRSRequest {
 	return insertPrep.execute();
 
     }
-
-    public boolean requestExists( ModTRS parent ) throws SQLException {
-
-	PreparedStatement prep = parent.sqlite.prepareStatement(ModTRSSQL.getRequestInfo);
-	prep.setInt(1, this.id);
-	ResultSet rs = prep.executeQuery();
-	boolean next = rs.next();
-	rs.close();
-
-	return next;
-    }
-
-    public void getData(ModTRS parent) throws SQLException {
-
-	PreparedStatement prep = parent.sqlite.prepareStatement(ModTRSSQL.getRequestInfo);
-	prep.setInt(1, this.id);
-	ResultSet rs = prep.executeQuery();
-
-	while( rs.next() ) {
-	    this.userId = rs.getInt("request_user_id");
-	    this.modId = rs.getInt("request_mod_user_id");
-	    this.timestamp = rs.getLong("request_timestamp");
-	    this.modTimestamp = rs.getInt("request_mod_timestamp");
-	    this.world = rs.getString("request_world");
-	    this.x = rs.getInt("request_x");
-	    this.y = rs.getInt("request_y");
-	    this.z = rs.getInt("request_z");
-	    this.text = rs.getString("request_text");
-	    this.status = rs.getInt("request_status");
-	}
-
-	rs.close();
-
-
+    
+    public boolean update() throws SQLException {
+	PreparedStatement updatePrep = ModTRSSettings.sqlite.prepareStatement(ModTRSSQL.setRequestInfo);
+	updatePrep.setInt(1, this.userId );
+	updatePrep.setInt(2, this.modId);
+	updatePrep.setLong(3, this.timestamp);
+	updatePrep.setLong(4, this.modTimestamp);
+	updatePrep.setString(5, this.world);
+	updatePrep.setInt(6, this.x);
+	updatePrep.setInt(7, this.y);
+	updatePrep.setInt(8, this.z);
+	updatePrep.setString(9, this.text);
+	return updatePrep.execute();
 
     }
 
