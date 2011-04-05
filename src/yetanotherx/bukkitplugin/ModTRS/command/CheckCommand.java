@@ -53,7 +53,6 @@ public class CheckCommand implements CommandExecutor {
 	    requests = ModTRSRequestTable.getOpenRequests(type);
 
 	    String ucfirst = type.toUpperCase().substring(0, 1) + type.substring(1);
-	    System.out.println(ucfirst);
 
 	    player.sendMessage( ModTRSMessage.parse(ModTRSMessage.listIntro, new Object[] { ucfirst, requests.size() } ) );
 
