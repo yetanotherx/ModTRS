@@ -66,7 +66,7 @@ public class ModTRSSettings {
 	}
 	catch( ClassNotFoundException e) {
 	    ModTRS.log.severe("Error: Cannot locate the SQLite JDBC. Please download from http://www.zentus.com/sqlitejdbc/ and place in the plugins/ModTRS/ folder.");
-	    parent.getPluginLoader().disablePlugin(parent);
+	    parent.getServer().getPluginManager().disablePlugin(parent);
 	}
 
 	sqlite = DriverManager.getConnection(databaseUrl);

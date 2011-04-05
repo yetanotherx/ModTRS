@@ -68,7 +68,9 @@ public class ModTRS extends JavaPlugin {
      */
     public void onEnable() {
 	
-	ModTRSUpdater.checkSQLite(this);
+	if( !ModTRSUpdater.checkSQLite(this) ) {
+	    return;
+	}
 	
 	try {
 	    ModTRSSettings.load( this );
@@ -77,6 +79,7 @@ public class ModTRS extends JavaPlugin {
 	    e.printStackTrace();
 	    log.severe("SQL exception! Disabling plugin (version " + this.getDescription().getVersion() + ")");
 	    this.getServer().getPluginManager().disablePlugin(this);
+	    return;
 	}
 	
 	ModTRSPermissions.load(this);

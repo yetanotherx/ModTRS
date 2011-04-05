@@ -1,19 +1,14 @@
 package yetanotherx.bukkitplugin.ModTRS;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 
 public class ModTRSUpdater {
 
-    public static void checkSQLite(ModTRS parent) {
-
-	//TODO: Get code
+    public static boolean checkSQLite(ModTRS parent) {
 
 	File dataDirectory = new File("plugins" + File.separator + "ModTRS" + File.separator);
 
@@ -25,29 +20,33 @@ public class ModTRSUpdater {
 	    ModTRS.log.info("Downloading SQLite library from GitHub directory");
 
 	    try {
-		URL u = new URL("https://github.com/yetanotherx/ModTRS/tree/master/src/resources/sqlitejdbc-v056.jar");
+		URL u = new URL("https://github.com/yetanotherx/ModTRS/raw/master/resources/sqlitejdbc-v056.jar");
 		
 		ReadableByteChannel rbc = Channels.newChannel(u.openStream());
 		FileOutputStream fos = new FileOutputStream(file.getAbsolutePath());
 		fos.getChannel().transferFrom(rbc, 0, 1 << 24);
 		
 		if( file.exists() ) {
-		    ModTRS.log.info("Successfully downloaded the SQLite JDBC.");
+		    ModTRS.log.info("Successfully downloaded the SQLite JDBC. Please restart the Minecraft server.");
+		    parent.getServer().getPluginManager().disablePlugin(parent);
+		    return false;
 		}
 		else {
 		    ModTRS.log.severe("Error: Cannot download the SQLite JDBC. Please download manually from http://www.zentus.com/sqlitejdbc/ and place in the plugins/ModTRS/ folder.");
-		    parent.getPluginLoader().disablePlugin(parent);
+		    parent.getServer().getPluginManager().disablePlugin(parent);
 		}
 	    }
 	    catch( Exception e ) {
 		e.printStackTrace();
 		ModTRS.log.severe("Error: Cannot download the SQLite JDBC. Please download manually from http://www.zentus.com/sqlitejdbc/ and place in the plugins/ModTRS/ folder.");
-		parent.getPluginLoader().disablePlugin(parent);
+		parent.getServer().getPluginManager().disablePlugin(parent);
 	    }
 	}
 	else {
 	    ModTRS.log.debug("Found SQLite library. Will not download");
 	}
+	
+	return true;
 
     }
 
