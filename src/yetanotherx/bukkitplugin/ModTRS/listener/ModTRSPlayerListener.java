@@ -21,7 +21,7 @@ public class ModTRSPlayerListener extends PlayerListener{
     public void onPlayerJoin(PlayerJoinEvent event) {
 
 	Player player = event.getPlayer();
-
+	
 	if( ModTRSPermissions.has(player, "modtrs.mod") ) {
 
 	    try {
