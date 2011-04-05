@@ -1,18 +1,18 @@
 package yetanotherx.bukkitplugin.ModTRS.command;
 
+import java.util.ArrayList;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
+import yetanotherx.bukkitplugin.ModTRS.ModTRSHelp;
 
 public class HelpCommand implements CommandExecutor {
 
-    private ModTRS parent;
-
     public HelpCommand(ModTRS parent) {
-	this.parent = parent;
     }
 
 
@@ -20,12 +20,16 @@ public class HelpCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 
-	String[] split = args;
-	String joined = CommandHandler.implode(split, " ");
-	String commandName = command.getName().toLowerCase();
 	Player player = (Player) sender;
+	
+	ArrayList<String> commands = ModTRSHelp.getMessages(player);
+	
+	for( String commandString : commands ) {
+	    player.sendMessage(commandString);
+	}
+	
 
-	return false;
+	return true;
 
     }
 }

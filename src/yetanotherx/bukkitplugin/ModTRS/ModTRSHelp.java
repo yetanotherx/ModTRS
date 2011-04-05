@@ -14,11 +14,11 @@ public class ModTRSHelp {
 	
 	helpCommands.add( new String[] {"modreq [message]", "Request help from a moderator", "modtrs.command.modreq"} );
 	helpCommands.add( new String[] {"check", "Request help from a moderator", "modtrs.command.check"} );
-	helpCommands.add( new String[] {"check-id", "Request help from a moderator", "modtrs.command.check"} );
-	helpCommands.add( new String[] {"claim", "Request help from a moderator", "modtrs.command.complete"} );
-	helpCommands.add( new String[] {"complete", "Request help from a moderator", "modtrs.command.complete"} );
-	helpCommands.add( new String[] {"hold", "Request help from a moderator", "modtrs.command.complete"} );
-	helpCommands.add( new String[] {"mod-broadcast", "Request help from a moderator", "modtrs.command.broadcast"} );
+	helpCommands.add( new String[] {"check-id [#]", "Request help from a moderator", "modtrs.command.check"} );
+	helpCommands.add( new String[] {"claim [#]", "Request help from a moderator", "modtrs.command.complete"} );
+	helpCommands.add( new String[] {"complete [#]", "Request help from a moderator", "modtrs.command.complete"} );
+	helpCommands.add( new String[] {"hold [#]", "Request help from a moderator", "modtrs.command.complete"} );
+	helpCommands.add( new String[] {"mod-broadcast [message]", "Request help from a moderator", "modtrs.command.broadcast"} );
 	helpCommands.add( new String[] {"modlist", "Request help from a moderator", "modtrs.command.modlist"} );
     }
     
@@ -28,7 +28,7 @@ public class ModTRSHelp {
 	
 	for( String[] command : helpCommands ) {
 	    if( ModTRSPermissions.has(player, command[2] ) ) {
-		messages.add( "/" + command[0] + " - " + command[1] );
+		messages.add( ModTRSMessage.parse( ModTRSMessage.helpCommand, command ) );
 	    }
 	}
 	

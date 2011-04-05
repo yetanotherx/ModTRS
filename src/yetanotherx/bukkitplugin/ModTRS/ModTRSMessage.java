@@ -23,7 +23,11 @@ public class ModTRSMessage {
     public static String handledBy = ChatColor.YELLOW + "Handled by " + ChatColor.LIGHT_PURPLE + "{0}" + ChatColor.YELLOW + " at " + ChatColor.LIGHT_PURPLE + " {1}";
     public static String requestText = ChatColor.GRAY + "{7}";
     
+    
     public static String lineBreak = ChatColor.AQUA + "-------------------------------------------";
+    
+    
+    public static String helpCommand = ChatColor.WHITE + "/{0} " + ChatColor.GRAY + " - " + ChatColor.YELLOW+ "{1}";
     
     
     public static String parse( String string, Object[] arguments ) {
