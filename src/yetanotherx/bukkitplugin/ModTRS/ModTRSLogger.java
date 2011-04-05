@@ -11,7 +11,6 @@ public class ModTRSLogger {
     }
     
     public void debug( String s ) {
-	//TODO: Verify
 	if( ModTRSSettings.debugMode ) {
 	    logger.info("[ModTRS DEBUG] " + s);
 	}

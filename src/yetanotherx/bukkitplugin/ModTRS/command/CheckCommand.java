@@ -1,5 +1,9 @@
 package yetanotherx.bukkitplugin.ModTRS.command;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,8 +17,10 @@ import org.bukkit.entity.Player;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSPermissions;
+import yetanotherx.bukkitplugin.ModTRS.ModTRSSettings;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequest;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequestTable;
+import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSSQL;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUserTable;
 
 public class CheckCommand implements CommandExecutor {
@@ -26,12 +32,12 @@ public class CheckCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
-	
+
 	int page = 1;
 	String type = "open";
-	
+
 	for( String arg : args ) {
-	    
+
 	    if( arg.substring(0, 2).equals("p:") ) {
 		page = Integer.parseInt( arg.substring(2) );
 	    }
@@ -39,7 +45,7 @@ public class CheckCommand implements CommandExecutor {
 		type = arg.substring(2);
 	    }
 	}
-	
+
 	Player player = (Player) sender;
 
 	if( !ModTRSPermissions.has(player, "modtrs.command.check") ) {
@@ -100,9 +106,45 @@ public class CheckCommand implements CommandExecutor {
 		    };
 		    player.sendMessage( ModTRSMessage.parse(ModTRSMessage.listItem, params ) );
 		}
-		
+
 		count++;
 	    }
+
+	    if( type == "open" && page == 1 && ModTRSSettings.databases.size() != 0 ) {
+
+		String dbCounts = "";
+		Connection tempConn = null;
+		int tempCount;
+		int otherTotal = 0;
+		for(String name : ModTRSSettings.databases.keySet()) {
+		    
+		    tempCount = 0;
+		    
+		    String uri = ModTRSSettings.databases.get(name);
+
+		    tempConn = DriverManager.getConnection("jdbc:sqlite:" + uri);
+
+		    PreparedStatement prep = tempConn.prepareStatement(ModTRSSQL.getOpenRequests + " WHERE request_status = 0 OR request_status = 1");
+		    ResultSet rs = prep.executeQuery();
+		    
+		    while(rs.next()) {
+			tempCount++;
+		    }
+		    rs.close();
+		    
+		    otherTotal += tempCount;
+		    dbCounts += name + ": " + Integer.toString(tempCount) + ", ";
+		    
+		    tempConn.close();
+
+		}
+		
+		dbCounts = dbCounts.substring(0, dbCounts.length() - 2);
+		
+		player.sendMessage( ModTRSMessage.parse(ModTRSMessage.otherDb, new Object[] { otherTotal, dbCounts } ) );
+
+	    }
+
 
 
 	}
