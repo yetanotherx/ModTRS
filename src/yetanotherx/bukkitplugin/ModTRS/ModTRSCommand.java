@@ -1,13 +1,9 @@
 package yetanotherx.bukkitplugin.ModTRS;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import org.bukkit.entity.Player;
 
-import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequest;
-import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUser;
 
 public class ModTRSCommand {
 

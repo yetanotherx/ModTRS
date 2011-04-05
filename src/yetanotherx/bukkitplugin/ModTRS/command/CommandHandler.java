@@ -14,12 +14,10 @@ import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
 public class CommandHandler implements CommandExecutor {
 
     private HashMap<String, CommandExecutor> commands = new HashMap<String, CommandExecutor>();
-    private ModTRS parent;
     
     public static String TIMEDATE_FORMAT = "MMM.d@kk.mm.ss";
 
     public CommandHandler(ModTRS parent) {
-	this.parent = parent;
     }
 
     public static CommandHandler load(ModTRS parent) {
@@ -45,8 +43,8 @@ public class CommandHandler implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
+	
 	String[] split = args;
-	String joined = implode(split, " ");
 	String commandName = command.getName().toLowerCase();
 
 	if( sender instanceof Player ) {
