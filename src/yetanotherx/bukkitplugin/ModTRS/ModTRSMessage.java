@@ -36,6 +36,7 @@ public class ModTRSMessage {
     public static String listItem = ChatColor.GOLD + "#{0}. " + ChatColor.GREEN + "{1} " + ChatColor.GOLD + "by " + ChatColor.GREEN + "{2} " + ChatColor.GOLD + "- " + ChatColor.GRAY + "{3}";
     public static String listItemClaimed = ChatColor.GOLD + "#{0}. " + ChatColor.GREEN + "{1} " + ChatColor.GOLD + "by " + ChatColor.GREEN + "{2} " + ChatColor.GOLD + "- " + ChatColor.LIGHT_PURPLE + "Claimed by {4}";
     public static String noRequests = ChatColor.GOLD + "There are no mod requests right now.";
+    public static String openRequests = ChatColor.GREEN + "There are open mod requests. Type /check to see them.";
     
     
     public static String parse( String string, Object[] arguments ) {

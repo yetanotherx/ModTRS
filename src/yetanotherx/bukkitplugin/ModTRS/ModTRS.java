@@ -22,6 +22,9 @@ public class ModTRS extends JavaPlugin {
 
     private CommandHandler commandHandler;
 
+
+    public ModTRSListeners listeners;
+
     /**
      * Outputs a message when disabled
      */
@@ -57,6 +60,7 @@ public class ModTRS extends JavaPlugin {
 	
 	ModTRSPermissions.load(this);
 	ModTRSHelp.load(this);
+	this.listeners = ModTRSListeners.load(this);
 	this.commandHandler = CommandHandler.load(this);
 	
 	//TODO: Updater
