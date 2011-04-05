@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
+import yetanotherx.bukkitplugin.ModTRS.ModTRSPermissions;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequest;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUser;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUserTable;
@@ -26,6 +27,11 @@ public class ModreqCommand implements CommandExecutor {
 	String[] split = args;
 	String joined = CommandHandler.implode(split, " ");
 	Player player = (Player) sender;
+	
+	if( !ModTRSPermissions.has(player, "modtrs.command.modreq") ) {
+	    player.sendMessage(ModTRSMessage.noPermission);
+	    return true;
+	}
 
 	try {
 	    ModTRSUser user = ModTRSUserTable.getUserFromName(player.getName());

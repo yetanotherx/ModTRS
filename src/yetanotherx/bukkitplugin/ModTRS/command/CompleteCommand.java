@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
+import yetanotherx.bukkitplugin.ModTRS.ModTRSPermissions;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequest;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequestTable;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUser;
@@ -25,6 +26,11 @@ public class CompleteCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 
 	Player player = (Player) sender;
+	
+	if( !ModTRSPermissions.has(player, "modtrs.command.complete") ) {
+	    player.sendMessage(ModTRSMessage.noPermission);
+	    return true;
+	}
 
 	try {
 	    ModTRSRequest request = ModTRSRequestTable.getRequestFromId( Integer.parseInt( args[0] ) );

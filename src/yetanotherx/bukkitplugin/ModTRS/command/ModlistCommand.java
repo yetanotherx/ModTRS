@@ -21,6 +21,11 @@ public class ModlistCommand implements CommandExecutor {
 
 	Player player = (Player) sender;
 	
+	if( !ModTRSPermissions.has(player, "modtrs.command.modlist") ) {
+	    player.sendMessage(ModTRSMessage.noPermission);
+	    return true;
+	}
+	
 	Player[] players = player.getServer().getOnlinePlayers();
 	String mods = "";
 	

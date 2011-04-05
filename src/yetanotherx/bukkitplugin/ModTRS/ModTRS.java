@@ -11,7 +11,7 @@ import yetanotherx.bukkitplugin.ModTRS.command.CommandHandler;
 import java.sql.SQLException;
 
 
-
+//TODO: Add GPL header
 public class ModTRS extends JavaPlugin {
 
     /**

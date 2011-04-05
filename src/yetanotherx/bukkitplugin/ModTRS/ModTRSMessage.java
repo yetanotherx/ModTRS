@@ -40,6 +40,8 @@ public class ModTRSMessage {
     public static String tooMany = ChatColor.RED + "{0} more mod request(s) available. Please complete the above to see the rest";
     public static String listItem = ChatColor.GOLD + "#{0}. " + ChatColor.GREEN + "{1} " + ChatColor.GOLD + "by " + ChatColor.GREEN + "{2} " + ChatColor.GOLD + "- " + ChatColor.GRAY + "{3}";
     
+    public static String noPermission = ChatColor.RED + "You do not have permission to use this command";
+    
     
     public static String parse( String string, Object[] arguments ) {
 	
