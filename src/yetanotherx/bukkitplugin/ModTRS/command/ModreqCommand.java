@@ -27,7 +27,7 @@ public class ModreqCommand implements CommandExecutor {
 	String[] split = args;
 	String joined = CommandHandler.implode(split, " ");
 	Player player = (Player) sender;
-	
+
 	if( !ModTRSPermissions.has(player, "modtrs.command.modreq") ) {
 	    player.sendMessage(ModTRSMessage.noPermission);
 	    return true;
@@ -54,9 +54,18 @@ public class ModreqCommand implements CommandExecutor {
 	    request.setZ(player.getLocation().getBlockZ());
 	    request.insert();
 	    player.sendMessage( ModTRSMessage.messageSent );
-	    
+
 	    //TODO: Notify the mods
-	    //TODO: MOTD
+	    //TODO: On join message
+
+	    Player[] players = player.getServer().getOnlinePlayers();
+
+	    for( Player each_user : players ) {
+		if( ModTRSPermissions.has(each_user, "modtrs.mod") ) {
+		    each_user.sendMessage( ModTRSMessage.newRequests );
+		    //TODO: allow this to be disabled
+		}
+	    }
 
 	    //TODO: Error checking
 	}
