@@ -45,6 +45,7 @@ public class ModTRSUser {
     public boolean update() throws SQLException {
 	PreparedStatement updatePrep = ModTRSSettings.sqlite.prepareStatement( ModTRSSQL.setUserInfo );
 	updatePrep.setString(1, this.name);
+	updatePrep.setInt(2, this.id);
 	return updatePrep.execute();
     }
 

@@ -136,6 +136,8 @@ public class ModTRSRequest {
 	updatePrep.setInt(7, this.y);
 	updatePrep.setInt(8, this.z);
 	updatePrep.setString(9, this.text);
+	updatePrep.setInt(10, this.status);
+	updatePrep.setInt(11, this.id);
 	return updatePrep.execute();
 
     }

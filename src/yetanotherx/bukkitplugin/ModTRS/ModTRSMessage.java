@@ -29,6 +29,11 @@ public class ModTRSMessage {
     
     public static String helpCommand = ChatColor.WHITE + "/{0} " + ChatColor.GRAY + " - " + ChatColor.YELLOW+ "{1}";
     
+    public static String claimed = ChatColor.GOLD + "Request #{0} has been assigned to you.";
+    public static String hold = ChatColor.GOLD + "Request #{0} is now on hold.";
+    public static String closedMod = ChatColor.GOLD + "Request #{0} has been completed.";
+    public static String closedUser = ChatColor.GOLD + "A mod has completed your request.";
+    
     
     public static String parse( String string, Object[] arguments ) {
 	
