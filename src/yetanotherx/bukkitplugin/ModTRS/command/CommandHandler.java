@@ -14,10 +14,12 @@ import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
 public class CommandHandler implements CommandExecutor {
 
     private HashMap<String, CommandExecutor> commands = new HashMap<String, CommandExecutor>();
+    private ModTRS parent;
     
     public static String TIMEDATE_FORMAT = "MMM.d@kk.mm.ss";
 
     public CommandHandler(ModTRS parent) {
+	this.parent = parent;
     }
 
     public static CommandHandler load(ModTRS parent) {
@@ -103,12 +105,22 @@ public class CommandHandler implements CommandExecutor {
 
 	}
 	else if( sender instanceof ConsoleCommandSender ) {
-	    //ConsoleCommandSender player = (ConsoleCommandSender) sender;
 
-	    //TODO: Add console commands
+	    if (commandName.equals("modtrs")) {
+		
+		ConsoleCommandSender player = (ConsoleCommandSender) sender;
+		
+		if (args.length == 0) {
+                    return true;
+                }
+		else if( args[0].equalsIgnoreCase("version") ) {
+                    player.sendMessage("[ModTRS] You're running " + parent.getDescription().getName() + " version " + parent.getDescription().getVersion());
+		}
+		
+	    }
 	}
 
-	return false;
+	return true;
     }
 
     public static String implode( String[] array, String glue ) {

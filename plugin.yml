@@ -29,3 +29,6 @@ commands:
     modlist:
         description: List all currently online moderators
         usage: /<command>
+    modtrs:
+        description: Command line only
+        usage: /<command>
