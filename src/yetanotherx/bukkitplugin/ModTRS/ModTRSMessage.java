@@ -36,6 +36,10 @@ public class ModTRSMessage {
     public static String closedMod = ChatColor.GOLD + "Request #{0} has been completed.";
     public static String closedUser = ChatColor.GOLD + "A mod has completed your request.";
     
+    public static String listIntro = ChatColor.AQUA + "--------- Open Mod Requests - " + ChatColor.YELLOW + "{0} " + ChatColor.AQUA + "---------";
+    public static String tooMany = ChatColor.RED + "{0} more mod request(s) available. Please complete the above to see the rest";
+    public static String listItem = ChatColor.GOLD + "#{0}. " + ChatColor.GREEN + "{1} " + ChatColor.GOLD + "by " + ChatColor.GREEN + "{2} " + ChatColor.GOLD + "- " + ChatColor.GRAY + "{3}";
+    
     
     public static String parse( String string, Object[] arguments ) {
 	
