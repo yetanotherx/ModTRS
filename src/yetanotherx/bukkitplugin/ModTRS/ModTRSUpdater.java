@@ -29,9 +29,14 @@ public class ModTRSUpdater {
 	    try {
 		URL u = new URL("https://github.com/yetanotherx/ModTRS/raw/master/resources/sqlitejdbc-v056.jar");
 
-		ReadableByteChannel rbc = Channels.newChannel(u.openStream());
-		FileOutputStream fos = new FileOutputStream(file.getAbsolutePath());
-		fos.getChannel().transferFrom(rbc, 0, 1 << 24);
+		InputStream inputStream = u.openStream();
+		OutputStream outputStream = new FileOutputStream(file);
+
+		saveTo(inputStream, outputStream);
+
+		inputStream.close();
+		outputStream.close();
+
 
 		if( file.exists() ) {
 		    ModTRS.log.info("Successfully downloaded the SQLite JDBC. Please restart the Minecraft server.");

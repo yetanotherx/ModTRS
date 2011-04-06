@@ -43,8 +43,6 @@ public class CommandHandler implements CommandExecutor {
     }
 
     public void registerCommand(String name, CommandExecutor command) {
-
-	//TODO: Parameter validation
 	commands.put(name, command);
     }
 

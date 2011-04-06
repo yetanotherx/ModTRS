@@ -80,7 +80,6 @@ public class ModreqCommand implements CommandExecutor {
 
 	    }
 
-	    //TODO: Error checking
 	}
 	catch( SQLException e ) {
 	    e.printStackTrace();
