@@ -83,8 +83,8 @@ public class CheckCommand implements CommandExecutor {
 
 		String substring = request.getText();
 
-		if( substring.length() >= 25 ) {
-		    substring = substring.substring(0, 25) + "...";
+		if( substring.length() >= 20 ) {
+		    substring = substring.substring(0, 20) + "...";
 		}
 
 		if( request.getStatus() == 1 ) {
