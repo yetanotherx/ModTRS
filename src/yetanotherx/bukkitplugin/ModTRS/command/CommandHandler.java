@@ -32,6 +32,7 @@ public class CommandHandler implements CommandExecutor {
 	handler.registerCommand( "check-id", new CheckIdCommand(parent));
 	handler.registerCommand( "claim", new ClaimCommand(parent));
 	handler.registerCommand( "unclaim", new UnclaimCommand(parent));
+	handler.registerCommand( "done", new CompleteCommand(parent));
 	handler.registerCommand( "complete", new CompleteCommand(parent));
 	handler.registerCommand( "hold", new HoldCommand(parent));
 	handler.registerCommand( "mod-broadcast", new BroadcastCommand(parent));
@@ -41,6 +42,8 @@ public class CommandHandler implements CommandExecutor {
     }
 
     public void registerCommand(String name, CommandExecutor command) {
+	
+	//TODO: Parameter validation
 	commands.put(name, command);
     }
 

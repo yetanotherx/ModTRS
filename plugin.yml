@@ -17,6 +17,9 @@ commands:
     unclaim:
         description: Unclaim a request
         usage: /<command> [id]
+    done:
+        description: Mark a request as complete
+        usage: /<command> [id]
     complete:
         description: Mark a request as complete
         usage: /<command> [id]

@@ -21,7 +21,7 @@ public class ModTRSUpdater {
 	    ModTRS.log.severe("Please manually download the SQLite JDBC from http://www.zentus.com/sqlitejdbc/ and place in the plugins/ModTRS/ folder.");
 	    parent.getServer().getPluginManager().disablePlugin(parent);
 	    return false;
-	    //This is broken, it corrupts the jar
+	    //TODO: This is broken, it corrupts the jar
 
 	    /*
 	    ModTRS.log.info("Downloading SQLite library from GitHub directory");
