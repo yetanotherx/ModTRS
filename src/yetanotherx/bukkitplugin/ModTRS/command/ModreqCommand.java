@@ -14,10 +14,14 @@ import yetanotherx.bukkitplugin.ModTRS.ModTRSSettings;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequest;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUser;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUserTable;
+import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
+import yetanotherx.bukkitplugin.ModTRS.validator.ModreqValidator;
 
 public class ModreqCommand implements CommandExecutor {
 
     public ModreqCommand(ModTRS parent) {
+	ModTRSValidatorHandler.getInstance().registerValidator( "modreq", new ModreqValidator(this, parent) );
+	    
     }
 
 

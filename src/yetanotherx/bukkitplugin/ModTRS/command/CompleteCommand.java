@@ -14,10 +14,15 @@ import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequest;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequestTable;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUser;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUserTable;
+import yetanotherx.bukkitplugin.ModTRS.validator.CompleteValidator;
+import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 
 public class CompleteCommand implements CommandExecutor {
 
     public CompleteCommand(ModTRS parent) {
+	ModTRSValidatorHandler.getInstance().registerValidator( "complete", new CompleteValidator(this, parent) );
+	ModTRSValidatorHandler.getInstance().registerValidator( "done", new CompleteValidator(this, parent) );
+	
     }
 
 

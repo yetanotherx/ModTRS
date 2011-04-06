@@ -8,10 +8,14 @@ import org.bukkit.entity.Player;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSPermissions;
+import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
+import yetanotherx.bukkitplugin.ModTRS.validator.ModlistValidator;
 
 public class ModlistCommand implements CommandExecutor {
 
     public ModlistCommand(ModTRS parent) {
+	ModTRSValidatorHandler.getInstance().registerValidator( "modlist", new ModlistValidator(this, parent) );
+	    
     }
 
 

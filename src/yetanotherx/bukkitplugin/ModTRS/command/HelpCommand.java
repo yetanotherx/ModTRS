@@ -7,12 +7,16 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import yetanotherx.bukkitplugin.ModTRS.validator.HelpValidator;
+import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSHelp;
 
 public class HelpCommand implements CommandExecutor {
 
     public HelpCommand(ModTRS parent) {
+	ModTRSValidatorHandler.getInstance().registerValidator( "modreq-help", new HelpValidator(this, parent) );
+	
     }
 
 

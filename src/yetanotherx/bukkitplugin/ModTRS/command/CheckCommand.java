@@ -22,10 +22,14 @@ import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequest;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequestTable;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSSQL;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUserTable;
+import yetanotherx.bukkitplugin.ModTRS.validator.CheckValidator;
+import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 
 public class CheckCommand implements CommandExecutor {
 
     public CheckCommand(ModTRS parent) {
+	ModTRSValidatorHandler.getInstance().registerValidator( "check", new CheckValidator(this, parent) );
+	    
     }
 
 

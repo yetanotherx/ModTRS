@@ -16,10 +16,14 @@ import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequest;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequestTable;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUser;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUserTable;
+import yetanotherx.bukkitplugin.ModTRS.validator.CompleteValidator;
+import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 
 public class CheckIdCommand implements CommandExecutor {
 
     public CheckIdCommand(ModTRS parent) {
+	ModTRSValidatorHandler.getInstance().registerValidator( "check-id", new CompleteValidator(this, parent) );
+	
     }
 
 

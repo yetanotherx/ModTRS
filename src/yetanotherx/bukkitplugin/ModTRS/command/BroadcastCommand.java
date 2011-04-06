@@ -5,6 +5,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import yetanotherx.bukkitplugin.ModTRS.validator.BroadcastValidator;
+import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSPermissions;
@@ -12,6 +14,8 @@ import yetanotherx.bukkitplugin.ModTRS.ModTRSPermissions;
 public class BroadcastCommand implements CommandExecutor {
 
     public BroadcastCommand(ModTRS parent) {
+	ModTRSValidatorHandler.getInstance().registerValidator( "mod-broadcast", new BroadcastValidator(this, parent) );
+    
     }
 
 

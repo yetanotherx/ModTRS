@@ -14,10 +14,14 @@ import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequest;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequestTable;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUser;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSUserTable;
+import yetanotherx.bukkitplugin.ModTRS.validator.CompleteValidator;
+import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 
 public class HoldCommand implements CommandExecutor {
 
     public HoldCommand(ModTRS parent) {
+	ModTRSValidatorHandler.getInstance().registerValidator( "hold", new CompleteValidator(this, parent) );
+	
     }
 
 

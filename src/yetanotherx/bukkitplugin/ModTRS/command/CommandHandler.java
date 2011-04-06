@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
+import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
 
@@ -15,7 +16,7 @@ public class CommandHandler implements CommandExecutor {
 
     private HashMap<String, CommandExecutor> commands = new HashMap<String, CommandExecutor>();
     private ModTRS parent;
-    
+
     public static String TIMEDATE_FORMAT = "MMM.d@kk.mm.ss";
 
     public CommandHandler(ModTRS parent) {
@@ -23,9 +24,9 @@ public class CommandHandler implements CommandExecutor {
     }
 
     public static CommandHandler load(ModTRS parent) {
-	
+
 	CommandHandler handler = new CommandHandler(parent);
-	
+
 	handler.registerCommand( "modreq-help", new HelpCommand(parent));
 	handler.registerCommand( "modreq", new ModreqCommand(parent));
 	handler.registerCommand( "check", new CheckCommand(parent));
@@ -37,19 +38,19 @@ public class CommandHandler implements CommandExecutor {
 	handler.registerCommand( "hold", new HoldCommand(parent));
 	handler.registerCommand( "mod-broadcast", new BroadcastCommand(parent));
 	handler.registerCommand( "modlist", new ModlistCommand(parent));
-	
+
 	return handler;
     }
 
     public void registerCommand(String name, CommandExecutor command) {
-	
+
 	//TODO: Parameter validation
 	commands.put(name, command);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
-	
+
 	String[] split = args;
 	String commandName = command.getName().toLowerCase();
 
@@ -65,6 +66,11 @@ public class CommandHandler implements CommandExecutor {
 			return false;
 		    }
 
+		    if( ModTRSValidatorHandler.getInstance().hasValidator("modreq-help")) {
+			if( !ModTRSValidatorHandler.getInstance().getValidator("modreq-help").isValid(args) ) {
+			    return false;
+			}
+		    }
 		    return commands.get("modreq-help").onCommand(sender, command, commandLabel, args);
 
 		}
@@ -75,6 +81,11 @@ public class CommandHandler implements CommandExecutor {
 			    return false;
 			}
 
+			if( ModTRSValidatorHandler.getInstance().hasValidator("modreq")) {
+			    if( !ModTRSValidatorHandler.getInstance().getValidator("modreq").isValid(args) ) {
+				return false;
+			    }
+			}
 			return commands.get("modreq").onCommand(sender, command, commandLabel, args);
 		    }
 		    catch( Exception e ) {
@@ -96,6 +107,11 @@ public class CommandHandler implements CommandExecutor {
 			return false;
 		    }
 
+		    if( ModTRSValidatorHandler.getInstance().hasValidator(commandName)) {
+			if( !ModTRSValidatorHandler.getInstance().getValidator(commandName).isValid(args) ) {
+			    return false;
+			}
+		    }
 		    return commands.get(commandName).onCommand(sender, command, commandLabel, args);
 
 		}
@@ -110,16 +126,16 @@ public class CommandHandler implements CommandExecutor {
 	else if( sender instanceof ConsoleCommandSender ) {
 
 	    if (commandName.equals("modtrs")) {
-		
+
 		ConsoleCommandSender player = (ConsoleCommandSender) sender;
-		
+
 		if (args.length == 0) {
-                    return true;
-                }
-		else if( args[0].equalsIgnoreCase("version") ) {
-                    player.sendMessage("[ModTRS] You're running " + parent.getDescription().getName() + " version " + parent.getDescription().getVersion());
+		    return true;
 		}
-		
+		else if( args[0].equalsIgnoreCase("version") ) {
+		    player.sendMessage("[ModTRS] You're running " + parent.getDescription().getName() + " version " + parent.getDescription().getVersion());
+		}
+
 	    }
 	}
 
