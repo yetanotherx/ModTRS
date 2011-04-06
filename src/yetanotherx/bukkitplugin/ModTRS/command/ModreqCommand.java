@@ -37,8 +37,7 @@ public class ModreqCommand implements CommandExecutor {
 	try {
 	    
 	    for( String blacklist : ModTRSSettings.blacklist ) {
-		if( joined.matches(blacklist) ) {
-		    //TODO: Only matches exact blacklist messages
+		if( joined.indexOf(blacklist) != -1 ) {
 		    player.sendMessage( ModTRSMessage.blocked );
 		    return true;
 		}
