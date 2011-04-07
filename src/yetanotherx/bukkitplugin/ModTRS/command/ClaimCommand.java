@@ -56,7 +56,7 @@ public class ClaimCommand implements CommandExecutor {
 		request.setStatus(1);
 		request.update();
 		
-		player.sendMessage( ModTRSMessage.parse( ModTRSMessage.claimed, new Object[] { request.getId() } ) );
+		ModTRS.messageMods( ModTRSMessage.parse( ModTRSMessage.claimedOtherMods, new Object[] { request.getId(), user.getName() } ), player.getServer() );
 
 	    }
 	    else {

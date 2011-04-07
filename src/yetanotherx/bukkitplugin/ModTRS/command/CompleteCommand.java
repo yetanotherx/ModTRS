@@ -57,13 +57,12 @@ public class CompleteCommand implements CommandExecutor {
 		request.setStatus(3);
 		request.update();
 		
-		player.sendMessage( ModTRSMessage.parse( ModTRSMessage.closedMod, new Object[] { request.getId() } ) );
+		ModTRS.messageMods( ModTRSMessage.parse( ModTRSMessage.closedMod, new Object[] { request.getId() } ), player.getServer() );
 		
 		ModTRSUser user_player = ModTRSUserTable.getUserFromId(request.getUserId());
 		
 		for( Player cur_user : player.getServer().getOnlinePlayers() ) {
 		    if( cur_user.getName().equals( user_player.getName() ) ) {
-			//TODO: Notify mods
 			cur_user.sendMessage( ModTRSMessage.parse( ModTRSMessage.closedUser, new Object[] { request.getId() } ) );
 		    }
 		}

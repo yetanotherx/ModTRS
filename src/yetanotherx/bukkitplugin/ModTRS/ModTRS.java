@@ -1,8 +1,10 @@
 package yetanotherx.bukkitplugin.ModTRS;
 
 //Bukkit imports
+import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.griefcraft.lwc.Updater;
@@ -36,8 +38,7 @@ import java.sql.SQLException;
  */
 
 /**
- * TODO: Use LWC updater
- * TODO: Use LWC tests
+ * TODO: Unit tests
  * TODO: Notify user when they log in if their request is closed
  * TODO: Include part of the text when a request is closed (the notification)
  */
@@ -119,6 +120,16 @@ public class ModTRS extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 
 	return this.commandHandler.onCommand(sender, command, commandLabel, args);
+    }
+    
+    public static void messageMods( String message, Server server ) {
+	Player[] players = server.getOnlinePlayers();
+
+	for( Player user : players ) {
+	    if( ModTRSPermissions.has(user, "modtrs.mod") ) {
+		user.sendMessage(message);
+	    }
+	}
     }
 
 }

@@ -56,7 +56,7 @@ public class HoldCommand implements CommandExecutor {
 		request.setStatus(2);
 		request.update();
 		
-		player.sendMessage( ModTRSMessage.parse( ModTRSMessage.hold, new Object[] { request.getId() } ) );
+		ModTRS.messageMods(ModTRSMessage.parse( ModTRSMessage.hold, new Object[] { request.getId() } ), player.getServer() );
 
 	    }
 	    else {

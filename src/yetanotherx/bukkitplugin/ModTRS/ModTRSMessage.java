@@ -30,6 +30,8 @@ public class ModTRSMessage {
     public static String cantunclaim = ChatColor.RED + "You can only unclaim your own requests.";
     public static String hold = ChatColor.GOLD + "Request #{0} is now on hold.";
     public static String closedMod = ChatColor.GOLD + "Request #{0} has been completed.";
+    public static String claimedOtherMods = ChatColor.GOLD + "Request #{0} has been assigned to {1}.";
+    public static String unclaimedOtherMods = ChatColor.GOLD + "Request #{0} is no longer assigned.";
     public static String closedUser = ChatColor.GOLD + "A mod has completed your request.";
     
     public static String listIntro = ChatColor.AQUA + "--------- {0} Mod Requests - " + ChatColor.YELLOW + "{1} " + ChatColor.AQUA + "---------";

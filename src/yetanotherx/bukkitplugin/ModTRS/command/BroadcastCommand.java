@@ -31,16 +31,11 @@ public class BroadcastCommand implements CommandExecutor {
 	    player.sendMessage(ModTRSMessage.noPermission);
 	    return true;
 	}
-	
-	Player[] players = player.getServer().getOnlinePlayers();
 
 	String[] message = {joined};
 
-	for( Player user : players ) {
-	    if( ModTRSPermissions.has(user, "modtrs.mod") ) {
-		user.sendMessage(ModTRSMessage.parse( ModTRSMessage.modbroadcast, message ) );
-	    }
-	}
+	ModTRS.messageMods( ModTRSMessage.parse( ModTRSMessage.modbroadcast, message ), player.getServer() );
+
 
 	return true;
 
