@@ -63,6 +63,7 @@ public class CompleteCommand implements CommandExecutor {
 		
 		for( Player cur_user : player.getServer().getOnlinePlayers() ) {
 		    if( cur_user.getName().equals( user_player.getName() ) ) {
+			//TODO: Notify mods
 			cur_user.sendMessage( ModTRSMessage.parse( ModTRSMessage.closedUser, new Object[] { request.getId() } ) );
 		    }
 		}

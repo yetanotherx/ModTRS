@@ -5,6 +5,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.griefcraft.lwc.Updater;
+
 //ModTRS imports
 import yetanotherx.bukkitplugin.ModTRS.command.CommandHandler;
 
@@ -29,7 +31,15 @@ import java.sql.SQLException;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * Note that this license applies to all the files in this package.
+ * Note that this license applies to all the files in this package, unless
+ * otherwise specified.
+ */
+
+/**
+ * TODO: Use LWC updater
+ * TODO: Use LWC tests
+ * TODO: Notify user when they log in if their request is closed
+ * TODO: Include part of the text when a request is closed (the notification)
  */
 public class ModTRS extends JavaPlugin {
 
@@ -43,6 +53,15 @@ public class ModTRS extends JavaPlugin {
 
 
     public ModTRSListeners listeners;
+
+
+    private Updater updater;
+
+    public ModTRS() {
+	ModTRSSettings.load( this );
+
+	updater = new Updater(this);
+    }
 
     /**
      * Outputs a message when disabled
@@ -67,21 +86,22 @@ public class ModTRS extends JavaPlugin {
      * 
      */
     public void onEnable() {
-	
-	if( !ModTRSUpdater.checkSQLite(this) ) {
-	    return;
-	}
-	
+
+	ModTRSSettings.load( this );
+
+	System.setProperty("org.sqlite.lib.path", updater.getOSSpecificFolder());
+	updater.loadVersions(false);
+
 	try {
-	    ModTRSSettings.load( this );
+	    ModTRSSettings.setupSQLite( this );
 	}
-	catch( SQLException e ) {
+	catch( Exception e ) {
 	    e.printStackTrace();
 	    log.severe("SQL exception! Disabling plugin (version " + this.getDescription().getVersion() + ")");
 	    this.getServer().getPluginManager().disablePlugin(this);
 	    return;
 	}
-	
+
 	ModTRSPermissions.load(this);
 	ModTRSHelp.load(this);
 	this.listeners = ModTRSListeners.load(this);
@@ -89,7 +109,7 @@ public class ModTRS extends JavaPlugin {
 
 	//Print that the plugin has been enabled!
 	log.info("Plugin enabled! (version " + this.getDescription().getVersion() + ")");
-	
+
 	log.debug("Debug mode enabled!");
     }
 

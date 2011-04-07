@@ -1,2 +1,2 @@
 Manifest-Version: 0.2
-Class-Path: ModTRS/sqlitejdbc-v056.jar
+Class-Path: ../lib/sqlite.jar
