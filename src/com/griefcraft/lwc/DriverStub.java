@@ -1,5 +1,7 @@
 /**
- * This file is part of LWC (https://github.com/Hidendra/LWC)
+ * This file is part of LWC (https://github.com/Hidendra/LWC), 
+ * modified for use within ModTRS (https://github.com/yetanotherx/ModTRS)
+ * ModTRS is under GPLv3, as is LWC
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

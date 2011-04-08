@@ -8,9 +8,15 @@ import com.nijikokun.bukkit.Permissions.Permissions;
 
 public class ModTRSPermissions {
 
+    /**
+     * Permission handler
+     */
     private static PermissionHandler Permissions;
     
-    public static void load( ModTRS parent ) {
+    /**
+     * Check if permissions is installed, and initiate it
+     */
+    public static boolean load( ModTRS parent ) {
 	Plugin perm_plugin = parent.getServer().getPluginManager().getPlugin("Permissions");
 
 	if( Permissions == null ) {
@@ -18,13 +24,17 @@ public class ModTRSPermissions {
 		//Permissions found, enable it now
 		parent.getServer().getPluginManager().enablePlugin( perm_plugin );
 		Permissions = ( (Permissions) perm_plugin ).getHandler();
+		return true;
 	    }
 	    else {
 		//Permissions not found. Disable plugin
-		ModTRS.log.severe("Permissions plugin not found, disabling plugin. (version" + parent.getDescription().getVersion() + ")");
+		ModTRS.log.severe("Permissions plugin not found, disabling plugin. (version " + parent.getDescription().getVersion() + ")");
 		parent.getServer().getPluginManager().disablePlugin(parent);
+		return false;
 	    }
 	}
+	
+	return true;
 
 
     }

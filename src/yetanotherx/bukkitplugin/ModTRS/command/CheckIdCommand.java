@@ -23,7 +23,6 @@ public class CheckIdCommand implements CommandExecutor {
 
     public CheckIdCommand(ModTRS parent) {
 	ModTRSValidatorHandler.getInstance().registerValidator( "check-id", new CompleteValidator(this, parent) );
-	
     }
 
 
@@ -32,56 +31,56 @@ public class CheckIdCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 
 	Player player = (Player) sender;
-	
+
 	if( !ModTRSPermissions.has(player, "modtrs.command.check") ) {
 	    player.sendMessage(ModTRSMessage.noPermission);
-	    return true;
 	}
+	else {
 
-	try {
-	    ModTRSRequest request = ModTRSRequestTable.getRequestFromId( Integer.parseInt( args[0] ) );
-
-
-	    if( request != null ) {
+	    try {
+		ModTRSRequest request = ModTRSRequestTable.getRequestFromId( Integer.parseInt( args[0] ) );
 
 
+		if( request != null ) {
 
-		Calendar calendar = Calendar.getInstance();
-		Calendar calendarMod = Calendar.getInstance();
-		SimpleDateFormat sdf = new SimpleDateFormat(CommandHandler.TIMEDATE_FORMAT);
+		    Calendar calendar = Calendar.getInstance();
+		    Calendar calendarMod = Calendar.getInstance();
+		    SimpleDateFormat sdf = new SimpleDateFormat(CommandHandler.TIMEDATE_FORMAT);
 
-		calendar.setTimeInMillis( request.getTimestamp() );
-		calendarMod.setTimeInMillis( request.getModTimestamp() );
+		    calendar.setTimeInMillis( request.getTimestamp() );
+		    calendarMod.setTimeInMillis( request.getModTimestamp() );
 
-		ModTRSUser filedUser = ModTRSUserTable.getUserFromId(request.getUserId());
-		ModTRSUser modUser = ModTRSUserTable.getUserFromId(request.getModId());
+		    ModTRSUser filedUser = ModTRSUserTable.getUserFromId(request.getUserId());
+		    ModTRSUser modUser = ModTRSUserTable.getUserFromId(request.getModId());
 
-		Object[] parameters = { 
-			request.getId(), request.getStatusText(true),
-			filedUser.getName(), sdf.format(calendar.getTime()),
-			request.getX(), request.getY(), request.getZ(),
-			request.getText() };
+		    Object[] parameters = { 
+			    request.getId(), request.getStatusText(true),
+			    filedUser.getName(), sdf.format(calendar.getTime()),
+			    request.getX(), request.getY(), request.getZ(),
+			    request.getText() };
 
 
-		player.sendMessage( ModTRSMessage.parse( ModTRSMessage.infoForRequest, parameters ) );
-		player.sendMessage( ModTRSMessage.parse( ModTRSMessage.filedBy, parameters ) );
+		    player.sendMessage( ModTRSMessage.parse( ModTRSMessage.infoForRequest, parameters ) );
+		    player.sendMessage( ModTRSMessage.parse( ModTRSMessage.filedBy, parameters ) );
 
-		if( request.getModId() != 0 ) {
-		    Object[] modParameters = { modUser.getName(), sdf.format(calendarMod.getTime()) };
-		    player.sendMessage( ModTRSMessage.parse( ModTRSMessage.handledBy, modParameters ) );
+		    if( request.getModId() != 0 ) {
+			Object[] modParameters = { modUser.getName(), sdf.format(calendarMod.getTime()) };
+			player.sendMessage( ModTRSMessage.parse( ModTRSMessage.handledBy, modParameters ) );
+		    }
+
+		    player.sendMessage( ModTRSMessage.parse( ModTRSMessage.requestText, parameters ) );
+
+		}
+		else {
+		    player.sendMessage( ModTRSMessage.noSuchRequest );
 		}
 
-		player.sendMessage( ModTRSMessage.parse( ModTRSMessage.requestText, parameters ) );
-
 	    }
-	    else {
-		player.sendMessage( ModTRSMessage.noSuchRequest );
+	    catch( SQLException e ) {
+		e.printStackTrace();
+		player.sendMessage( ModTRSMessage.internalError );
 	    }
 
-	}
-	catch( SQLException e ) {
-	    e.printStackTrace();
-	    player.sendMessage( ModTRSMessage.internalError );
 	}
 
 	return true;

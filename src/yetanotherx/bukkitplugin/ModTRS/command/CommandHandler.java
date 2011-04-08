@@ -14,15 +14,28 @@ import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
 
 public class CommandHandler implements CommandExecutor {
 
+    /**
+     * All the command executors
+     */
     private HashMap<String, CommandExecutor> commands = new HashMap<String, CommandExecutor>();
+    
+    /**
+     * ModTRS plugin
+     */
     private ModTRS parent;
 
+    /**
+     * Format for timestamps
+     */
     public static String TIMEDATE_FORMAT = "MMM.d@kk.mm.ss";
 
     public CommandHandler(ModTRS parent) {
 	this.parent = parent;
     }
 
+    /**
+     * Registers all the commands
+     */
     public static CommandHandler load(ModTRS parent) {
 
 	CommandHandler handler = new CommandHandler(parent);
@@ -56,6 +69,10 @@ public class CommandHandler implements CommandExecutor {
 	    Player player = (Player) sender;
 
 
+	    /**
+	     * What's this hackery?
+	     * /modreq should go to ModreqCommand, but /modreq help should go to HelpCommand. Eww.
+	     */
 	    if (commandName.equals("modreq")) {
 
 		if (split.length == 1 && split[0].equals("help") ) {
@@ -140,6 +157,10 @@ public class CommandHandler implements CommandExecutor {
 	return true;
     }
 
+    /**
+     * Join a String[] into a single string with a joiner
+     * TODO: Move this to another class
+     */
     public static String implode( String[] array, String glue ) {
 
 	String out = "";

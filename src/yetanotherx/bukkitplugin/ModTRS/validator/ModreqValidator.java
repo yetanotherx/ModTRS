@@ -12,7 +12,7 @@ public class ModreqValidator extends ModTRSValidatorBase implements ModTRSValida
     @Override
     public boolean isValid(String[] args) {
 	
-	if( !this.isAtLeastArgs(args, 1) ) return false;
+	if( !this.isAtLeastArgs(args, 1) ) return false; //Must have at least 1 argument
 	
 	return true;
     }

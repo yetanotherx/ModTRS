@@ -15,7 +15,6 @@ public class BroadcastCommand implements CommandExecutor {
 
     public BroadcastCommand(ModTRS parent) {
 	ModTRSValidatorHandler.getInstance().registerValidator( "mod-broadcast", new BroadcastValidator(this, parent) );
-    
     }
 
 
@@ -29,13 +28,10 @@ public class BroadcastCommand implements CommandExecutor {
 	
 	if( !ModTRSPermissions.has(player, "modtrs.command.broadcast") ) {
 	    player.sendMessage(ModTRSMessage.noPermission);
-	    return true;
 	}
-
-	String[] message = {joined};
-
-	ModTRS.messageMods( ModTRSMessage.parse( ModTRSMessage.modbroadcast, message ), player.getServer() );
-
+	else {
+	    ModTRS.messageMods( ModTRSMessage.parse( ModTRSMessage.modbroadcast, new String[] {joined} ), player.getServer() );
+	}
 
 	return true;
 

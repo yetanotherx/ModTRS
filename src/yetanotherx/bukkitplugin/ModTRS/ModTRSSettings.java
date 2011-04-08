@@ -22,6 +22,9 @@ import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSSQL;
 
 public class ModTRSSettings {
 
+    /**
+     * Settings
+     */
     public static boolean debugMode = false;
     public static boolean notifyMods = true;
     public static boolean autoupdate = true;
@@ -29,9 +32,19 @@ public class ModTRSSettings {
     public static List<String> blacklist = new ArrayList<String>();
 
 
+    /**
+     * Bukkit config class
+     */
     public static Configuration config = null;
+    
+    /**
+     * SQLite configuration
+     */
     public static Connection sqlite;
 
+    /**
+     * Load and parse the YAML config file
+     */
     public static void load( ModTRS parent ) {
 
 	File dataDirectory = new File("plugins" + File.separator + "ModTRS" + File.separator);
@@ -62,6 +75,9 @@ public class ModTRSSettings {
 
     }
 
+    /**
+     * Sets the internal variables
+     */
     private static void setSettings() {
 
 	debugMode = config.getBoolean("modtrs.debug", false );
@@ -81,6 +97,15 @@ public class ModTRSSettings {
 
     }
 
+    /**
+     * Initiate SQLite
+     * TODO: Move this out of the class, it's not appropriate here
+     * 
+     * @throws SQLException
+     * @throws MalformedURLException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     public static void setupSQLite( ModTRS parent ) throws SQLException, MalformedURLException, InstantiationException, IllegalAccessException {
 
 	String databaseUrl = "jdbc:sqlite:plugins" + File.separator + "ModTRS" + File.separator + "modtrs.db";

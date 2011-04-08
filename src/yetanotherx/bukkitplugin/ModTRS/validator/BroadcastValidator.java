@@ -12,7 +12,7 @@ public class BroadcastValidator extends ModTRSValidatorBase implements ModTRSVal
     @Override
     public boolean isValid(String[] args) {
 	
-	if( !this.isAtLeastArgs(args, 1) ) return false;
+	if( !this.isAtLeastArgs(args, 1) ) return false; //Must be at least 1 argument
 	
 	return true;
     }

@@ -6,8 +6,15 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;*/
 
+//TODO: Remove this class
+
 public class ModTRSUpdater {
 
+    /**
+     * 
+     * @param parent
+     * @return
+     */
     public static boolean checkSQLite(ModTRS parent) {
 
 	File dataDirectory = new File("plugins" + File.separator + "ModTRS" + File.separator);

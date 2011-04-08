@@ -14,9 +14,10 @@ public class CheckValidator extends ModTRSValidatorBase implements ModTRSValidat
 	
 	for( String arg : args ) {
 	    if( arg.substring(0, 2).equals("p:") ) {
-		if( !this.isInteger(arg.substring(2)) ) return false;
+		if( !this.isInteger(arg.substring(2)) ) return false; //p:* must be an integer
 	    }
 	    else if( arg.substring(0, 2).equals("t:") ) {
+		//t:* must be one of these types
 		if( !this.inArray(arg.substring(2), new String[] { "open", "closed", "held", "all"} ) ) return false;
 	    }
 	    else {
@@ -24,7 +25,7 @@ public class CheckValidator extends ModTRSValidatorBase implements ModTRSValidat
 	    }
 	}
 	
-	if( this.isAtLeastArgs(args, 3) ) return false;
+	if( this.isAtLeastArgs(args, 3) ) return false; //Cannot be more than 2 arguments
 	
 	return true;
     }

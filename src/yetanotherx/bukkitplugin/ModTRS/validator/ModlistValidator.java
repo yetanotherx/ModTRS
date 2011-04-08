@@ -12,7 +12,7 @@ public class ModlistValidator extends ModTRSValidatorBase implements ModTRSValid
     @Override
     public boolean isValid(String[] args) {
 	
-	if( this.isAtLeastArgs(args, 1) ) return false;
+	if( this.isAtLeastArgs(args, 1) ) return false; //No arguments
 	
 	return true;
     }

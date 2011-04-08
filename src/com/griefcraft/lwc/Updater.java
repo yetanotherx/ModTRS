@@ -1,5 +1,7 @@
 /**
- * This file is part of LWC (https://github.com/Hidendra/LWC)
+ * This file is part of LWC (https://github.com/Hidendra/LWC), 
+ * modified for use within ModTRS (https://github.com/yetanotherx/ModTRS)
+ * ModTRS is under GPLv3, as is LWC
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,257 +37,262 @@ import yetanotherx.bukkitplugin.ModTRS.ModTRSSettings;
 
 public class Updater {
 
-	/**
-	 * The latest LWC version
-	 */
-	private double latestPluginVersion = 0.00;
+    /**
+     * The latest plugin version
+     */
+    private double latestPluginVersion = 0.00;
 
-	/**
-	 * The logging object for this class
-	 */
-	private ModTRSLogger logger = ModTRS.log;
+    /**
+     * The logging object for this class
+     */
+    private ModTRSLogger logger = ModTRS.log;
 
-	/**
-	 * List of files to download
-	 */
-	private List<UpdaterFile> needsUpdating = new ArrayList<UpdaterFile>();
+    /**
+     * List of files to download
+     */
+    private List<UpdaterFile> needsUpdating = new ArrayList<UpdaterFile>();
 
-	private ModTRS parent;
+    /**
+     * The main plugin class
+     */
+    private ModTRS parent;
 
-	/**
-	 * The folder where libraries are stored
-	 */
-	public final static String DEST_LIBRARY_FOLDER = "plugins/ModTRS/";
+    /**
+     * The folder where libraries are stored
+     */
+    public final static String DEST_LIBRARY_FOLDER = "plugins/ModTRS/";
 
-	/**
-	 * URL to the base update site
-	 */
-	public final static String UPDATE_SITE = "https://github.com/yetanotherx/Distribution/raw/master/";
-	
-	/**
-	 * URL to the main update site
-	 */
-	public final static String UPDATE_SITE_MAIN = "https://github.com/yetanotherx/ModTRS/raw/master/";
+    /**
+     * URL to the Distribution repo
+     */
+    public final static String DIST_REPO = "https://github.com/yetanotherx/Distribution/raw/master/";
 
-	public final static String DIST_FILE = "ModTRS.jar";
+    /**
+     * URL to the ModTRS repo
+     */
+    public final static String MODTRS_REPO = "https://github.com/yetanotherx/ModTRS/raw/master/";
 
-	public final static String VERSION_FILE = "versions.txt";
+    /**
+     * Filename of the ModTRS jar
+     */
+    public final static String DIST_FILE = "ModTRS.jar";
 
-	public Updater(ModTRS parent) {
+    /**
+     * Filename of the versions text file
+     */
+    public final static String VERSION_FILE = "versions.txt";
 
-		this.parent = parent;
+    public Updater(ModTRS parent) {
+	this.parent = parent;
+    }
 
+    /**
+     * Check for dependencies
+     * 
+     * @return true if LWC should be reloaded
+     */
+    public void check() {
+	String[] paths = new String[] { DEST_LIBRARY_FOLDER + "lib/sqlite.jar", getFullNativeLibraryPath() };
+
+	for (String path : paths) {
+	    File file = new File(path);
+
+	    if (file != null && !file.exists() && !file.isDirectory()) {
+		UpdaterFile updaterFile = new UpdaterFile(DIST_REPO + path.replaceAll(DEST_LIBRARY_FOLDER, ""));
+		updaterFile.setLocalLocation(path);
+
+		if (!needsUpdating.contains(updaterFile)) {
+		    needsUpdating.add(updaterFile);
+		}
+	    }
 	}
 
-	/**
-	 * Check for dependencies
-	 * 
-	 * @return true if LWC should be reloaded
-	 */
-	public void check() {
-		String[] paths = new String[] { DEST_LIBRARY_FOLDER + "lib/sqlite.jar", getFullNativeLibraryPath() };
+	if (ModTRSSettings.autoupdate) {
+	    if (latestPluginVersion > Double.parseDouble(parent.getDescription().getVersion() )) {
+		logger.info("Update detected for ModTRS");
+		logger.info("Latest version: " + latestPluginVersion);
+	    }
+	}
+    }
 
-		for (String path : paths) {
-			File file = new File(path);
+    /**
+     * Check to see if the distribution is outdated
+     * 
+     * @return
+     */
+    public boolean checkDist() {
+	check();
 
-			if (file != null && !file.exists() && !file.isDirectory()) {
-				UpdaterFile updaterFile = new UpdaterFile(UPDATE_SITE + "" + path.replaceAll(DEST_LIBRARY_FOLDER, ""));
-				updaterFile.setLocalLocation(path);
+	if (latestPluginVersion > Double.parseDouble(parent.getDescription().getVersion() )) {
+	    UpdaterFile updaterFile = new UpdaterFile(MODTRS_REPO + DIST_FILE);
+	    updaterFile.setLocalLocation("plugins/ModTRS.jar");
 
-				if (!needsUpdating.contains(updaterFile)) {
-					needsUpdating.add(updaterFile);
-				}
-			}
-		}
+	    needsUpdating.add(updaterFile);
 
-		if (ModTRSSettings.autoupdate) {
-			if (latestPluginVersion > Double.parseDouble(parent.getDescription().getVersion() )) {
-				logger.info("Update detected for ModTRS");
-				logger.info("Latest version: " + latestPluginVersion);
-			}
-		}
+	    try {
+		update();
+		logger.info("Updated successful");
+		return true;
+	    } catch (Exception e) {
+		logger.severe("Update failed: " + e.getMessage());
+		e.printStackTrace();
+	    }
 	}
 
-	/**
-	 * Check to see if the distribution is outdated
-	 * 
-	 * @return
-	 */
-	public boolean checkDist() {
-		check();
+	return false;
+    }
 
-		if (latestPluginVersion > Double.parseDouble(parent.getDescription().getVersion() )) {
-			UpdaterFile updaterFile = new UpdaterFile(UPDATE_SITE_MAIN + DIST_FILE);
-			updaterFile.setLocalLocation("plugins/ModTRS.jar");
+    /**
+     * @return the full path to the native library for sqlite
+     */
+    public String getFullNativeLibraryPath() {
+	return getOSSpecificFolder() + getOSSpecificFileName();
+    }
 
-			needsUpdating.add(updaterFile);
+    /**
+     * @return the latest plugin version
+     */
+    public double getLatestPluginVersion() {
+	return latestPluginVersion;
+    }
 
-			try {
-				update();
-				logger.info("Updated successful");
-				return true;
-			} catch (Exception e) {
-				logger.info("Update failed: " + e.getMessage());
-				e.printStackTrace();
-			}
+    /**
+     * @return the os/arch specific file name for sqlite's native library
+     */
+    public String getOSSpecificFileName() {
+	String osname = System.getProperty("os.name").toLowerCase();
+
+	if (osname.contains("windows")) {
+	    return "sqlitejdbc.dll";
+	} else if (osname.contains("mac")) {
+	    return "libsqlitejdbc.jnilib";
+	} else { /* We assume linux/unix */
+	    return "libsqlitejdbc.so";
+	}
+    }
+
+    /**
+     * @return the os/arch specific folder location for SQLite's native library
+     */
+    public String getOSSpecificFolder() {
+	String osname = System.getProperty("os.name").toLowerCase();
+	String arch = System.getProperty("os.arch").toLowerCase();
+
+	if (osname.contains("windows")) {
+	    return DEST_LIBRARY_FOLDER + "lib/native/Windows/" + arch + "/";
+	} else if (osname.contains("mac")) {
+	    return DEST_LIBRARY_FOLDER + "lib/native/Mac/" + arch + "/";
+	} else { /* We assume linux/unix */
+	    return DEST_LIBRARY_FOLDER + "lib/native/Linux/" + arch + "/";
+	}
+    }
+
+    /**
+     * Load the latest versions
+     * 
+     * @param background
+     *            if true, will be run in the background
+     */
+    public void loadVersions(boolean background) {
+	class Background_Check_Thread implements Runnable {
+	    public void run() {
+		try {
+		    URL url = new URL(MODTRS_REPO + VERSION_FILE);
+
+		    InputStream inputStream = url.openStream();
+		    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+		    latestPluginVersion = Double.parseDouble(bufferedReader.readLine());
+
+		    bufferedReader.close();
+		} catch (Exception e) {
 		}
 
-		return false;
-	}
+		try {
+		    if (ModTRSSettings.autoupdate) {
+			checkDist();
+		    } else {
+			check();
+		    }
 
-	/**
-	 * @return the full path to the native library for sqlite
-	 */
-	public String getFullNativeLibraryPath() {
-		return getOSSpecificFolder() + getOSSpecificFileName();
-	}
-
-	/**
-	 * @return the latest plugin version
-	 */
-	public double getLatestPluginVersion() {
-		return latestPluginVersion;
-	}
-
-	/**
-	 * @return the os/arch specific file name for sqlite's native library
-	 */
-	public String getOSSpecificFileName() {
-		String osname = System.getProperty("os.name").toLowerCase();
-
-		if (osname.contains("windows")) {
-			return "sqlitejdbc.dll";
-		} else if (osname.contains("mac")) {
-			return "libsqlitejdbc.jnilib";
-		} else { /* We assume linux/unix */
-			return "libsqlitejdbc.so";
+		    update();
+		} catch (Exception e) {
+		    e.printStackTrace();
 		}
+	    }
 	}
 
-	/**
-	 * @return the os/arch specific folder location for SQLite's native library
+	Background_Check_Thread worker = new Background_Check_Thread();
+
+	if (background) {
+	    new Thread(worker).start();
+	} else {
+	    worker.run();
+	}
+    }
+
+    /**
+     * Ensure we have all of the required files (if not, download them)
+     */
+    public void update() throws Exception {
+	if (needsUpdating.size() == 0) {
+	    return;
+	}
+
+	/*
+	 * Make the folder hierarchy if needed
 	 */
-	public String getOSSpecificFolder() {
-		String osname = System.getProperty("os.name").toLowerCase();
-		String arch = System.getProperty("os.arch").toLowerCase();
+	File folder = new File(getOSSpecificFolder());
+	folder.mkdirs();
+	folder = new File(DEST_LIBRARY_FOLDER + "lib/");
+	folder.mkdirs();
 
-		if (osname.contains("windows")) {
-			return DEST_LIBRARY_FOLDER + "lib/native/Windows/" + arch + "/";
-		} else if (osname.contains("mac")) {
-			return DEST_LIBRARY_FOLDER + "lib/native/Mac/" + arch + "/";
-		} else { /* We assume linux/unix */
-			return DEST_LIBRARY_FOLDER + "lib/native/Linux/" + arch + "/";
-		}
+	logger.info("Need to download " + needsUpdating.size() + " file(s)");
+
+	Iterator<UpdaterFile> iterator = needsUpdating.iterator();
+
+	while (iterator.hasNext()) {
+	    UpdaterFile item = iterator.next();
+
+	    String fileName = item.getRemoteLocation();
+	    fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
+
+	    logger.info(" - Downloading file: " + fileName);
+
+	    URL url = new URL(item.getRemoteLocation());
+	    File file = new File(item.getLocalLocation());
+
+	    if (file.exists()) {
+		file.delete();
+	    }
+
+	    InputStream inputStream = url.openStream();
+	    OutputStream outputStream = new FileOutputStream(file);
+
+	    saveTo(inputStream, outputStream);
+
+	    inputStream.close();
+	    outputStream.close();
+
+	    logger.info("  + Download complete");
+	    iterator.remove();
 	}
 
-	/**
-	 * Load the latest versions
-	 * 
-	 * @param background
-	 *            if true, will be run in the background
-	 */
-	public void loadVersions(boolean background) {
-		class Background_Check_Thread implements Runnable {
-			public void run() {
-				try {
-					URL url = new URL(UPDATE_SITE_MAIN + VERSION_FILE);
+    }
 
-					InputStream inputStream = url.openStream();
-					BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+    /**
+     * Write an input stream to an output stream
+     * 
+     * @param inputStream
+     * @param outputStream
+     */
+    private void saveTo(InputStream inputStream, OutputStream outputStream) throws IOException {
+	byte[] buffer = new byte[1024];
+	int len = 0;
 
-					// load up them versions!
-					// expected: PLUGINVERSION
-					latestPluginVersion = Double.parseDouble(bufferedReader.readLine());
-					
-					bufferedReader.close();
-				} catch (Exception e) {
-				}
-
-				try {
-					if (ModTRSSettings.autoupdate) {
-						checkDist();
-					} else {
-						check();
-					}
-
-					update();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		Background_Check_Thread worker = new Background_Check_Thread();
-
-		if (background) {
-			new Thread(worker).start();
-		} else {
-			worker.run();
-		}
+	while ((len = inputStream.read(buffer)) > 0) {
+	    outputStream.write(buffer, 0, len);
 	}
-
-	/**
-	 * Ensure we have all of the required files (if not, download them)
-	 */
-	public void update() throws Exception {
-		if (needsUpdating.size() == 0) {
-			return;
-		}
-
-		/*
-		 * Make the folder hierarchy if needed
-		 */
-		File folder = new File(getOSSpecificFolder());
-		folder.mkdirs();
-		folder = new File(DEST_LIBRARY_FOLDER + "lib/");
-		folder.mkdirs();
-
-		logger.info("Need to download " + needsUpdating.size() + " file(s)");
-
-		Iterator<UpdaterFile> iterator = needsUpdating.iterator();
-
-		while (iterator.hasNext()) {
-			UpdaterFile item = iterator.next();
-
-			String fileName = item.getRemoteLocation();
-			fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
-
-			logger.info(" - Downloading file: " + fileName);
-
-			URL url = new URL(item.getRemoteLocation());
-			File file = new File(item.getLocalLocation());
-
-			if (file.exists()) {
-				file.delete();
-			}
-
-			InputStream inputStream = url.openStream();
-			OutputStream outputStream = new FileOutputStream(file);
-
-			saveTo(inputStream, outputStream);
-
-			inputStream.close();
-			outputStream.close();
-
-			logger.info("  + Download complete");
-			iterator.remove();
-		}
-
-	}
-
-	/**
-	 * Write an input stream to an output stream
-	 * 
-	 * @param inputStream
-	 * @param outputStream
-	 */
-	private void saveTo(InputStream inputStream, OutputStream outputStream) throws IOException {
-		byte[] buffer = new byte[1024];
-		int len = 0;
-
-		while ((len = inputStream.read(buffer)) > 0) {
-			outputStream.write(buffer, 0, len);
-		}
-	}
+    }
 
 }

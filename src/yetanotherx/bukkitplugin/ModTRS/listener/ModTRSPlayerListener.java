@@ -18,6 +18,9 @@ public class ModTRSPlayerListener extends PlayerListener{
     public ModTRSPlayerListener(ModTRS parent) {
     }
 
+    /**
+     * Simply notifies a user that there are open requests when they join
+     */
     @Override
     public void onPlayerJoin(PlayerJoinEvent event) {
 
@@ -31,7 +34,6 @@ public class ModTRSPlayerListener extends PlayerListener{
 
 	    try {
 		ArrayList<ModTRSRequest> requests = ModTRSRequestTable.getOpenRequests("open");
-
 
 		if( requests.size() != 0 ) {
 		    player.sendMessage( ModTRSMessage.openRequests );

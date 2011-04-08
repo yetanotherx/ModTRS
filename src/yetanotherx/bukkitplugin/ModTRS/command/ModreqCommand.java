@@ -69,15 +69,7 @@ public class ModreqCommand implements CommandExecutor {
 	    player.sendMessage( ModTRSMessage.messageSent );
 
 	    if( ModTRSSettings.notifyMods ) {
-		Player[] players = player.getServer().getOnlinePlayers();
-
-
-		for( Player each_user : players ) {
-		    if( ModTRSPermissions.has(each_user, "modtrs.mod") ) {
-			each_user.sendMessage( ModTRSMessage.newRequests );
-		    }
-		}
-
+		ModTRS.messageMods( ModTRSMessage.newRequests, player.getServer() );
 	    }
 
 	}
