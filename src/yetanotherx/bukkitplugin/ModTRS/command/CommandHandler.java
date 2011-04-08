@@ -157,24 +157,4 @@ public class CommandHandler implements CommandExecutor {
 	return true;
     }
 
-    /**
-     * Join a String[] into a single string with a joiner
-     * TODO: Move this to another class
-     */
-    public static String implode( String[] array, String glue ) {
-
-	String out = "";
-
-	if( array.length == 0 ) {
-	    return out;
-	}
-
-	for( String part : array ) {
-	    out = out + part + glue;
-	}
-	out = out.substring(0, out.length() - glue.length() );
-
-	return out;
-    }
-
 }

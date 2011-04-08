@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
+import yetanotherx.bukkitplugin.ModTRS.ModTRSFunction;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSPermissions;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequest;
@@ -56,7 +57,7 @@ public class ClaimCommand implements CommandExecutor {
 		request.setStatus(1);
 		request.update();
 		
-		ModTRS.messageMods( ModTRSMessage.parse( ModTRSMessage.claimedOtherMods, new Object[] { request.getId(), user.getName() } ), player.getServer() );
+		ModTRSFunction.messageMods( ModTRSMessage.parse( ModTRSMessage.claimedOtherMods, new Object[] { request.getId(), user.getName() } ), player.getServer() );
 
 	    }
 	    else {

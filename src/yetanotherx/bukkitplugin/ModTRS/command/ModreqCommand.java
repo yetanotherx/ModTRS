@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
+import yetanotherx.bukkitplugin.ModTRS.ModTRSFunction;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSPermissions;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSSettings;
@@ -30,7 +31,7 @@ public class ModreqCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 
 	String[] split = args;
-	String joined = CommandHandler.implode(split, " ");
+	String joined = ModTRSFunction.implode(split, " ");
 	Player player = (Player) sender;
 
 	if( !ModTRSPermissions.has(player, "modtrs.command.modreq") ) {
@@ -69,7 +70,7 @@ public class ModreqCommand implements CommandExecutor {
 	    player.sendMessage( ModTRSMessage.messageSent );
 
 	    if( ModTRSSettings.notifyMods ) {
-		ModTRS.messageMods( ModTRSMessage.newRequests, player.getServer() );
+		ModTRSFunction.messageMods( ModTRSMessage.newRequests, player.getServer() );
 	    }
 
 	}

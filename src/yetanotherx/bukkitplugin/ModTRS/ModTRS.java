@@ -1,20 +1,27 @@
 package yetanotherx.bukkitplugin.ModTRS;
 
 //Bukkit imports
-import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 //LWC import
+import com.griefcraft.lwc.DriverStub;
 import com.griefcraft.lwc.Updater;
 
 //ModTRS import
 import yetanotherx.bukkitplugin.ModTRS.command.CommandHandler;
+import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSSQL;
 
 //Java import
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.sql.Driver;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 
 /*
@@ -108,7 +115,7 @@ public class ModTRS extends JavaPlugin {
 	updater.loadVersions(false);
 
 	try {
-	    ModTRSSettings.setupSQLite( this );
+	    setupSQLite( this );
 	}
 	catch( Exception e ) {
 	    e.printStackTrace();
@@ -127,7 +134,6 @@ public class ModTRS extends JavaPlugin {
 
 	//Print that the plugin has been enabled!
 	log.info("Plugin enabled! (version " + this.getDescription().getVersion() + ")");
-
 	log.debug("Debug mode enabled!");
     }
 
@@ -140,16 +146,38 @@ public class ModTRS extends JavaPlugin {
     }
 
     /**
-     * Send a message to all the moderators (people with the modtrs.mod permission)
+     * Initiate SQLite
+     * 
+     * @throws SQLException
+     * @throws MalformedURLException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
      */
-    public static void messageMods( String message, Server server ) {
-	Player[] players = server.getOnlinePlayers();
+    public static void setupSQLite( ModTRS parent ) throws SQLException, MalformedURLException, InstantiationException, IllegalAccessException {
 
-	for( Player user : players ) {
-	    if( ModTRSPermissions.has(user, "modtrs.mod") ) {
-		user.sendMessage(message);
-	    }
+	String databaseUrl = "jdbc:sqlite:plugins" + File.separator + "ModTRS" + File.separator + "modtrs.db";
+
+	ModTRS.log.debug("Loading SQLite: " + databaseUrl );
+
+	try {
+	    URLClassLoader classLoader = new URLClassLoader(new URL[] { new URL("jar:file:" + new File(Updater.DEST_LIBRARY_FOLDER + "lib/sqlite.jar") + "!/" ) });
+	    Driver driver = (Driver) classLoader.loadClass("org.sqlite.JDBC").newInstance();
+	    DriverManager.registerDriver(new DriverStub(driver));
 	}
+	catch( ClassNotFoundException e) {
+	    ModTRS.log.severe("Error: Cannot locate the SQLite JDBC. Please download from http://www.zentus.com/sqlitejdbc/ and place in the plugins/ModTRS/ folder.");
+	    parent.getServer().getPluginManager().disablePlugin(parent);
+	}
+
+	ModTRSSettings.sqlite = DriverManager.getConnection(databaseUrl);
+
+	ModTRS.log.debug("Creating tables if necessary" );
+	Statement stat = ModTRSSettings.sqlite.createStatement();
+	stat.executeUpdate(ModTRSSQL.createUser);
+	stat.executeUpdate(ModTRSSQL.createRequest);
+
+	ModTRS.log.debug("Finished loading SQLite" );
+
     }
 
 }
