@@ -49,7 +49,7 @@ import java.sql.Statement;
  * TODO: Unit tests
  * TODO: Notify user when they log in if their request is closed
  * TODO: Include part of the text when a request is closed (the notification)
- * TODO: Eliminate dependancy on Permissions
+ * TODO: Eliminate dependancy on Permissions (support vanilla and GroupManager)
  */
 public class ModTRS extends JavaPlugin {
 
