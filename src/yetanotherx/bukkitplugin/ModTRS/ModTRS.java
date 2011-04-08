@@ -50,7 +50,6 @@ import java.sql.Statement;
  * TODO: Notify user when they log in if their request is closed
  * TODO: Include part of the text when a request is closed (the notification)
  * TODO: Eliminate dependancy on Permissions
- * TODO: Add Debug messages
  */
 public class ModTRS extends JavaPlugin {
 
