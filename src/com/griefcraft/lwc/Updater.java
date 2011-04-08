@@ -194,41 +194,30 @@ public class Updater {
      *            if true, will be run in the background
      */
     public void loadVersions(boolean background) {
-	class Background_Check_Thread implements Runnable {
-	    public void run() {
-		try {
-		    URL url = new URL(MODTRS_REPO + VERSION_FILE);
+	try {
+	    URL url = new URL(MODTRS_REPO + VERSION_FILE);
 
-		    InputStream inputStream = url.openStream();
-		    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+	    InputStream inputStream = url.openStream();
+	    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
-		    latestPluginVersion = Double.parseDouble(bufferedReader.readLine());
+	    latestPluginVersion = Double.parseDouble(bufferedReader.readLine());
 
-		    bufferedReader.close();
-		} catch (Exception e) {
-		}
+	    bufferedReader.close();
+	} catch (Exception e) {
+	}
 
-		try {
-		    if (ModTRSSettings.autoupdate) {
-			checkDist();
-		    } else {
-			check();
-		    }
-
-		    update();
-		} catch (Exception e) {
-		    e.printStackTrace();
-		}
+	try {
+	    if (ModTRSSettings.autoupdate) {
+		checkDist();
+	    } else {
+		check();
 	    }
+
+	    update();
+	} catch (Exception e) {
+	    e.printStackTrace();
 	}
 
-	Background_Check_Thread worker = new Background_Check_Thread();
-
-	if (background) {
-	    new Thread(worker).start();
-	} else {
-	    worker.run();
-	}
     }
 
     /**
