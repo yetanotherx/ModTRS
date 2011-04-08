@@ -189,11 +189,8 @@ public class Updater {
 
     /**
      * Load the latest versions
-     * 
-     * @param background
-     *            if true, will be run in the background
      */
-    public void loadVersions(boolean background) {
+    public void loadVersions() {
 	try {
 	    URL url = new URL(MODTRS_REPO + VERSION_FILE);
 

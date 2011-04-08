@@ -114,7 +114,7 @@ public class ModTRS extends JavaPlugin {
 
 	log.debug("Checking for updates");
 	System.setProperty("org.sqlite.lib.path", updater.getOSSpecificFolder());
-	updater.loadVersions(false);
+	updater.loadVersions();
 
 	try {
 	    setupSQLite( this );
