@@ -50,6 +50,7 @@ import java.sql.Statement;
  * TODO: Notify user when they log in if their request is closed
  * TODO: Include part of the text when a request is closed (the notification)
  * TODO: Eliminate dependancy on Permissions
+ * TODO: Add Debug messages
  */
 public class ModTRS extends JavaPlugin {
 
@@ -87,6 +88,7 @@ public class ModTRS extends JavaPlugin {
 
 	try {
 	    if( ModTRSSettings.sqlite != null ) {
+		log.debug("Closing SQLite database");
 		ModTRSSettings.sqlite.close();
 	    }
 	} catch (SQLException e) {
@@ -111,6 +113,7 @@ public class ModTRS extends JavaPlugin {
 
 	ModTRSSettings.load( this );
 
+	log.debug("Checking for updates");
 	System.setProperty("org.sqlite.lib.path", updater.getOSSpecificFolder());
 	updater.loadVersions(false);
 

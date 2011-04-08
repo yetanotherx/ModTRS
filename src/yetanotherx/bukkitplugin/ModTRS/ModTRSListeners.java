@@ -27,6 +27,8 @@ public class ModTRSListeners {
      * Initialize the listeners and connect them to events
      */
     public static ModTRSListeners load(ModTRS parent) {
+	ModTRS.log.debug("Loading events and listeners");
+	
 	ModTRSListeners listener = new ModTRSListeners(parent);
 	
 	listener.registerListener( "player", new ModTRSPlayerListener(parent) );

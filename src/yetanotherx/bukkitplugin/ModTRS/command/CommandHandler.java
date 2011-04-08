@@ -38,6 +38,7 @@ public class CommandHandler implements CommandExecutor {
      */
     public static CommandHandler load(ModTRS parent) {
 
+	ModTRS.log.debug("Loading command handlers");
 	CommandHandler handler = new CommandHandler(parent);
 
 	handler.registerCommand( "modreq-help", new HelpCommand(parent));

@@ -22,7 +22,9 @@ public class ModTRSHelp {
      * Registers all the help commands
      */
     public static void load( ModTRS parent ) {
-
+	
+	ModTRS.log.debug("Loading help messages");
+	
 	helpCommands.add( new String[] {"modreq [message]", "Request help from a moderator", "modtrs.command.modreq"} );
 	helpCommands.add( new String[] {"check [t:open|all|held]", "List all open requests", "modtrs.command.check"} );
 	helpCommands.add( new String[] {"check-id [#]", "Get info about a request", "modtrs.command.check"} );

@@ -17,6 +17,8 @@ public class ModTRSPermissions {
      * Check if permissions is installed, and initiate it
      */
     public static boolean load( ModTRS parent ) {
+	ModTRS.log.debug("Loading Permissions handler");
+	
 	Plugin perm_plugin = parent.getServer().getPluginManager().getPlugin("Permissions");
 
 	if( Permissions == null ) {
