@@ -168,7 +168,7 @@ public class ModTRS extends JavaPlugin {
      */
     public static void setupSQLite( ModTRS parent ) throws SQLException, MalformedURLException, InstantiationException, IllegalAccessException {
 
-	String databaseUrl = "jdbc:sqlite:plugins" + File.separator + "ModTRS" + File.separator + "modtrs.db";
+	String databaseUrl = "jdbc:sqlite:" + ModTRSSettings.databaseFile;
 
 	ModTRS.log.debug("Loading SQLite: " + databaseUrl );
 

@@ -32,9 +32,9 @@ public class ModTRSSQL {
     public static String getOpenRequests = "SELECT * FROM request";
 
     public static void checkDbExists() throws SQLException {
-	File file = new File( "plugins" + File.separator + "ModTRS" + File.separator + "modtrs.db" );
+	File file = new File( ModTRSSettings.databaseFile );
 	if( !file.exists() ) {
-	    String databaseUrl = "jdbc:sqlite:plugins" + File.separator + "ModTRS" + File.separator + "modtrs.db";
+	    String databaseUrl = "jdbc:sqlite:" + ModTRSSettings.databaseFile;
 	    ModTRSSettings.sqlite = DriverManager.getConnection(databaseUrl);
 	    Statement stat = ModTRSSettings.sqlite.createStatement();
 	    stat.executeUpdate(ModTRSSQL.createUser);

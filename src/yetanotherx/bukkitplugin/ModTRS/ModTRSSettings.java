@@ -18,7 +18,7 @@ public class ModTRSSettings {
     public static boolean autoupdate = true;
     public static HashMap<String, String> databases = new HashMap<String, String>();
     public static List<String> blacklist = new ArrayList<String>();
-
+    public static String databaseFile = "plugins" + File.separator + "ModTRS" + File.separator + "modtrs.db";
 
     /**
      * Bukkit config class
@@ -49,6 +49,7 @@ public class ModTRSSettings {
 	if( !file.exists() ) {
 	    ModTRS.log.debug("Config file not found, saving bare-bones file");
 	    config.setProperty("modtrs.debug", debugMode );
+	    config.setProperty("modtrs.database_file", databaseFile );
 	    config.setProperty("modtrs.notify_mods", notifyMods );
 	    config.setProperty("modtrs.autoupdate", autoupdate );
 	    config.setProperty("modtrs.databases", databases );
@@ -69,6 +70,7 @@ public class ModTRSSettings {
     private static void setSettings() {
 
 	debugMode = config.getBoolean("modtrs.debug", false );
+	databaseFile = config.getString("modtrs.database_file", "plugins" + File.separator + "ModTRS" + File.separator + "modtrs.db");
 	notifyMods = config.getBoolean("modtrs.notify_mods", true );
 	autoupdate = config.getBoolean("modtrs.autoupdate", true );
 
