@@ -26,7 +26,7 @@ import java.sql.Statement;
 
 
 /*
- * ModTRS Version 0.2 - Moderator Request Ticket System
+ * ModTRS Version 1.0 - Moderator Request Ticket System
  * Copyright (C) 2011 Yetanotherx <yetanotherx -a--t- gmail -dot- com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -50,7 +50,8 @@ import java.sql.Statement;
  * TODO: Unit tests
  * TODO: Notify user when they log in if their request is closed
  * TODO: Include part of the text when a request is closed (the notification)
- * TODO: ModTRSDisableException
+ * TODO: Add H2, MySQL, PostgreSQL support
+ * TODO: Disable claiming closed requests
  */
 public class ModTRS extends JavaPlugin {
 
