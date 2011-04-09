@@ -1,5 +1,12 @@
 package yetanotherx.bukkitplugin.ModTRS.sql;
 
+import java.io.File;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import yetanotherx.bukkitplugin.ModTRS.ModTRSSettings;
+
 public class ModTRSSQL {
 
     /**
@@ -15,7 +22,7 @@ public class ModTRSSQL {
     public static String getUserInfoId = "SELECT * FROM user WHERE user_id = ? LIMIT 1";
     public static String addUserInfo = "INSERT INTO user (user_name) VALUES (?)";
     public static String setUserInfo = "UPDATE user SET user_name=? WHERE user_id=?";
-   
+
     /**
      * Request commands
      */
@@ -23,5 +30,16 @@ public class ModTRSSQL {
     public static String addRequestInfo = "INSERT INTO 'request' ( 'request_user_id' , 'request_mod_user_id' , 'request_timestamp' , 'request_mod_timestamp' , 'request_world' , 'request_x' , 'request_y' , 'request_z' , 'request_text' ) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? )";
     public static String setRequestInfo = "UPDATE 'request' SET 'request_user_id' = ? , 'request_mod_user_id' = ? , 'request_timestamp' = ? , 'request_mod_timestamp' = ? , 'request_world' = ? , 'request_x' = ? , 'request_y' = ? , 'request_z' = ? , 'request_text' = ? , 'request_status' = ? WHERE request_id = ?";
     public static String getOpenRequests = "SELECT * FROM request";
+
+    public static void checkDbExists() throws SQLException {
+	File file = new File( "plugins" + File.separator + "ModTRS" + File.separator + "modtrs.db" );
+	if( !file.exists() ) {
+	    String databaseUrl = "jdbc:sqlite:plugins" + File.separator + "ModTRS" + File.separator + "modtrs.db";
+	    ModTRSSettings.sqlite = DriverManager.getConnection(databaseUrl);
+	    Statement stat = ModTRSSettings.sqlite.createStatement();
+	    stat.executeUpdate(ModTRSSQL.createUser);
+	    stat.executeUpdate(ModTRSSQL.createRequest);
+	}
+    }
 
 }

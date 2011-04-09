@@ -111,6 +111,9 @@ public class ModTRSRequest {
     }
 
     public boolean insert() throws SQLException {
+	
+	ModTRSSQL.checkDbExists();
+	
 	PreparedStatement insertPrep = ModTRSSettings.sqlite.prepareStatement(ModTRSSQL.addRequestInfo);
 	insertPrep.setInt(1, this.userId );
 	insertPrep.setInt(2, this.modId);
@@ -126,6 +129,9 @@ public class ModTRSRequest {
     }
     
     public boolean update() throws SQLException {
+	
+	ModTRSSQL.checkDbExists();
+	
 	PreparedStatement updatePrep = ModTRSSettings.sqlite.prepareStatement(ModTRSSQL.setRequestInfo);
 	updatePrep.setInt(1, this.userId );
 	updatePrep.setInt(2, this.modId);

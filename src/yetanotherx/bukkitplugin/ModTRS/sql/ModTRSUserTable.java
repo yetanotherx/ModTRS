@@ -10,6 +10,8 @@ public class ModTRSUserTable {
 
     public static ModTRSUser getUserFromName( String name ) throws SQLException {
 
+	ModTRSSQL.checkDbExists();
+	
 	PreparedStatement prep = ModTRSSettings.sqlite.prepareStatement(ModTRSSQL.getUserInfoName);
 	prep.setString(1, name);
 	ResultSet rs = prep.executeQuery();
@@ -31,6 +33,8 @@ public class ModTRSUserTable {
 
     public static ModTRSUser getUserFromId( int id ) throws SQLException {
 
+	ModTRSSQL.checkDbExists();
+	
 	PreparedStatement prep = ModTRSSettings.sqlite.prepareStatement(ModTRSSQL.getUserInfoId);
 	prep.setInt(1, id);
 	ResultSet rs = prep.executeQuery();

@@ -11,6 +11,8 @@ public class ModTRSRequestTable {
 
     public static ModTRSRequest getRequestFromId( int id ) throws SQLException {
 
+	ModTRSSQL.checkDbExists();
+	
 	PreparedStatement prep = ModTRSSettings.sqlite.prepareStatement(ModTRSSQL.getRequestInfo);
 	prep.setInt(1, id);
 	ResultSet rs = prep.executeQuery();
@@ -44,6 +46,8 @@ public class ModTRSRequestTable {
 
     public static ArrayList<ModTRSRequest> getOpenRequests(String type) throws SQLException {
 
+	ModTRSSQL.checkDbExists();
+	
 	PreparedStatement prep = ModTRSSettings.sqlite.prepareStatement(ModTRSSQL.getOpenRequests);
 	ResultSet rs = prep.executeQuery();
 

@@ -37,12 +37,16 @@ public class ModTRSUser {
 
 
     public boolean insert() throws SQLException {
+	ModTRSSQL.checkDbExists();
+	
 	PreparedStatement insertPrep = ModTRSSettings.sqlite.prepareStatement( ModTRSSQL.addUserInfo );
 	insertPrep.setString(1, this.name);
 	return insertPrep.execute();
     }
     
     public boolean update() throws SQLException {
+	ModTRSSQL.checkDbExists();
+	
 	PreparedStatement updatePrep = ModTRSSettings.sqlite.prepareStatement( ModTRSSQL.setUserInfo );
 	updatePrep.setString(1, this.name);
 	updatePrep.setInt(2, this.id);

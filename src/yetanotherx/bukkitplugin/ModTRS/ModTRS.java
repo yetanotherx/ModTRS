@@ -52,6 +52,8 @@ import java.sql.Statement;
  * TODO: Include part of the text when a request is closed (the notification)
  * TODO: Add H2, MySQL, PostgreSQL support
  * TODO: Disable claiming closed requests
+ * TODO: Add a modtrs update command
+ * TODO: /done # text
  */
 public class ModTRS extends JavaPlugin {
 
