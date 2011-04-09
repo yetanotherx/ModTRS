@@ -8,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
+import com.griefcraft.lwc.Updater;
+
 import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
@@ -150,6 +152,12 @@ public class CommandHandler implements CommandExecutor {
 		}
 		else if( args[0].equalsIgnoreCase("version") ) {
 		    player.sendMessage("[ModTRS] You're running " + parent.getDescription().getName() + " version " + parent.getDescription().getVersion());
+		}
+		else if( args[0].equalsIgnoreCase("update") ) {
+		    ModTRS.log.info("Checking for updates");
+		    Updater updater = new Updater(parent);
+		    System.setProperty("org.sqlite.lib.path", updater.getOSSpecificFolder());
+		    updater.loadVersions();
 		}
 
 	    }

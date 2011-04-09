@@ -48,12 +48,10 @@ import java.sql.Statement;
 
 /**
  * TODO: Unit tests
- * TODO: Notify user when they log in if their request is closed
- * TODO: Include part of the text when a request is closed (the notification)
- * TODO: Add H2, MySQL, PostgreSQL support
+ * TODO: Notify user when they log in if their request is closed (needs SQL change)
+ * TODO: Add H2, MySQL, PostgreSQL support (needs SQL change)
  * TODO: Disable claiming closed requests
- * TODO: Add a modtrs update command
- * TODO: /done # text
+ * TODO: /done # text (needs SQL change)
  */
 public class ModTRS extends JavaPlugin {
 
@@ -75,7 +73,7 @@ public class ModTRS extends JavaPlugin {
     /**
      * Updater class
      */
-    private Updater updater;
+    public Updater updater;
 
     public ModTRS() {
 	ModTRSSettings.load( this );
