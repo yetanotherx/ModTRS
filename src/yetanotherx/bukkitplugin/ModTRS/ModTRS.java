@@ -11,6 +11,7 @@ import com.griefcraft.lwc.Updater;
 
 //ModTRS import
 import yetanotherx.bukkitplugin.ModTRS.command.CommandHandler;
+import yetanotherx.bukkitplugin.ModTRS.exception.ShutdownException;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSSQL;
 
 //Java import
@@ -110,33 +111,40 @@ public class ModTRS extends JavaPlugin {
      */
     public void onEnable() {
 
-	ModTRSSettings.load( this );
-
-	log.debug("Checking for updates");
-	System.setProperty("org.sqlite.lib.path", updater.getOSSpecificFolder());
-	updater.loadVersions();
-
 	try {
-	    setupSQLite( this );
+	    ModTRSSettings.load( this );
+
+
+	    log.debug("Checking for updates");
+	    System.setProperty("org.sqlite.lib.path", updater.getOSSpecificFolder());
+	    updater.loadVersions();
+
+	    try {
+		setupSQLite( this );
+	    }
+	    catch( Exception e ) {
+		e.printStackTrace();
+		String log_text = "SQL exception! Disabling plugin (version " + this.getDescription().getVersion() + ")";
+		log.severe(log_text);
+		throw new ShutdownException(log_text);
+	    }
+
+	    ModTRSPermissions.load(this);
+
+	    ModTRSHelp.load(this);
+	    this.listeners = ModTRSListeners.load(this);
+	    this.commandHandler = CommandHandler.load(this);
+
+	    //Print that the plugin has been enabled!
+	    log.info("Plugin enabled! (version " + this.getDescription().getVersion() + ")");
+	    log.debug("Debug mode enabled!");
+
 	}
-	catch( Exception e ) {
-	    e.printStackTrace();
-	    log.severe("SQL exception! Disabling plugin (version " + this.getDescription().getVersion() + ")");
+	catch( ShutdownException e ) {
+	    log.severe("Caught a shutdown command! " + e.getMessage() );
 	    this.getServer().getPluginManager().disablePlugin(this);
 	    return;
 	}
-
-	if( !ModTRSPermissions.load(this) ) {
-	    return;
-	}
-	
-	ModTRSHelp.load(this);
-	this.listeners = ModTRSListeners.load(this);
-	this.commandHandler = CommandHandler.load(this);
-
-	//Print that the plugin has been enabled!
-	log.info("Plugin enabled! (version " + this.getDescription().getVersion() + ")");
-	log.debug("Debug mode enabled!");
     }
 
     /**

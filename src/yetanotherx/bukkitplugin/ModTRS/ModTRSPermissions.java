@@ -26,7 +26,7 @@ public class ModTRSPermissions {
     /**
      * Check if permissions is installed, and initiate it
      */
-    public static boolean load( ModTRS parent ) {
+    public static void load( ModTRS parent ) {
 	ModTRS.log.debug("Loading Permissions handler");
 
 	Plugin perm_plugin = parent.getServer().getPluginManager().getPlugin("Permissions");
@@ -47,9 +47,6 @@ public class ModTRSPermissions {
 		ModTRS.log.info("Neither Permissions or GroupManager found. Using ops.txt for permission handling");
 	    }
 	}
-
-	return true;
-
 
     }
 
