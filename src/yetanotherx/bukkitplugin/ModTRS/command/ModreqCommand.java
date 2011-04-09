@@ -34,7 +34,7 @@ public class ModreqCommand implements CommandExecutor {
 	String joined = ModTRSFunction.implode(split, " ");
 	Player player = (Player) sender;
 
-	if( !ModTRSPermissions.has(player, "modtrs.command.modreq") ) {
+	if( !ModTRSPermissions.has(player, "modtrs.command.modreq", false) ) {
 	    player.sendMessage(ModTRSMessage.noPermission);
 	    return true;
 	}

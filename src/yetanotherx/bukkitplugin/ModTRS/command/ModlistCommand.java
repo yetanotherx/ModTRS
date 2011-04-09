@@ -25,7 +25,7 @@ public class ModlistCommand implements CommandExecutor {
 
 	Player player = (Player) sender;
 	
-	if( !ModTRSPermissions.has(player, "modtrs.command.modlist") ) {
+	if( !ModTRSPermissions.has(player, "modtrs.command.modlist", false) ) {
 	    player.sendMessage(ModTRSMessage.noPermission);
 	    return true;
 	}
