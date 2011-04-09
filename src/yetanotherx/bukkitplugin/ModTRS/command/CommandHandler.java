@@ -18,7 +18,7 @@ public class CommandHandler implements CommandExecutor {
      * All the command executors
      */
     private HashMap<String, CommandExecutor> commands = new HashMap<String, CommandExecutor>();
-    
+
     /**
      * ModTRS plugin
      */

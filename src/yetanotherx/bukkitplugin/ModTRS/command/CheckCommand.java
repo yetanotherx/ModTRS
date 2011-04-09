@@ -30,7 +30,10 @@ import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 
 public class CheckCommand implements CommandExecutor {
 
+    private ModTRS parent;
+
     public CheckCommand(ModTRS parent) {
+	this.parent = parent;
 	ModTRSValidatorHandler.getInstance().registerValidator( "check", new CheckValidator(this, parent) );    
     }
 
@@ -43,6 +46,17 @@ public class CheckCommand implements CommandExecutor {
 	String type = parameters[1];
 
 	Player player = (Player) sender;
+
+	if( parameters[2] != "" ) {
+	    CheckIdCommand checkid = new CheckIdCommand(parent);
+
+	    if( ModTRSValidatorHandler.getInstance().hasValidator("check-id")) {
+		if( !ModTRSValidatorHandler.getInstance().getValidator("check-id").isValid( new String[] { parameters[2].trim() } ) ) {
+		    return false;
+		}
+	    }
+	    return checkid.onCommand(sender, command, commandLabel, new String[] { parameters[2].trim() } );
+	}
 
 	if( !ModTRSPermissions.has(player, "modtrs.command.check") ) {
 	    player.sendMessage(ModTRSMessage.noPermission);
@@ -156,17 +170,25 @@ public class CheckCommand implements CommandExecutor {
     private String[] getParameters(String[] args) {
 	int page = 1;
 	String type = "open";
+	String id = "";
 
 	for( String arg : args ) {
+	    if( arg.length() < 2 ) {
+		arg += " ";
+	    }
+
 	    if( arg.substring(0, 2).equals("p:") ) {
 		page = Integer.parseInt( arg.substring(2) );
 	    }
-	    if( arg.substring(0, 2).equals("t:") ) {
+	    else if( arg.substring(0, 2).equals("t:") ) {
 		type = arg.substring(2);
+	    }
+	    else {
+		id = arg;
 	    }
 	}
 
-	return new String[] { Integer.toString(page), type };
+	return new String[] { Integer.toString(page), type, id };
     }
 
 }

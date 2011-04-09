@@ -54,7 +54,6 @@ import java.sql.Statement;
  * TODO: Disable claiming closed requests
  * TODO: Add a modtrs update command
  * TODO: /done # text
- * TODO: Eliminate /check-id
  */
 public class ModTRS extends JavaPlugin {
 

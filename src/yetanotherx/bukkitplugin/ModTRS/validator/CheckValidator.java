@@ -13,15 +13,23 @@ public class CheckValidator extends ModTRSValidatorBase implements ModTRSValidat
     public boolean isValid(String[] args) {
 	
 	for( String arg : args ) {
-	    if( arg.substring(0, 2).equals("p:") ) {
-		if( !this.isInteger(arg.substring(2)) ) return false; //p:* must be an integer
+	    
+	    String arg2 = arg;
+	    
+	    if( arg.length() < 2 ) {
+		arg2 += " ";
 	    }
-	    else if( arg.substring(0, 2).equals("t:") ) {
+	    
+	    if( arg2.substring(0, 2).equals("p:") ) {
+		if( !this.isInteger(arg2.substring(2)) ) return false; //p:* must be an integer
+	    }
+	    else if( arg2.substring(0, 2).equals("t:") ) {
 		//t:* must be one of these types
-		if( !this.inArray(arg.substring(2), new String[] { "open", "closed", "held", "all"} ) ) return false;
+		if( !this.inArray(arg2.substring(2), new String[] { "open", "closed", "held", "all"} ) ) return false;
 	    }
 	    else {
-		return false;
+		if( !this.isInteger(arg) ) return false; //Integers only
+		if( this.isAtLeastArgs(args, 2) ) return false; //Only allow 1 arg if one of the args does not start with p: or t:
 	    }
 	}
 	
