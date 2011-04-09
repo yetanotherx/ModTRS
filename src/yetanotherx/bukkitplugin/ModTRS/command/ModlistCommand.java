@@ -39,6 +39,11 @@ public class ModlistCommand implements CommandExecutor {
 	    }
 	}
 	
+	if( mods.length() == 0 ) {
+	    player.sendMessage( ModTRSMessage.noModerators );
+	    return true;
+	}
+	
 	mods = mods.substring(0, mods.length() - 2);
 	String[] modlist = {mods};
 	

@@ -40,6 +40,7 @@ public class ModTRSMessage {
      * /modlist and /mod-broadcast
      */
     public static String modlist = ChatColor.AQUA + "Moderators: " + ChatColor.YELLOW + "{0}";
+    public static String noModerators = ChatColor.AQUA + "There are no moderators online right now.";
     public static String modbroadcast = ChatColor.WHITE + "[" + ChatColor.RED + "Mod-Only Broadcast" + ChatColor.WHITE + "] " + ChatColor.GREEN + "{0}";
     
     /**
