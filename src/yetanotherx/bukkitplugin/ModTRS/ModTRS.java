@@ -77,7 +77,7 @@ public class ModTRS extends JavaPlugin {
     public Updater updater;
 
     public ModTRS() {
-	ModTRSSettings.load( this );
+	ModTRSSettings.load();
 	updater = new Updater(this);
     }
 
@@ -114,7 +114,7 @@ public class ModTRS extends JavaPlugin {
     public void onEnable() {
 
 	try {
-	    ModTRSSettings.load( this );
+	    ModTRSSettings.load();
 
 
 	    log.debug("Checking for updates");

@@ -44,7 +44,7 @@ public class ModTRSMessage {
     public static String modbroadcast = ChatColor.WHITE + "[" + ChatColor.RED + "Mod-Only Broadcast" + ChatColor.WHITE + "] " + ChatColor.GREEN + "{0}";
     
     /**
-     * /claim, /unclaim, /done, /hold
+     * /claim, /unclaim, /done, /hold, /reopen
      */
     public static String claimed = ChatColor.GOLD + "Request #{0} has been assigned to you.";
     public static String unclaimed = ChatColor.GOLD + "Request #{0} is no longer assigned to you.";

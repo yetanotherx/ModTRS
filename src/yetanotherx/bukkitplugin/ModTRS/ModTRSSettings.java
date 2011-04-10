@@ -33,7 +33,7 @@ public class ModTRSSettings {
     /**
      * Load and parse the YAML config file
      */
-    public static void load( ModTRS parent ) {
+    public static void load() {
 
 	File dataDirectory = new File("plugins" + File.separator + "ModTRS" + File.separator);
 
