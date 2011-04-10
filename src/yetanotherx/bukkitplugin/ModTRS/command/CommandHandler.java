@@ -51,6 +51,7 @@ public class CommandHandler implements CommandExecutor {
 	handler.registerCommand( "unclaim", new UnclaimCommand(parent));
 	handler.registerCommand( "done", new CompleteCommand(parent));
 	handler.registerCommand( "complete", new CompleteCommand(parent));
+        handler.registerCommand( "reopen", new ReopenCommand(parent));
 	handler.registerCommand( "hold", new HoldCommand(parent));
 	handler.registerCommand( "mod-broadcast", new BroadcastCommand(parent));
 	handler.registerCommand( "modlist", new ModlistCommand(parent));

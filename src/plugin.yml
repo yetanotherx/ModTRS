@@ -23,6 +23,9 @@ commands:
     complete:
         description: Mark a request as complete
         usage: /<command> [id]
+    reopen:
+        description: Reopen a request
+        usage: /<command> [id]
     hold:
         description: Put request on hold
         usage: /<command> [id]

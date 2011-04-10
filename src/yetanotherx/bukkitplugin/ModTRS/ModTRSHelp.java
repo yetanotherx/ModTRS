@@ -31,6 +31,7 @@ public class ModTRSHelp {
 	helpCommands.add( new String[] {"claim [#]", "Claim the request", "modtrs.command.complete"} );
 	helpCommands.add( new String[] {"unclaim [#]", "Unclaim the request", "modtrs.command.complete"} );
 	helpCommands.add( new String[] {"done [#]", "Mark the request as completed", "modtrs.command.complete"} );
+	helpCommands.add( new String[] {"reopen [#]", "Reopen a closed or held request", "modtrs.command.complete"} );
 	helpCommands.add( new String[] {"hold [#]", "Put the request on hold", "modtrs.command.complete"} );
 	helpCommands.add( new String[] {"mod-broadcast [message]", "Send a message to all moderators", "modtrs.command.broadcast"} );
 	helpCommands.add( new String[] {"modlist", "List all moderators", "modtrs.command.modlist", "anyone"} );

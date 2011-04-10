@@ -51,6 +51,7 @@ import java.sql.Statement;
  * TODO: Notify user when they log in if their request is closed (needs SQL change)
  * TODO: Add H2, MySQL, PostgreSQL support (needs SQL change)
  * TODO: Disable claiming closed requests
+ * TODO: /claim enabled god mode
  * TODO: /done # text (needs SQL change)
  */
 public class ModTRS extends JavaPlugin {
@@ -77,13 +78,13 @@ public class ModTRS extends JavaPlugin {
 
     public ModTRS() {
 	ModTRSSettings.load( this );
-
 	updater = new Updater(this);
     }
 
     /**
      * Outputs a message when disabled
      */
+    @Override
     public void onDisable() {
 	log.info("Plugin disabled. (version " + this.getDescription().getVersion() + ")");
 
@@ -93,7 +94,6 @@ public class ModTRS extends JavaPlugin {
 		ModTRSSettings.sqlite.close();
 	    }
 	} catch (SQLException e) {
-	    e.printStackTrace();
 	}
 
     }
@@ -110,6 +110,7 @@ public class ModTRS extends JavaPlugin {
      * Step 7: Register commands
      * 
      */
+    @Override
     public void onEnable() {
 
 	try {
@@ -124,7 +125,6 @@ public class ModTRS extends JavaPlugin {
 		setupSQLite( this );
 	    }
 	    catch( Exception e ) {
-		e.printStackTrace();
 		String log_text = "SQL exception! Disabling plugin (version " + this.getDescription().getVersion() + ")";
 		log.severe(log_text);
 		throw new ShutdownException(log_text);
@@ -151,6 +151,7 @@ public class ModTRS extends JavaPlugin {
     /**
      * Calls the command handler, which performs some magic to perform the command
      */
+    @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 
 	return this.commandHandler.onCommand(sender, command, commandLabel, args);

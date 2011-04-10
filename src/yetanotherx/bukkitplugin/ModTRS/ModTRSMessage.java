@@ -54,7 +54,8 @@ public class ModTRSMessage {
     public static String claimedOtherMods = ChatColor.GOLD + "Request #{0} has been assigned to {1}.";
     public static String unclaimedOtherMods = ChatColor.GOLD + "Request #{0} is no longer assigned.";
     public static String closedUser = ChatColor.GOLD + "A mod has completed your request.";
-    
+    public static String reopened = ChatColor.GOLD + "Request #{0} has been reopened.";
+
     /**
      * Generic messages
      */

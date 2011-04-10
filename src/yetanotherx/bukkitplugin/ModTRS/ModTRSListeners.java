@@ -32,8 +32,9 @@ public class ModTRSListeners {
 	ModTRSListeners listener = new ModTRSListeners(parent);
 	
 	listener.registerListener( "player", new ModTRSPlayerListener(parent) );
-	
+
 	listener.registerEvent( Event.Type.PLAYER_JOIN, "player", Event.Priority.Monitor );
+
 	return listener;
     }
     
