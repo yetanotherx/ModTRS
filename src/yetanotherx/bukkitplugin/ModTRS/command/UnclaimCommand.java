@@ -65,7 +65,7 @@ public class UnclaimCommand implements CommandExecutor {
 		request.setStatus(0);
 		request.update();
 
-		ModTRSFunction.messageMods( ModTRSMessage.parse( ModTRSMessage.unclaimedOtherMods, new Object[] {} ), player.getServer() );
+		ModTRSFunction.messageMods( ModTRSMessage.parse( ModTRSMessage.unclaimedOtherMods, new Object[] { request.getId() } ), player.getServer() );
 		
 	    }
 	    else {
