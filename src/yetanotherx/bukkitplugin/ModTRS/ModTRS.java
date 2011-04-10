@@ -53,6 +53,7 @@ import java.sql.Statement;
  * TODO: Disable claiming closed requests
  * TODO: /claim enabled god mode
  * TODO: /done # text (needs SQL change)
+ * TODO: Ability to disable users having more than 1 open mod request
  */
 public class ModTRS extends JavaPlugin {
 
