@@ -18,13 +18,11 @@ public class ModTRSSettings {
     public static boolean autoupdate = true;
     public static HashMap<String, String> databases = new HashMap<String, String>();
     public static List<String> blacklist = new ArrayList<String>();
-    public static String databaseFile = "plugins" + File.separator + "ModTRS" + File.separator + "modtrs.db";
-
+    public static HashMap<String, String> database = new HashMap<String, String>();
     /**
      * Bukkit config class
      */
     public static Configuration config = null;
-    
     /**
      * SQLite configuration
      */
@@ -35,31 +33,31 @@ public class ModTRSSettings {
      */
     public static void load() {
 
-	File dataDirectory = new File("plugins" + File.separator + "ModTRS" + File.separator);
+        File dataDirectory = new File("plugins" + File.separator + "ModTRS" + File.separator);
 
-	dataDirectory.mkdirs();
+        dataDirectory.mkdirs();
 
-	File file = new File("plugins" + File.separator + "ModTRS", "config.yml");
+        File file = new File("plugins" + File.separator + "ModTRS", "config.yml");
 
-	ModTRS.log.debug("Loading config file: " + file.getPath() );
+        ModTRS.log.debug("Loading config file: " + file.getPath());
 
-	config  = new Configuration(file);
-	config.load();
+        config = new Configuration(file);
+        config.load();
 
-	if( !file.exists() ) {
-	    ModTRS.log.debug("Config file not found, saving bare-bones file");
-	    config.setProperty("modtrs.debug", debugMode );
-	    config.setProperty("modtrs.database_file", databaseFile );
-	    config.setProperty("modtrs.notify_mods", notifyMods );
-	    config.setProperty("modtrs.autoupdate", autoupdate );
-	    config.setProperty("modtrs.databases", databases );
-	    config.setProperty("modtrs.blacklist", blacklist );
-	    config.save();
-	}
+        if (!file.exists()) {
+            ModTRS.log.debug("Config file not found, saving bare-bones file");
+            config.setProperty("modtrs.debug", debugMode);
+            config.setProperty("modtrs.database", getDefaultDatabase());
+            config.setProperty("modtrs.notify_mods", notifyMods);
+            config.setProperty("modtrs.autoupdate", autoupdate);
+            config.setProperty("modtrs.databases", databases);
+            config.setProperty("modtrs.blacklist", blacklist);
+            config.save();
+        }
 
-	setSettings();
+        setSettings();
 
-	ModTRS.log.debug("Settings loaded");
+        ModTRS.log.debug("Settings loaded");
 
 
     }
@@ -69,22 +67,44 @@ public class ModTRSSettings {
      */
     private static void setSettings() {
 
-	debugMode = config.getBoolean("modtrs.debug", false );
-	databaseFile = config.getString("modtrs.database_file", "plugins" + File.separator + "ModTRS" + File.separator + "modtrs.db");
-	notifyMods = config.getBoolean("modtrs.notify_mods", true );
-	autoupdate = config.getBoolean("modtrs.autoupdate", true );
+        debugMode = config.getBoolean("modtrs.debug", false);
+        notifyMods = config.getBoolean("modtrs.notify_mods", true);
+        autoupdate = config.getBoolean("modtrs.autoupdate", true);
 
-	List<String> keys = config.getKeys("modtrs.databases");
+        List<String> keys = config.getKeys("modtrs.databases");
 
-	if( keys != null ) {
-	    for( String key : keys ) {
-		databases.put(key, config.getString("modtrs.databases." + key) );
-	    }
+        if (keys != null) {
+            for (String key : keys) {
+                databases.put(key, config.getString("modtrs.databases." + key));
+            }
 
-	}
+        }
 
-	blacklist = config.getStringList("modtrs.blacklist", new ArrayList<String>());
+        List<String> dbKeys = config.getKeys("modtrs.database");
+
+        if (dbKeys != null) {
+            for (String key : dbKeys) {
+                database.put(key, config.getString("modtrs.database." + key));
+            }
+
+        }
+
+        blacklist = config.getStringList("modtrs.blacklist", new ArrayList<String>());
 
     }
 
+    private static HashMap<String, String> getDefaultDatabase() {
+
+        HashMap<String, String> newDb = new HashMap<String, String>();
+
+        newDb.put("type", "sqlite");
+        newDb.put("user", "");
+        newDb.put("port", "");
+        newDb.put("pass", "");
+        newDb.put("database", "plugins" + File.separator + "ModTRS" + File.separator + "modtrs.db");
+        newDb.put("server", "");
+
+        return newDb;
+
+    }
 }

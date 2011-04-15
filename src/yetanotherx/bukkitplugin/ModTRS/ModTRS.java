@@ -122,14 +122,20 @@ public class ModTRS extends JavaPlugin {
 	    System.setProperty("org.sqlite.lib.path", updater.getOSSpecificFolder());
 	    updater.loadVersions();
 
+            ModTRSUpdate.load(this);
+
 	    try {
 		setupSQLite( this );
 	    }
+            catch( ShutdownException e ) {
+                throw e;
+            }
 	    catch( Exception e ) {
 		String log_text = "SQL exception! Disabling plugin (version " + this.getDescription().getVersion() + ")";
 		log.severe(log_text);
+                e.printStackTrace();
 		throw new ShutdownException(log_text);
-	    }
+            }
 
 	    ModTRSPermissions.load(this);
 
@@ -144,6 +150,7 @@ public class ModTRS extends JavaPlugin {
 	}
 	catch( ShutdownException e ) {
 	    log.severe("Caught a shutdown command! " + e.getMessage() );
+            e.printStackTrace();
 	    this.getServer().getPluginManager().disablePlugin(this);
 	    return;
 	}
@@ -166,9 +173,13 @@ public class ModTRS extends JavaPlugin {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    public static void setupSQLite( ModTRS parent ) throws SQLException, MalformedURLException, InstantiationException, IllegalAccessException {
+    public static void setupSQLite( ModTRS parent ) throws SQLException, MalformedURLException, InstantiationException, IllegalAccessException, ShutdownException {
 
-	String databaseUrl = "jdbc:sqlite:" + ModTRSSettings.databaseFile;
+        if( !ModTRSSettings.database.get("type").equals("sqlite") ) {
+            throw new ShutdownException("Only SQLite has been implemented");
+        }
+        
+	String databaseUrl = "jdbc:sqlite:" + ModTRSSettings.database.get("database");
 
 	ModTRS.log.debug("Loading SQLite: " + databaseUrl );
 
