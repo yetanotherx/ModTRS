@@ -49,7 +49,7 @@ import java.sql.Statement;
 /**
  * TODO: Unit tests
  * TODO: Notify user when they log in if their request is closed (needs SQL change)
- * TODO: Add H2, MySQL, PostgreSQL support (needs SQL change)
+ * TODO: Add H2, MySQL, PostgreSQL (maybe) support (needs SQL change)
  * TODO: Disable claiming closed requests
  * TODO: /claim enabled god mode
  * TODO: /done # text (needs SQL change)
