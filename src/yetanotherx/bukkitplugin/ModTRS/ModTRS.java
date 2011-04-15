@@ -26,7 +26,7 @@ import java.sql.Statement;
 
 
 /*
- * ModTRS Version 1.0 - Moderator Request Ticket System
+ * ModTRS Version 1.1 - Moderator Request Ticket System
  * Copyright (C) 2011 Yetanotherx <yetanotherx -a--t- gmail -dot- com>
  *
  * This program is free software: you can redistribute it and/or modify
