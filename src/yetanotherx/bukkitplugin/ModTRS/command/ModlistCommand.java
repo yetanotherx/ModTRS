@@ -26,7 +26,7 @@ public class ModlistCommand implements CommandExecutor {
 	Player player = (Player) sender;
 	
 	if( !ModTRSPermissions.has(player, "modtrs.command.modlist", false) ) {
-	    player.sendMessage(ModTRSMessage.noPermission);
+	    ModTRSMessage.general.sendPermissionError(player);
 	    return true;
 	}
 	
@@ -40,15 +40,13 @@ public class ModlistCommand implements CommandExecutor {
 	}
 	
 	if( mods.length() == 0 ) {
-	    player.sendMessage( ModTRSMessage.noModerators );
+            ModTRSMessage.modlist.sendNoMods(player);
 	    return true;
 	}
 	
 	mods = mods.substring(0, mods.length() - 2);
-	String[] modlist = {mods};
 	
-	player.sendMessage( ModTRSMessage.parse( ModTRSMessage.modlist, modlist) );
-	
+	ModTRSMessage.modlist.sendModList(player, mods);
 	return true;
 
     }

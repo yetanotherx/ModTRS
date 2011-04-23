@@ -1,5 +1,6 @@
 package yetanotherx.bukkitplugin.ModTRS;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -10,21 +11,21 @@ public class ModTRSLogger {
     public static final Logger logger = Logger.getLogger("Minecraft");
     
     public void info( String s ) {
-	logger.info("[ModTRS] " + s);
+	logger.log(Level.INFO, "[ModTRS] {0}", s);
     }
     
     public void debug( String s ) {
 	if( ModTRSSettings.debugMode ) {
-	    logger.info("[ModTRS DEBUG] " + s);
+	    logger.log(Level.INFO, "[ModTRS DEBUG] {0}", s);
 	}
     }
     
     public void severe( String s ) {
-	logger.severe("[ModTRS] " + s);
+	logger.log(Level.SEVERE, "[ModTRS] {0}", s);
     }
     
     public void warning( String s ) {
-	logger.warning("[ModTRS] " + s);
+	logger.log(Level.WARNING, "[ModTRS] {0}", s);
     }
     
 }

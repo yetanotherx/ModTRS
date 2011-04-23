@@ -21,8 +21,7 @@ import yetanotherx.bukkitplugin.ModTRS.validator.ModreqValidator;
 public class ModreqCommand implements CommandExecutor {
 
     public ModreqCommand(ModTRS parent) {
-	ModTRSValidatorHandler.getInstance().registerValidator( "modreq", new ModreqValidator(this, parent) );
-	    
+	ModTRSValidatorHandler.getInstance().registerValidator( "modreq", new ModreqValidator(this, parent) );    
     }
 
 
@@ -35,7 +34,7 @@ public class ModreqCommand implements CommandExecutor {
 	Player player = (Player) sender;
 
 	if( !ModTRSPermissions.has(player, "modtrs.command.modreq", false) ) {
-	    player.sendMessage(ModTRSMessage.noPermission);
+	    ModTRSMessage.general.sendPermissionError(player);
 	    return true;
 	}
 
@@ -43,7 +42,7 @@ public class ModreqCommand implements CommandExecutor {
 	    
 	    for( String blacklist : ModTRSSettings.blacklist ) {
 		if( joined.indexOf(blacklist) != -1 ) {
-		    player.sendMessage( ModTRSMessage.blocked );
+                    ModTRSMessage.modreq.sendBlacklisted(player);
 		    return true;
 		}
 	    }
@@ -67,16 +66,16 @@ public class ModreqCommand implements CommandExecutor {
 	    request.setY(player.getLocation().getBlockY());
 	    request.setZ(player.getLocation().getBlockZ());
 	    request.insert();
-	    player.sendMessage( ModTRSMessage.messageSent );
+            ModTRSMessage.modreq.sendMessageSentUser(player);
 
 	    if( ModTRSSettings.notifyMods ) {
-		ModTRSFunction.messageMods( ModTRSMessage.newRequests, player.getServer() );
+		ModTRSFunction.messageMods( ModTRSMessage.modreq.getMessageSentMod(), player.getServer() );
 	    }
 
 	}
 	catch( SQLException e ) {
 	    e.printStackTrace();
-	    player.sendMessage( ModTRSMessage.messageNotSent );
+	    ModTRSMessage.general.sendInternalError(player);
 	}
 
 	return true;

@@ -221,7 +221,7 @@ public class Updater {
      * Ensure we have all of the required files (if not, download them)
      */
     public void update() throws Exception {
-	if (needsUpdating.size() == 0) {
+	if (needsUpdating.isEmpty()) {
 	    return;
 	}
 

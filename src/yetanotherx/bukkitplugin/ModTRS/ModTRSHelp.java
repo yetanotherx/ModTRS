@@ -46,14 +46,15 @@ public class ModTRSHelp {
 	ArrayList<String> messages = new ArrayList<String>();
 
 	for( String[] command : helpCommands ) {
+            //The fourth field is added to ones that non-ops can use when using ops.txt
 	    if( command.length > 3 ) {
 		if( ModTRSPermissions.has(player, command[2], false ) ) {
-		    messages.add( ModTRSMessage.parse( ModTRSMessage.helpCommand, command ) );
+                    messages.add( ModTRSMessage.modreq.getHelpCommand(command[0], command[1]) );
 		}
 	    }
 	    else {
 		if( ModTRSPermissions.has(player, command[2] ) ) {
-		    messages.add( ModTRSMessage.parse( ModTRSMessage.helpCommand, command ) );
+		    messages.add( ModTRSMessage.modreq.getHelpCommand(command[0], command[1]) );
 		}
 	    }
 	}

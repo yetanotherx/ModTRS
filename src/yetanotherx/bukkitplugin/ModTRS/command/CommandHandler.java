@@ -105,7 +105,7 @@ public class CommandHandler implements CommandExecutor {
                         return commands.get("modreq").onCommand(sender, command, commandLabel, args);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        player.sendMessage(ModTRSMessage.messageNotSent);
+                        ModTRSMessage.modreq.sendError(player);
                         return true;
                     }
 
@@ -129,7 +129,7 @@ public class CommandHandler implements CommandExecutor {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    player.sendMessage(ModTRSMessage.internalError);
+                    ModTRSMessage.general.sendInternalError(player);
                     return true;
                 }
             }

@@ -31,7 +31,7 @@ public class ReopenCommand implements CommandExecutor {
         Player player = (Player) sender;
 
         if (!ModTRSPermissions.has(player, "modtrs.command.complete")) {
-            player.sendMessage(ModTRSMessage.noPermission);
+            ModTRSMessage.general.sendPermissionError(player);
             return true;
         }
 
@@ -50,20 +50,24 @@ public class ReopenCommand implements CommandExecutor {
                     user = ModTRSUserTable.getUserFromName(player.getName());
                 }
 
+                if( !request.getStatusText(false).equals("Closed") || !request.getStatusText(false).equals("On Hold") ) {
+                    //TODO: Deny
+                }
+
                 request.setModId(0);
                 request.setModTimestamp(0);
                 request.setStatus(0);
                 request.update();
 
-                ModTRSFunction.messageMods(ModTRSMessage.parse(ModTRSMessage.reopened, new Object[]{request.getId(), user.getName()}), player.getServer());
+                ModTRSFunction.messageMods( ModTRSMessage.reopen.getReopened(request.getId()), player.getServer() );
 
             } else {
-                player.sendMessage(ModTRSMessage.noSuchRequest);
+                ModTRSMessage.general.sendNoSuchRequest(player, Integer.parseInt(args[0]));
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            player.sendMessage(ModTRSMessage.internalError);
+            ModTRSMessage.general.sendInternalError(player);
         }
 
         return true;

@@ -35,8 +35,8 @@ public class ModTRSPlayerListener extends PlayerListener{
 	    try {
 		ArrayList<ModTRSRequest> requests = ModTRSRequestTable.getOpenRequests("open");
 
-		if( requests.size() != 0 ) {
-		    player.sendMessage( ModTRSMessage.openRequests );
+		if( !requests.isEmpty() ) {
+		    ModTRSMessage.general.sendOpenRequests(player, requests.size());
 		}
 
 	    }

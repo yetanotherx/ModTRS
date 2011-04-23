@@ -26,7 +26,7 @@ import java.sql.Statement;
 
 
 /*
- * ModTRS Version 1.1 - Moderator Request Ticket System
+ * ModTRS Version 1.2 - Moderator Request Ticket System
  * Copyright (C) 2011 Yetanotherx <yetanotherx -a--t- gmail -dot- com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -46,15 +46,6 @@ import java.sql.Statement;
  * otherwise specified.
  */
 
-/**
- * TODO: Unit tests
- * TODO: Notify user when they log in if their request is closed (needs SQL change)
- * TODO: Add H2, MySQL, PostgreSQL (maybe) support (needs SQL change)
- * TODO: Disable claiming closed requests
- * TODO: /claim enabled god mode
- * TODO: /done # text (needs SQL change)
- * TODO: Ability to disable users having more than 1 open mod request
- */
 public class ModTRS extends JavaPlugin {
 
     /**

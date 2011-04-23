@@ -33,17 +33,24 @@ public class ModTRSPermissions {
 	Plugin gm_plugin = parent.getServer().getPluginManager().getPlugin("GroupManager");
 
 	if( Permissions == null && GroupManager == null ) {
-	    if( gm_plugin != null ) {
+
+            if( gm_plugin != null ) {
 		GroupManager = ((GroupManager) gm_plugin);
 		handlerType = HandlerType.GROUPMANAGER;
+
 		ModTRS.log.info("Using GroupManager version " + gm_plugin.getDescription().getVersion() + " for permission handling");
-	    } 
+	    }
+
 	    else if( perm_plugin != null ) {
 		Permissions = ((Permissions) perm_plugin).getHandler();
 		handlerType = HandlerType.PERMISSIONS;
+
 		ModTRS.log.info("Using Permissions version " + perm_plugin.getDescription().getVersion() + " for permission handling");
-	    } else {
+	    }
+
+            else {
 		handlerType = HandlerType.VANILLA;
+                
 		ModTRS.log.info("Neither Permissions or GroupManager found. Using ops.txt for permission handling");
 	    }
 	}

@@ -33,7 +33,7 @@ public class ClaimCommand implements CommandExecutor {
 	Player player = (Player) sender;
 	
 	if( !ModTRSPermissions.has(player, "modtrs.command.complete") ) {
-	    player.sendMessage(ModTRSMessage.noPermission);
+	    ModTRSMessage.general.sendPermissionError(player);
 	    return true;
 	}
 
@@ -52,22 +52,29 @@ public class ClaimCommand implements CommandExecutor {
 		    user = ModTRSUserTable.getUserFromName(player.getName());
 		}
 
+                if( request.getModId() != 0 ) {
+                    //TODO: Deny
+                }
+                if( !request.getStatusText(false).equals("Open") ) {
+                    //TODO: Deny
+                }
+
 		request.setModId(user.getId());
 		request.setModTimestamp(System.currentTimeMillis());
 		request.setStatus(1);
 		request.update();
 		
-		ModTRSFunction.messageMods( ModTRSMessage.parse( ModTRSMessage.claimedOtherMods, new Object[] { request.getId(), user.getName() } ), player.getServer() );
+		ModTRSFunction.messageMods( ModTRSMessage.claim.getClaimedMods(user.getName(), request.getId() ), player.getServer() );
 
 	    }
 	    else {
-		player.sendMessage( ModTRSMessage.noSuchRequest );
+		ModTRSMessage.general.sendNoSuchRequest(player, Integer.parseInt( args[0] ) );
 	    }
 
 	}
 	catch( SQLException e ) {
 	    e.printStackTrace();
-	    player.sendMessage( ModTRSMessage.internalError );
+	    ModTRSMessage.general.sendInternalError(player);
 	}
 
 	return true;

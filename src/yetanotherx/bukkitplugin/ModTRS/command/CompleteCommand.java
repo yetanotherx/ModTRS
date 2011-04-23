@@ -23,7 +23,6 @@ public class CompleteCommand implements CommandExecutor {
     public CompleteCommand(ModTRS parent) {
 	ModTRSValidatorHandler.getInstance().registerValidator( "complete", new CompleteValidator(this, parent) );
 	ModTRSValidatorHandler.getInstance().registerValidator( "done", new CompleteValidator(this, parent) );
-	
     }
 
 
@@ -34,7 +33,7 @@ public class CompleteCommand implements CommandExecutor {
 	Player player = (Player) sender;
 	
 	if( !ModTRSPermissions.has(player, "modtrs.command.complete") ) {
-	    player.sendMessage(ModTRSMessage.noPermission);
+	    ModTRSMessage.general.sendPermissionError(player);
 	    return true;
 	}
 
@@ -53,30 +52,33 @@ public class CompleteCommand implements CommandExecutor {
 		    user = ModTRSUserTable.getUserFromName(player.getName());
 		}
 
+                if( request.getStatusText(false).equals("Closed") ) {
+                    //TODO: Deny
+                }
+
 		request.setModId(user.getId());
 		request.setModTimestamp(System.currentTimeMillis());
 		request.setStatus(3);
 		request.update();
-		
-		ModTRSFunction.messageMods( ModTRSMessage.parse( ModTRSMessage.closedMod, new Object[] { request.getId() } ), player.getServer() );
-		
+
+                ModTRSFunction.messageMods( ModTRSMessage.closed.getClosedMod( request.getId() ), player.getServer() );
+
 		ModTRSUser user_player = ModTRSUserTable.getUserFromId(request.getUserId());
-		
-		for( Player cur_user : player.getServer().getOnlinePlayers() ) {
-		    if( cur_user.getName().equals( user_player.getName() ) ) {
-			cur_user.sendMessage( ModTRSMessage.parse( ModTRSMessage.closedUser, new Object[] { request.getId() } ) );
-		    }
+
+                Player target = player.getServer().getPlayer( user_player.getName() );
+		if( target != null ) {
+                    ModTRSMessage.closed.sendClosedUser(target, player.getName() );
 		}
 		
 	    }
 	    else {
-		player.sendMessage( ModTRSMessage.noSuchRequest );
+		ModTRSMessage.general.sendNoSuchRequest(player, Integer.parseInt( args[0] ) );
 	    }
 
 	}
 	catch( SQLException e ) {
 	    e.printStackTrace();
-	    player.sendMessage( ModTRSMessage.internalError );
+	    ModTRSMessage.general.sendInternalError(player);
 	}
 
 	return true;

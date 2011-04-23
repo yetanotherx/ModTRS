@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package yetanotherx.bukkitplugin.ModTRS.update;
 
 import java.io.File;
@@ -21,7 +16,7 @@ public class Update1_1 extends ModTRSUpdateBase implements IModTRSUpdate {
     @Override
     public void update() {
 
-        if( ModTRSSettings.config.getString("modtrs.database_file") != null || true ) {
+        if( ModTRSSettings.config.getString("modtrs.database_file") != null || ModTRSSettings.config.getString("modtrs.database") == null ) {
 
             ModTRS.log.debug("Updating config file to v1.1");
 

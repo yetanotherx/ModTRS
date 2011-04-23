@@ -33,7 +33,7 @@ public class CheckIdCommand implements CommandExecutor {
 	Player player = (Player) sender;
 
 	if( !ModTRSPermissions.has(player, "modtrs.command.check") ) {
-	    player.sendMessage(ModTRSMessage.noPermission);
+	    ModTRSMessage.general.sendPermissionError(player);
 	}
 	else {
 
@@ -53,32 +53,24 @@ public class CheckIdCommand implements CommandExecutor {
 		    ModTRSUser filedUser = ModTRSUserTable.getUserFromId(request.getUserId());
 		    ModTRSUser modUser = ModTRSUserTable.getUserFromId(request.getModId());
 
-		    Object[] parameters = { 
-			    request.getId(), request.getStatusText(true),
-			    filedUser.getName(), sdf.format(calendar.getTime()),
-			    request.getX(), request.getY(), request.getZ(),
-			    request.getText() };
-
-
-		    player.sendMessage( ModTRSMessage.parse( ModTRSMessage.infoForRequest, parameters ) );
-		    player.sendMessage( ModTRSMessage.parse( ModTRSMessage.filedBy, parameters ) );
+                    ModTRSMessage.checkid.sendCheckIdHeader(player, request.getId(), request.getStatusText(true) );
+		    ModTRSMessage.checkid.sendFiledBy(player, filedUser.getName(), sdf.format(calendar.getTime()), request.getX(), request.getY(), request.getZ());
 
 		    if( request.getModId() != 0 ) {
-			Object[] modParameters = { modUser.getName(), sdf.format(calendarMod.getTime()) };
-			player.sendMessage( ModTRSMessage.parse( ModTRSMessage.handledBy, modParameters ) );
+			ModTRSMessage.checkid.sendHandledBy(player, modUser.getName(), sdf.format(calendarMod.getTime()));
 		    }
 
-		    player.sendMessage( ModTRSMessage.parse( ModTRSMessage.requestText, parameters ) );
+                    ModTRSMessage.checkid.sendText(null, request.getText());
 
 		}
 		else {
-		    player.sendMessage( ModTRSMessage.noSuchRequest );
+		    ModTRSMessage.general.sendNoSuchRequest(player, Integer.parseInt( args[0] ) );
 		}
 
 	    }
 	    catch( SQLException e ) {
 		e.printStackTrace();
-		player.sendMessage( ModTRSMessage.internalError );
+		ModTRSMessage.general.sendInternalError(player);
 	    }
 
 	}
