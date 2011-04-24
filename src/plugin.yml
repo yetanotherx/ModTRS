@@ -11,6 +11,9 @@ commands:
     check-id:
         description: Read a request
         usage: /<command> [id]
+    tp-id:
+        description: Teleport to the location of a request
+        usage: /<command> [id]
     claim:
         description: Claim a request
         usage: /<command> [id]

@@ -29,6 +29,7 @@ public class ModTRSHelp {
 	helpCommands.add( new String[] {"modreq [message]", "Request help from a moderator", "modtrs.command.modreq", "anyone"} );
 	helpCommands.add( new String[] {"check [t:open|all|held]", "List all open requests", "modtrs.command.check"} );
 	helpCommands.add( new String[] {"check-id [#]", "Get info about a request", "modtrs.command.check"} );
+	helpCommands.add( new String[] {"tp-id [#]", "Teleport to the location of a request", "modtrs.command.teleport"} );
 	helpCommands.add( new String[] {"claim [#]", "Claim the request", "modtrs.command.complete"} );
 	helpCommands.add( new String[] {"unclaim [#]", "Unclaim the request", "modtrs.command.complete"} );
 	helpCommands.add( new String[] {"done [#]", "Mark the request as completed", "modtrs.command.complete"} );

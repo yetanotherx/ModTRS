@@ -45,6 +45,7 @@ public class CommandHandler implements CommandExecutor {
         handler.registerCommand("modreq", new ModreqCommand(parent));
         handler.registerCommand("check", new CheckCommand(parent));
         handler.registerCommand("check-id", new CheckIdCommand(parent));
+        handler.registerCommand("tp-id", new TeleportCommand(parent));
         handler.registerCommand("claim", new ClaimCommand(parent));
         handler.registerCommand("unclaim", new UnclaimCommand(parent));
         handler.registerCommand("done", new CompleteCommand(parent));
