@@ -20,7 +20,10 @@ import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 
 public class ClaimCommand implements CommandExecutor {
 
+    private ModTRS parent;
+
     public ClaimCommand(ModTRS parent) {
+        this.parent = parent;
 	ModTRSValidatorHandler.getInstance().registerValidator( "claim", new CompleteValidator(this, parent) );
 	
     }
@@ -38,18 +41,18 @@ public class ClaimCommand implements CommandExecutor {
 	}
 
 	try {
-	    ModTRSRequest request = ModTRSRequestTable.getRequestFromId( Integer.parseInt( args[0] ) );
+	    ModTRSRequest request = ModTRSRequestTable.getRequestFromId( parent, Integer.parseInt( args[0] ) );
 
 
 	    if( request != null ) {
 
-		ModTRSUser user = ModTRSUserTable.getUserFromName(player.getName());
+		ModTRSUser user = ModTRSUserTable.getUserFromName(parent, player.getName());
 
 		if( user == null ) {
 		    user = new ModTRSUser();
 		    user.setName(player.getName());
-		    user.insert();
-		    user = ModTRSUserTable.getUserFromName(player.getName());
+		    user.insert( parent );
+		    user = ModTRSUserTable.getUserFromName(parent, player.getName());
 		}
 
                 if( request.getModId() != 0 ) {
@@ -62,7 +65,7 @@ public class ClaimCommand implements CommandExecutor {
 		request.setModId(user.getId());
 		request.setModTimestamp(System.currentTimeMillis());
 		request.setStatus(1);
-		request.update();
+		request.update( parent );
 		
 		ModTRSFunction.messageMods( ModTRSMessage.claim.getClaimedMods(user.getName(), request.getId() ), player.getServer() );
 

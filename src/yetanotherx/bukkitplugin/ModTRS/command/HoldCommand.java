@@ -19,8 +19,10 @@ import yetanotherx.bukkitplugin.ModTRS.validator.CompleteValidator;
 import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 
 public class HoldCommand implements CommandExecutor {
+    private ModTRS parent;
 
     public HoldCommand(ModTRS parent) {
+        this.parent = parent;
 	ModTRSValidatorHandler.getInstance().registerValidator( "hold", new CompleteValidator(this, parent) );
 	
     }
@@ -38,18 +40,18 @@ public class HoldCommand implements CommandExecutor {
 	}
 	
 	try {
-	    ModTRSRequest request = ModTRSRequestTable.getRequestFromId( Integer.parseInt( args[0] ) );
+	    ModTRSRequest request = ModTRSRequestTable.getRequestFromId( parent, Integer.parseInt( args[0] ) );
 
 
 	    if( request != null ) {
 
-		ModTRSUser user = ModTRSUserTable.getUserFromName(player.getName());
+		ModTRSUser user = ModTRSUserTable.getUserFromName(parent, player.getName());
 
 		if( user == null ) {
 		    user = new ModTRSUser();
 		    user.setName(player.getName());
-		    user.insert();
-		    user = ModTRSUserTable.getUserFromName(player.getName());
+		    user.insert( parent );
+		    user = ModTRSUserTable.getUserFromName(parent, player.getName());
 		}
 
                 if( request.getStatusText(false).equals("Closed") || request.getStatusText(false).equals("On Hold") ) {
@@ -59,7 +61,7 @@ public class HoldCommand implements CommandExecutor {
 		request.setModId(user.getId());
 		request.setModTimestamp(System.currentTimeMillis());
 		request.setStatus(2);
-		request.update();
+		request.update( parent );
 
                 ModTRSFunction.messageMods( ModTRSMessage.hold.getHeld( request.getId() ), player.getServer() );
 

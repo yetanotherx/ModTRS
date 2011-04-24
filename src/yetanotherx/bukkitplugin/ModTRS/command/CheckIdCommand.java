@@ -21,7 +21,10 @@ import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 
 public class CheckIdCommand implements CommandExecutor {
 
+    private ModTRS parent;
+
     public CheckIdCommand(ModTRS parent) {
+        this.parent = parent;
 	ModTRSValidatorHandler.getInstance().registerValidator( "check-id", new CompleteValidator(this, parent) );
     }
 
@@ -38,7 +41,7 @@ public class CheckIdCommand implements CommandExecutor {
 	else {
 
 	    try {
-		ModTRSRequest request = ModTRSRequestTable.getRequestFromId( Integer.parseInt( args[0] ) );
+		ModTRSRequest request = ModTRSRequestTable.getRequestFromId( parent, Integer.parseInt( args[0] ) );
 
 
 		if( request != null ) {
@@ -50,8 +53,8 @@ public class CheckIdCommand implements CommandExecutor {
 		    calendar.setTimeInMillis( request.getTimestamp() );
 		    calendarMod.setTimeInMillis( request.getModTimestamp() );
 
-		    ModTRSUser filedUser = ModTRSUserTable.getUserFromId(request.getUserId());
-		    ModTRSUser modUser = ModTRSUserTable.getUserFromId(request.getModId());
+		    ModTRSUser filedUser = ModTRSUserTable.getUserFromId(parent, request.getUserId());
+		    ModTRSUser modUser = ModTRSUserTable.getUserFromId(parent, request.getModId());
 
                     ModTRSMessage.checkid.sendCheckIdHeader(player, request.getId(), request.getStatusText(true) );
 		    ModTRSMessage.checkid.sendFiledBy(player, filedUser.getName(), sdf.format(calendar.getTime()), request.getX(), request.getY(), request.getZ());
@@ -60,7 +63,7 @@ public class CheckIdCommand implements CommandExecutor {
 			ModTRSMessage.checkid.sendHandledBy(player, modUser.getName(), sdf.format(calendarMod.getTime()));
 		    }
 
-                    ModTRSMessage.checkid.sendText(null, request.getText());
+                    ModTRSMessage.checkid.sendText(player, request.getText());
 
 		}
 		else {

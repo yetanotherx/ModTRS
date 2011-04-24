@@ -1,6 +1,5 @@
 package yetanotherx.bukkitplugin.ModTRS;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,10 +22,6 @@ public class ModTRSSettings {
      * Bukkit config class
      */
     public static Configuration config = null;
-    /**
-     * SQLite configuration
-     */
-    public static Connection sqlite;
 
     /**
      * Load and parse the YAML config file

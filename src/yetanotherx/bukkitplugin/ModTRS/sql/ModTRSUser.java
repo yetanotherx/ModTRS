@@ -2,6 +2,7 @@ package yetanotherx.bukkitplugin.ModTRS.sql;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 
 import yetanotherx.bukkitplugin.ModTRS.ModTRSSettings;
 
@@ -36,18 +37,16 @@ public class ModTRSUser {
 
 
 
-    public boolean insert() throws SQLException {
-	ModTRSSQL.checkDbExists();
+    public boolean insert( ModTRS parent ) throws SQLException {
 	
-	PreparedStatement insertPrep = ModTRSSettings.sqlite.prepareStatement( ModTRSSQL.addUserInfo );
+	PreparedStatement insertPrep = parent.databaseHandler.getDatabase().prep( parent.databaseHandler.getDatabase().addUserInfo() );
 	insertPrep.setString(1, this.name);
 	return insertPrep.execute();
     }
     
-    public boolean update() throws SQLException {
-	ModTRSSQL.checkDbExists();
+    public boolean update( ModTRS parent ) throws SQLException {
 	
-	PreparedStatement updatePrep = ModTRSSettings.sqlite.prepareStatement( ModTRSSQL.setUserInfo );
+	PreparedStatement updatePrep = parent.databaseHandler.getDatabase().prep( parent.databaseHandler.getDatabase().setUserInfo() );
 	updatePrep.setString(1, this.name);
 	updatePrep.setInt(2, this.id);
 	return updatePrep.execute();

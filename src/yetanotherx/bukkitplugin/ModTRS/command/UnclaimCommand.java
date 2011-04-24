@@ -19,8 +19,10 @@ import yetanotherx.bukkitplugin.ModTRS.validator.CompleteValidator;
 import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 
 public class UnclaimCommand implements CommandExecutor {
+    private ModTRS parent;
 
     public UnclaimCommand(ModTRS parent) {
+        this.parent = parent;
 	ModTRSValidatorHandler.getInstance().registerValidator( "unclaim", new CompleteValidator(this, parent) );
 	
     }
@@ -38,18 +40,18 @@ public class UnclaimCommand implements CommandExecutor {
 	}
 
 	try {
-	    ModTRSRequest request = ModTRSRequestTable.getRequestFromId( Integer.parseInt( args[0] ) );
+	    ModTRSRequest request = ModTRSRequestTable.getRequestFromId( parent, Integer.parseInt( args[0] ) );
 
 
 	    if( request != null ) {
 
-		ModTRSUser user = ModTRSUserTable.getUserFromName(player.getName());
+		ModTRSUser user = ModTRSUserTable.getUserFromName( parent, player.getName());
 
 		if( user == null ) {
 		    user = new ModTRSUser();
 		    user.setName(player.getName());
-		    user.insert();
-		    user = ModTRSUserTable.getUserFromName(player.getName());
+		    user.insert(parent);
+		    user = ModTRSUserTable.getUserFromName(parent, player.getName());
 		}
 
 		if( request.getModId() != user.getId() ) {
@@ -68,7 +70,7 @@ public class UnclaimCommand implements CommandExecutor {
 		request.setModId(0);
 		request.setModTimestamp( (long) 0 );
 		request.setStatus(0);
-		request.update();
+		request.update(parent);
 
 		ModTRSFunction.messageMods( ModTRSMessage.unclaim.getUnclaimedMods( request.getId()), player.getServer() );
 		

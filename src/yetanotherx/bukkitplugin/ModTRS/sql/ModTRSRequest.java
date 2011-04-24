@@ -4,8 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.bukkit.ChatColor;
-
-import yetanotherx.bukkitplugin.ModTRS.ModTRSSettings;
+import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 
 public class ModTRSRequest {
 
@@ -110,11 +109,9 @@ public class ModTRSRequest {
 	this.text = text;
     }
 
-    public boolean insert() throws SQLException {
-	
-	ModTRSSQL.checkDbExists();
-	
-	PreparedStatement insertPrep = ModTRSSettings.sqlite.prepareStatement(ModTRSSQL.addRequestInfo);
+    public boolean insert( ModTRS parent ) throws SQLException {
+
+	PreparedStatement insertPrep = parent.databaseHandler.getDatabase().prep( parent.databaseHandler.getDatabase().addRequestInfo() );
 	insertPrep.setInt(1, this.userId );
 	insertPrep.setInt(2, this.modId);
 	insertPrep.setLong(3, this.timestamp);
@@ -128,11 +125,9 @@ public class ModTRSRequest {
 
     }
     
-    public boolean update() throws SQLException {
-	
-	ModTRSSQL.checkDbExists();
-	
-	PreparedStatement updatePrep = ModTRSSettings.sqlite.prepareStatement(ModTRSSQL.setRequestInfo);
+    public boolean update( ModTRS parent ) throws SQLException {
+
+	PreparedStatement updatePrep = parent.databaseHandler.getDatabase().prep( parent.databaseHandler.getDatabase().setRequestInfo() );
 	updatePrep.setInt(1, this.userId );
 	updatePrep.setInt(2, this.modId);
 	updatePrep.setLong(3, this.timestamp);

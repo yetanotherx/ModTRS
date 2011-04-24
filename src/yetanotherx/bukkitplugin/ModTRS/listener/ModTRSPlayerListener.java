@@ -15,7 +15,10 @@ import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequestTable;
 
 public class ModTRSPlayerListener extends PlayerListener{
 
+    private ModTRS parent;
+
     public ModTRSPlayerListener(ModTRS parent) {
+        this.parent = parent;
     }
 
     /**
@@ -33,7 +36,7 @@ public class ModTRSPlayerListener extends PlayerListener{
 	if( ModTRSPermissions.has(player, "modtrs.mod") ) {
 
 	    try {
-		ArrayList<ModTRSRequest> requests = ModTRSRequestTable.getOpenRequests("open");
+		ArrayList<ModTRSRequest> requests = ModTRSRequestTable.getOpenRequests(parent, "open");
 
 		if( !requests.isEmpty() ) {
 		    ModTRSMessage.general.sendOpenRequests(player, requests.size());

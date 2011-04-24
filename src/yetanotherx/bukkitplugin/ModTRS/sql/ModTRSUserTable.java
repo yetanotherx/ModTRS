@@ -3,16 +3,13 @@ package yetanotherx.bukkitplugin.ModTRS.sql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import yetanotherx.bukkitplugin.ModTRS.ModTRSSettings;
+import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 
 public class ModTRSUserTable {
 
-    public static ModTRSUser getUserFromName( String name ) throws SQLException {
+    public static ModTRSUser getUserFromName( ModTRS parent, String name ) throws SQLException {
 
-	ModTRSSQL.checkDbExists();
-	
-	PreparedStatement prep = ModTRSSettings.sqlite.prepareStatement(ModTRSSQL.getUserInfoName);
+	PreparedStatement prep = parent.databaseHandler.getDatabase().prep(parent.databaseHandler.getDatabase().getUserInfoName());
 	prep.setString(1, name);
 	ResultSet rs = prep.executeQuery();
 
@@ -31,11 +28,9 @@ public class ModTRSUserTable {
     }
 
 
-    public static ModTRSUser getUserFromId( int id ) throws SQLException {
+    public static ModTRSUser getUserFromId( ModTRS parent, int id ) throws SQLException {
 
-	ModTRSSQL.checkDbExists();
-	
-	PreparedStatement prep = ModTRSSettings.sqlite.prepareStatement(ModTRSSQL.getUserInfoId);
+	PreparedStatement prep = parent.databaseHandler.getDatabase().prep(parent.databaseHandler.getDatabase().getUserInfoId());
 	prep.setInt(1, id);
 	ResultSet rs = prep.executeQuery();
 

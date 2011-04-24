@@ -19,8 +19,10 @@ import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 import yetanotherx.bukkitplugin.ModTRS.validator.ModreqValidator;
 
 public class ModreqCommand implements CommandExecutor {
+    private ModTRS parent;
 
     public ModreqCommand(ModTRS parent) {
+        this.parent = parent;
 	ModTRSValidatorHandler.getInstance().registerValidator( "modreq", new ModreqValidator(this, parent) );    
     }
 
@@ -47,13 +49,13 @@ public class ModreqCommand implements CommandExecutor {
 		}
 	    }
 	    
-	    ModTRSUser user = ModTRSUserTable.getUserFromName(player.getName());
+	    ModTRSUser user = ModTRSUserTable.getUserFromName(parent, player.getName());
 
 	    if( user == null ) {
 		user = new ModTRSUser();
 		user.setName(player.getName());
-		user.insert();
-		user = ModTRSUserTable.getUserFromName(player.getName());
+		user.insert(parent);
+		user = ModTRSUserTable.getUserFromName(parent, player.getName());
 	    }
 
 	    ModTRSRequest request = new ModTRSRequest();
@@ -65,7 +67,7 @@ public class ModreqCommand implements CommandExecutor {
 	    request.setX(player.getLocation().getBlockX());
 	    request.setY(player.getLocation().getBlockY());
 	    request.setZ(player.getLocation().getBlockZ());
-	    request.insert();
+	    request.insert(parent);
             ModTRSMessage.modreq.sendMessageSentUser(player);
 
 	    if( ModTRSSettings.notifyMods ) {

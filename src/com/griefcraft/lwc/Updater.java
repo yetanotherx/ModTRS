@@ -82,6 +82,8 @@ public class Updater {
      */
     public final static String VERSION_FILE = "versions.txt";
 
+    public String db_name = "sqlite.jar";
+
     public Updater(ModTRS parent) {
 	this.parent = parent;
     }
@@ -92,7 +94,7 @@ public class Updater {
      * @return true if LWC should be reloaded
      */
     public void check() {
-	String[] paths = new String[] { DEST_LIBRARY_FOLDER + "lib/sqlite.jar", getFullNativeLibraryPath() };
+	String[] paths = new String[] { DEST_LIBRARY_FOLDER + "lib/" + db_name, getFullNativeLibraryPath() };
 
 	for (String path : paths) {
 	    File file = new File(path);

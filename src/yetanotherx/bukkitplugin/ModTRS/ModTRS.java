@@ -6,23 +6,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 //LWC import
-import com.griefcraft.lwc.DriverStub;
 import com.griefcraft.lwc.Updater;
 
 //ModTRS import
+import java.sql.SQLException;
 import yetanotherx.bukkitplugin.ModTRS.command.CommandHandler;
 import yetanotherx.bukkitplugin.ModTRS.exception.ShutdownException;
-import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSSQL;
 
 //Java import
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSDatabase;
 
 
 /*
@@ -64,6 +56,11 @@ public class ModTRS extends JavaPlugin {
     public ModTRSListeners listeners;
 
     /**
+     * Database handler
+     */
+    public ModTRSDatabase databaseHandler;
+
+    /**
      * Updater class
      */
     public Updater updater;
@@ -78,15 +75,17 @@ public class ModTRS extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-	log.info("Plugin disabled. (version " + this.getDescription().getVersion() + ")");
-
+	
 	try {
-	    if( ModTRSSettings.sqlite != null ) {
-		log.debug("Closing SQLite database");
-		ModTRSSettings.sqlite.close();
+	    if( databaseHandler != null && databaseHandler.getDatabase() != null ) {
+		log.debug("Closing database");
+		databaseHandler.getDatabase().close();
 	    }
 	} catch (SQLException e) {
+            e.printStackTrace();
 	}
+
+        log.info("Plugin disabled. (version " + this.getDescription().getVersion() + ")");
 
     }
 
@@ -95,7 +94,7 @@ public class ModTRS extends JavaPlugin {
      * 
      * Step 1: Load and parse config file, creating it if it doesn't exist.
      * Step 2: Check for updates, downloading JAR files if necessary
-     * Step 3: Initialize the SQLite library, creating the tables if they don't exist
+     * Step 3: Initialize the database library, creating the tables if they don't exist
      * Step 4: Load the Permissions plugin
      * Step 5: Initialize the Help page
      * Step 6: Register events and listeners
@@ -111,15 +110,20 @@ public class ModTRS extends JavaPlugin {
 
 	    log.debug("Checking for updates");
 	    System.setProperty("org.sqlite.lib.path", updater.getOSSpecificFolder());
+
+            if( ModTRSSettings.database.get("type").equals("mysql") ) {
+                updater.db_name = "mysql.jar";
+            }
+
 	    updater.loadVersions();
 
             ModTRSUpdate.load(this);
 
 	    try {
-		setupSQLite( this );
+		this.databaseHandler = new ModTRSDatabase( this );
 	    }
             catch( ShutdownException e ) {
-                throw e;
+                throw e; //Passing it on...
             }
 	    catch( Exception e ) {
 		String log_text = "SQL exception! Disabling plugin (version " + this.getDescription().getVersion() + ")";
@@ -154,45 +158,6 @@ public class ModTRS extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 
 	return this.commandHandler.onCommand(sender, command, commandLabel, args);
-    }
-
-    /**
-     * Initiate SQLite
-     * 
-     * @throws SQLException
-     * @throws MalformedURLException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
-     */
-    public static void setupSQLite( ModTRS parent ) throws SQLException, MalformedURLException, InstantiationException, IllegalAccessException, ShutdownException {
-
-        if( !ModTRSSettings.database.get("type").equals("sqlite") ) {
-            throw new ShutdownException("Only SQLite has been implemented");
-        }
-        
-	String databaseUrl = "jdbc:sqlite:" + ModTRSSettings.database.get("database");
-
-	ModTRS.log.debug("Loading SQLite: " + databaseUrl );
-
-	try {
-	    URLClassLoader classLoader = new URLClassLoader(new URL[] { new URL("jar:file:" + new File(Updater.DEST_LIBRARY_FOLDER + "lib/sqlite.jar") + "!/" ) });
-	    Driver driver = (Driver) classLoader.loadClass("org.sqlite.JDBC").newInstance();
-	    DriverManager.registerDriver(new DriverStub(driver));
-	}
-	catch( ClassNotFoundException e) {
-	    ModTRS.log.severe("Error: Cannot locate the SQLite JDBC. Please download from http://www.zentus.com/sqlitejdbc/ and place in the plugins/ModTRS/ folder.");
-	    parent.getServer().getPluginManager().disablePlugin(parent);
-	}
-
-	ModTRSSettings.sqlite = DriverManager.getConnection(databaseUrl);
-
-	ModTRS.log.debug("Creating tables if necessary" );
-	Statement stat = ModTRSSettings.sqlite.createStatement();
-	stat.executeUpdate(ModTRSSQL.createUser);
-	stat.executeUpdate(ModTRSSQL.createRequest);
-
-	ModTRS.log.debug("Finished loading SQLite" );
-
     }
 
 }

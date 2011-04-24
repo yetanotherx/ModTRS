@@ -4,16 +4,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import yetanotherx.bukkitplugin.ModTRS.ModTRSSettings;
+import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 
 public class ModTRSRequestTable {
 
-    public static ModTRSRequest getRequestFromId( int id ) throws SQLException {
-
-	ModTRSSQL.checkDbExists();
+    public static ModTRSRequest getRequestFromId( ModTRS parent, int id ) throws SQLException {
 	
-	PreparedStatement prep = ModTRSSettings.sqlite.prepareStatement(ModTRSSQL.getRequestInfo);
+	PreparedStatement prep = parent.databaseHandler.getDatabase().prep( parent.databaseHandler.getDatabase().getRequestInfo() );
 	prep.setInt(1, id);
 	ResultSet rs = prep.executeQuery();
 
@@ -25,7 +22,7 @@ public class ModTRSRequestTable {
 	    request.setUserId( rs.getInt("request_user_id") );
 	    request.setModId( rs.getInt("request_mod_user_id") );
 	    request.setTimestamp( rs.getLong("request_timestamp") );
-	    request.setModTimestamp( rs.getInt("request_mod_timestamp") );
+	    request.setModTimestamp( rs.getLong("request_mod_timestamp") );
 	    request.setWorld( rs.getString("request_world") );
 	    request.setX( rs.getInt("request_x") );
 	    request.setY( rs.getInt("request_y") );
@@ -44,11 +41,9 @@ public class ModTRSRequestTable {
 
     }
 
-    public static ArrayList<ModTRSRequest> getOpenRequests(String type) throws SQLException {
+    public static ArrayList<ModTRSRequest> getOpenRequests(ModTRS parent, String type) throws SQLException {
 
-	ModTRSSQL.checkDbExists();
-	
-	PreparedStatement prep = ModTRSSettings.sqlite.prepareStatement(ModTRSSQL.getOpenRequests);
+	PreparedStatement prep = parent.databaseHandler.getDatabase().prep( parent.databaseHandler.getDatabase().getOpenRequests() );
 	ResultSet rs = prep.executeQuery();
 
 	ArrayList<ModTRSRequest> requests = new ArrayList<ModTRSRequest>();
@@ -61,7 +56,7 @@ public class ModTRSRequestTable {
 	    request.setUserId( rs.getInt("request_user_id") );
 	    request.setModId( rs.getInt("request_mod_user_id") );
 	    request.setTimestamp( rs.getLong("request_timestamp") );
-	    request.setModTimestamp( rs.getInt("request_mod_timestamp") );
+	    request.setModTimestamp( rs.getLong("request_mod_timestamp") );
 	    request.setWorld( rs.getString("request_world") );
 	    request.setX( rs.getInt("request_x") );
 	    request.setY( rs.getInt("request_y") );

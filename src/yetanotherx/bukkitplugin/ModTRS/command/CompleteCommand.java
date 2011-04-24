@@ -19,8 +19,10 @@ import yetanotherx.bukkitplugin.ModTRS.validator.CompleteValidator;
 import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 
 public class CompleteCommand implements CommandExecutor {
+    private ModTRS parent;
 
     public CompleteCommand(ModTRS parent) {
+        this.parent = parent;
 	ModTRSValidatorHandler.getInstance().registerValidator( "complete", new CompleteValidator(this, parent) );
 	ModTRSValidatorHandler.getInstance().registerValidator( "done", new CompleteValidator(this, parent) );
     }
@@ -38,18 +40,18 @@ public class CompleteCommand implements CommandExecutor {
 	}
 
 	try {
-	    ModTRSRequest request = ModTRSRequestTable.getRequestFromId( Integer.parseInt( args[0] ) );
+	    ModTRSRequest request = ModTRSRequestTable.getRequestFromId( parent, Integer.parseInt( args[0] ) );
 
 
 	    if( request != null ) {
 
-		ModTRSUser user = ModTRSUserTable.getUserFromName(player.getName());
+		ModTRSUser user = ModTRSUserTable.getUserFromName(parent, player.getName());
 
 		if( user == null ) {
 		    user = new ModTRSUser();
 		    user.setName(player.getName());
-		    user.insert();
-		    user = ModTRSUserTable.getUserFromName(player.getName());
+		    user.insert(parent);
+		    user = ModTRSUserTable.getUserFromName(parent, player.getName());
 		}
 
                 if( request.getStatusText(false).equals("Closed") ) {
@@ -59,11 +61,11 @@ public class CompleteCommand implements CommandExecutor {
 		request.setModId(user.getId());
 		request.setModTimestamp(System.currentTimeMillis());
 		request.setStatus(3);
-		request.update();
+		request.update(parent);
 
                 ModTRSFunction.messageMods( ModTRSMessage.closed.getClosedMod( request.getId() ), player.getServer() );
 
-		ModTRSUser user_player = ModTRSUserTable.getUserFromId(request.getUserId());
+		ModTRSUser user_player = ModTRSUserTable.getUserFromId(parent, request.getUserId());
 
                 Player target = player.getServer().getPlayer( user_player.getName() );
 		if( target != null ) {

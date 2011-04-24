@@ -19,8 +19,10 @@ import yetanotherx.bukkitplugin.ModTRS.validator.CompleteValidator;
 import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 
 public class ReopenCommand implements CommandExecutor {
+    private ModTRS parent;
 
     public ReopenCommand(ModTRS parent) {
+        this.parent = parent;
         ModTRSValidatorHandler.getInstance().registerValidator("reopen", new CompleteValidator(this, parent));
 
     }
@@ -36,18 +38,18 @@ public class ReopenCommand implements CommandExecutor {
         }
 
         try {
-            ModTRSRequest request = ModTRSRequestTable.getRequestFromId(Integer.parseInt(args[0]));
+            ModTRSRequest request = ModTRSRequestTable.getRequestFromId(parent, Integer.parseInt(args[0]));
 
 
             if (request != null) {
 
-                ModTRSUser user = ModTRSUserTable.getUserFromName(player.getName());
+                ModTRSUser user = ModTRSUserTable.getUserFromName(parent, player.getName());
 
                 if (user == null) {
                     user = new ModTRSUser();
                     user.setName(player.getName());
-                    user.insert();
-                    user = ModTRSUserTable.getUserFromName(player.getName());
+                    user.insert(parent);
+                    user = ModTRSUserTable.getUserFromName(parent, player.getName());
                 }
 
                 if( !request.getStatusText(false).equals("Closed") || !request.getStatusText(false).equals("On Hold") ) {
@@ -57,7 +59,7 @@ public class ReopenCommand implements CommandExecutor {
                 request.setModId(0);
                 request.setModTimestamp(0);
                 request.setStatus(0);
-                request.update();
+                request.update(parent);
 
                 ModTRSFunction.messageMods( ModTRSMessage.reopen.getReopened(request.getId()), player.getServer() );
 

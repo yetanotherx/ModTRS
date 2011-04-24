@@ -15,6 +15,7 @@ public class ModTRSHelp {
      * String[0] = Command syntax
      * String[1] = Description
      * String[2] = Necessary permission
+     * String[3] = Only set if it is to be given to all users if Permissions is not enabled
      */
     private static ArrayList<String[]> helpCommands = new ArrayList<String[]>();
 

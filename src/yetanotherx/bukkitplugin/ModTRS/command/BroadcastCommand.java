@@ -18,8 +18,6 @@ public class BroadcastCommand implements CommandExecutor {
 	ModTRSValidatorHandler.getInstance().registerValidator( "mod-broadcast", new BroadcastValidator(this, parent) );
     }
 
-
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 

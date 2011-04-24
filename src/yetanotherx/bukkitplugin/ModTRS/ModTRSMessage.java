@@ -1,16 +1,6 @@
 package yetanotherx.bukkitplugin.ModTRS;
 
-import yetanotherx.bukkitplugin.ModTRS.message.BroadcastMessages;
-import yetanotherx.bukkitplugin.ModTRS.message.CheckIdMessages;
-import yetanotherx.bukkitplugin.ModTRS.message.CheckMessages;
-import yetanotherx.bukkitplugin.ModTRS.message.ClaimMessages;
-import yetanotherx.bukkitplugin.ModTRS.message.ClosedMessages;
-import yetanotherx.bukkitplugin.ModTRS.message.GeneralMessages;
-import yetanotherx.bukkitplugin.ModTRS.message.HoldMessages;
-import yetanotherx.bukkitplugin.ModTRS.message.ModlistMessages;
-import yetanotherx.bukkitplugin.ModTRS.message.ModreqMessages;
-import yetanotherx.bukkitplugin.ModTRS.message.ReopenMessages;
-import yetanotherx.bukkitplugin.ModTRS.message.UnclaimMessages;
+import yetanotherx.bukkitplugin.ModTRS.message.*;
 
 public class ModTRSMessage {
 
