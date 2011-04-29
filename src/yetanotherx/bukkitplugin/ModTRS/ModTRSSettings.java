@@ -13,6 +13,7 @@ public class ModTRSSettings {
      * Settings
      */
     public static boolean debugMode = false;
+    public static boolean logCommands = false;
     public static boolean notifyMods = true;
     public static boolean autoupdate = true;
     public static HashMap<String, String> databases = new HashMap<String, String>();
@@ -42,6 +43,7 @@ public class ModTRSSettings {
         if (!file.exists()) {
             ModTRS.log.debug("Config file not found, saving bare-bones file");
             config.setProperty("modtrs.debug", debugMode);
+            config.setProperty("modtrs.log_commands", logCommands);
             config.setProperty("modtrs.database", getDefaultDatabase());
             config.setProperty("modtrs.notify_mods", notifyMods);
             config.setProperty("modtrs.autoupdate", autoupdate);
@@ -63,6 +65,7 @@ public class ModTRSSettings {
     private static void setSettings() {
 
         debugMode = config.getBoolean("modtrs.debug", false);
+        logCommands = config.getBoolean("modtrs.log_commands", false);
         notifyMods = config.getBoolean("modtrs.notify_mods", true);
         autoupdate = config.getBoolean("modtrs.autoupdate", true);
 

@@ -10,6 +10,7 @@ import com.griefcraft.lwc.Updater;
 
 //ModTRS import
 import java.sql.SQLException;
+import org.bukkit.entity.Player;
 import yetanotherx.bukkitplugin.ModTRS.command.CommandHandler;
 import yetanotherx.bukkitplugin.ModTRS.exception.ShutdownException;
 
@@ -18,7 +19,7 @@ import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSDatabase;
 
 
 /*
- * ModTRS Version 1.2 - Moderator Request Ticket System
+ * ModTRS Version 1.3 - Moderator Request Ticket System
  * Copyright (C) 2011 Yetanotherx <yetanotherx -a--t- gmail -dot- com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -156,7 +157,6 @@ public class ModTRS extends JavaPlugin {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
-
 	return this.commandHandler.onCommand(sender, command, commandLabel, args);
     }
 

@@ -3,6 +3,7 @@ package yetanotherx.bukkitplugin.ModTRS;
 import java.util.HashMap;
 import yetanotherx.bukkitplugin.ModTRS.update.IModTRSUpdate;
 import yetanotherx.bukkitplugin.ModTRS.update.Update1_1;
+import yetanotherx.bukkitplugin.ModTRS.update.Update1_3;
 
 public class ModTRSUpdate {
 
@@ -13,6 +14,7 @@ public class ModTRSUpdate {
 
         if( !initialized ) {
             updates.put( 1.1, new Update1_1(parent) );
+            updates.put( 1.3, new Update1_3(parent) );
 
             initialized = true;
         }

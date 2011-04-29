@@ -12,7 +12,9 @@ import com.griefcraft.lwc.Updater;
 
 import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
+import yetanotherx.bukkitplugin.ModTRS.ModTRSFunction;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
+import yetanotherx.bukkitplugin.ModTRS.ModTRSSettings;
 
 public class CommandHandler implements CommandExecutor {
 
@@ -70,6 +72,11 @@ public class CommandHandler implements CommandExecutor {
 
         if (sender instanceof Player) {
             Player player = (Player) sender;
+
+            if (ModTRSSettings.logCommands && commands.containsKey(commandName) ) {
+                ModTRS.log.info(((Player) sender).getName() + " used command /" + command.getName().toLowerCase());
+                ModTRS.log.info("Command: /" + command.getName().toLowerCase() + " " + ModTRSFunction.implode(args, " "));
+            }
 
 
             /**
