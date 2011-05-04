@@ -19,72 +19,71 @@ import yetanotherx.bukkitplugin.ModTRS.validator.CompleteValidator;
 import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 
 public class CompleteCommand implements CommandExecutor {
+
     private ModTRS parent;
 
     public CompleteCommand(ModTRS parent) {
         this.parent = parent;
-	ModTRSValidatorHandler.getInstance().registerValidator( "complete", new CompleteValidator(this, parent) );
-	ModTRSValidatorHandler.getInstance().registerValidator( "done", new CompleteValidator(this, parent) );
+        ModTRSValidatorHandler.getInstance().registerValidator("complete", new CompleteValidator(this, parent));
+        ModTRSValidatorHandler.getInstance().registerValidator("done", new CompleteValidator(this, parent));
     }
-
-
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 
-	Player player = (Player) sender;
-	
-	if( !ModTRSPermissions.has(player, "modtrs.command.complete") ) {
-	    ModTRSMessage.general.sendPermissionError(player);
-	    return true;
-	}
+        Player player = (Player) sender;
 
-	try {
-	    ModTRSRequest request = ModTRSRequestTable.getRequestFromId( parent, Integer.parseInt( args[0] ) );
+        if (!ModTRSPermissions.has(player, "modtrs.command.complete")) {
+            ModTRSMessage.general.sendPermissionError(player);
+            return true;
+        }
+
+        try {
+            ModTRSRequest request = ModTRSRequestTable.getRequestFromId(parent, Integer.parseInt(args[0]));
 
 
-	    if( request != null ) {
+            if (request != null) {
 
-		ModTRSUser user = ModTRSUserTable.getUserFromName(parent, player.getName());
+                ModTRSUser user = ModTRSUserTable.getUserFromName(parent, player.getName());
 
-		if( user == null ) {
-		    user = new ModTRSUser();
-		    user.setName(player.getName());
-		    user.insert(parent);
-		    user = ModTRSUserTable.getUserFromName(parent, player.getName());
-		}
+                if (user == null) {
+                    user = new ModTRSUser();
+                    user.setName(player.getName());
+                    user.insert(parent);
+                    user = ModTRSUserTable.getUserFromName(parent, player.getName());
+                }
 
-                if( request.getStatusText(false).equals("Closed") ) {
+                if (request.getStatusText(false).equals("Closed")) {
                     //TODO: Deny
                 }
 
-		request.setModId(user.getId());
-		request.setModTimestamp(System.currentTimeMillis());
-		request.setStatus(3);
-		request.update(parent);
+                request.setModId(user.getId());
+                request.setModTimestamp(System.currentTimeMillis());
+                request.setStatus(3);
+                request.update(parent);
 
-                ModTRSFunction.messageMods( ModTRSMessage.closed.getClosedMod( request.getId() ), player.getServer() );
+                ModTRSFunction.messageMods(ModTRSMessage.closed.getClosedMod(request.getId()), player.getServer());
 
-		ModTRSUser user_player = ModTRSUserTable.getUserFromId(parent, request.getUserId());
+                ModTRSUser user_player = ModTRSUserTable.getUserFromId(parent, request.getUserId());
 
-                Player target = player.getServer().getPlayer( user_player.getName() );
-		if( target != null ) {
-                    ModTRSMessage.closed.sendClosedUser(target, player.getName() );
-		}
-		
-	    }
-	    else {
-		ModTRSMessage.general.sendNoSuchRequest(player, Integer.parseInt( args[0] ) );
-	    }
+                Player target = player.getServer().getPlayer(user_player.getName());
+                if (target != null) {
+                    if (args.length > 1 && args[1].equals("-silent")) {
+                    } else {
+                        ModTRSMessage.closed.sendClosedUser(target, player.getName());
+                    }
+                }
 
-	}
-	catch( SQLException e ) {
-	    e.printStackTrace();
-	    ModTRSMessage.general.sendInternalError(player);
-	}
+            } else {
+                ModTRSMessage.general.sendNoSuchRequest(player, Integer.parseInt(args[0]));
+            }
 
-	return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ModTRSMessage.general.sendInternalError(player);
+        }
+
+        return true;
 
     }
-
 }
