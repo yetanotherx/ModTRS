@@ -3,6 +3,7 @@ package yetanotherx.bukkitplugin.ModTRS.sql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 
 public class ModTRSPostgreSQL implements IModTRSDatabase {
@@ -87,12 +88,22 @@ public class ModTRSPostgreSQL implements IModTRSDatabase {
     }
 
     @Override
-    public String addModCommentAndServerFields() {
+    public String getRequestInfoFromUserId() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public String getRequestInfoFromUserId() {
+    public String addModCommentField() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public String addServerField() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Statement stat() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

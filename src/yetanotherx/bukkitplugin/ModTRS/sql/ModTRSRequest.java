@@ -17,6 +17,24 @@ public class ModTRSRequest {
     private int x, y, z;
     private String text;
     private int status;
+    private String server;
+    private String modComment;
+
+    public String getModComment() {
+        return modComment;
+    }
+
+    public void setModComment(String modComment) {
+        this.modComment = modComment;
+    }
+
+    public String getServer() {
+        return server;
+    }
+
+    public void setServer(String server) {
+        this.server = server;
+    }
 
     public int getModId() {
 	return modId;
@@ -138,7 +156,10 @@ public class ModTRSRequest {
 	updatePrep.setInt(8, this.z);
 	updatePrep.setString(9, this.text);
 	updatePrep.setInt(10, this.status);
-	updatePrep.setInt(11, this.id);
+        updatePrep.setString(11, this.server);
+        updatePrep.setString(12, this.modComment);
+
+        updatePrep.setInt(13, this.id);
 	return updatePrep.execute();
 
     }

@@ -29,6 +29,8 @@ public class ModTRSRequestTable {
 	    request.setZ( rs.getInt("request_z") );
 	    request.setText( rs.getString("request_text") );
 	    request.setStatus( rs.getInt("request_status") );
+            request.setServer( rs.getString("request_server") );
+            request.setModComment( rs.getString("request_mod_comment") );
 
 	    rs.close();
 
@@ -80,6 +82,8 @@ public class ModTRSRequestTable {
 	    request.setZ( rs.getInt("request_z") );
 	    request.setText( rs.getString("request_text") );
 	    request.setStatus( rs.getInt("request_status") );
+            request.setServer( rs.getString("request_server") );
+            request.setModComment( rs.getString("request_mod_comment") );
 
 	    if( type.equals("open") ) {
 		if( rs.getInt("request_status") == 0 || rs.getInt("request_status") == 1 ) {

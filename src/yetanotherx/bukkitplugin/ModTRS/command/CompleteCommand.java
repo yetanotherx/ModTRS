@@ -57,8 +57,16 @@ public class CompleteCommand implements CommandExecutor {
                     //TODO: Deny
                 }
 
+                String message = "";
+                if (args.length > 1 && !args[1].equals("-silent")) {
+                    String[] args2 = args.clone();
+                    args2[0] = "";
+                    message = ModTRSFunction.implode(args2, " ");
+                }
+
                 request.setModId(user.getId());
                 request.setModTimestamp(System.currentTimeMillis());
+                request.setModComment(message);
                 request.setStatus(3);
                 request.update(parent);
 
@@ -71,6 +79,9 @@ public class CompleteCommand implements CommandExecutor {
                     if (args.length > 1 && args[1].equals("-silent")) {
                     } else {
                         ModTRSMessage.closed.sendClosedUser(target, player.getName());
+                        if (!message.equals("")) {
+                            ModTRSMessage.closed.sendModComment(target, message);
+                        }
                     }
                 }
 

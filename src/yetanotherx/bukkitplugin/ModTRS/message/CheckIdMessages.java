@@ -58,6 +58,19 @@ public class CheckIdMessages extends ModTRSMessageBase implements IModTRSMessage
 
     }
 
+    public void sendModComment( Player player, String text ) {
+        player.sendMessage( this.getModComment( text ) );
+    }
+
+    public String getModComment( String text ) {
+
+        return MessageFormat.format(
+                ChatColor.GOLD + "Mod comment - " + ChatColor.GRAY + "{0}",
+                new Object[] { text }
+        );
+
+    }
+
 
 
 }

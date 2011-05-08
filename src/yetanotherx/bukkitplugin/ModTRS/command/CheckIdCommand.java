@@ -61,7 +61,10 @@ public class CheckIdCommand implements CommandExecutor {
 
 		    if( request.getModId() != 0 ) {
 			ModTRSMessage.checkid.sendHandledBy(player, modUser.getName(), sdf.format(calendarMod.getTime()));
-		    }
+                        if( !request.getModComment().equals("") ) {
+                            ModTRSMessage.checkid.sendModComment(player, request.getModComment());
+                        }
+                    }
 
                     ModTRSMessage.checkid.sendText(player, request.getText());
 

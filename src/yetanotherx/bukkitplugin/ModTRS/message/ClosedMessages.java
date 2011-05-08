@@ -32,6 +32,19 @@ public class ClosedMessages extends ModTRSMessageBase implements IModTRSMessage 
 
     }
 
+    public void sendClosedUser( Player player, String mod, String text ) {
+        player.sendMessage( this.getClosedUser( mod, text ) );
+    }
+
+    public String getClosedUser( String mod, String text ) {
+
+        return MessageFormat.format(
+                ChatColor.GOLD + "{0} has completed your request. Comment: {1}",
+                new Object[] { mod, text }
+        );
+
+    }
+
     public void sendClosedUserOffline( Player player, String mod ) {
         player.sendMessage( this.getClosedUserOffline( mod ) );
     }

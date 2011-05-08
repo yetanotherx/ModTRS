@@ -2,11 +2,13 @@ package yetanotherx.bukkitplugin.ModTRS.sql;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 
 public interface IModTRSDatabase {
 
     public PreparedStatement prep( String sql ) throws SQLException;
+    public Statement stat() throws SQLException;
 
     public void init( ModTRS parent ) throws SQLException;
 
@@ -38,6 +40,7 @@ public interface IModTRSDatabase {
      * Update commands
      */
     public String updateLocationFieldsToMediumint();
-    public String addModCommentAndServerFields();
+    public String addModCommentField();
+    public String addServerField();
 
 }

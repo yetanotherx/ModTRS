@@ -61,6 +61,13 @@ public class ModTRSSQLite extends ModTRSMySQL /* because the syntax is the same 
     }
 
     @Override
+    public Statement stat() throws SQLException {
+        this.dbExists();
+
+        return conn.createStatement();
+    }
+
+    @Override
     public void dbExists() throws SQLException {
 
         File file = new File( ModTRSSettings.database.get("database") );
@@ -81,7 +88,7 @@ public class ModTRSSQLite extends ModTRSMySQL /* because the syntax is the same 
 
     @Override
     public String createRequest() {
-        return "CREATE TABLE IF NOT EXISTS 'request' ( 'request_id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, 'request_user_id' INTEGER NOT NULL, 'request_mod_user_id' INTEGER NOT NULL DEFAULT 0, 'request_timestamp' BIGINT NOT NULL, 'request_mod_timestamp' BIGINT NOT NULL DEFAULT 0, 'request_world' TINYTEXT NOT NULL, 'request_x' TINYINT NOT NULL, 'request_y' TINYINT NOT NULL, 'request_z' TINYINT NOT NULL, 'request_text' TEXT NOT NULL, 'request_status' TINYINT DEFAULT 0 )";
+        return "CREATE TABLE IF NOT EXISTS 'request' ( 'request_id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, 'request_user_id' INTEGER NOT NULL, 'request_mod_user_id' INTEGER NOT NULL DEFAULT 0, 'request_timestamp' BIGINT NOT NULL, 'request_mod_timestamp' BIGINT NOT NULL DEFAULT 0, 'request_world' TINYTEXT NOT NULL, 'request_x' TINYINT NOT NULL, 'request_y' TINYINT NOT NULL, 'request_z' TINYINT NOT NULL, 'request_text' TEXT NOT NULL, 'request_status' TINYINT DEFAULT 0, 'request_server' TEXT NULL, 'request_mod_comment' TEXT NULL )";
     }
 
     @Override
@@ -90,8 +97,13 @@ public class ModTRSSQLite extends ModTRSMySQL /* because the syntax is the same 
     }
 
     @Override
-    public String addModCommentAndServerFields() {
-        return "ALTER TABLE  `request` ADD  `request_server` TEXT NULL ,ADD  `request_mod_comment` TEXT NULL";
+    public String addServerField() {
+        return "ALTER TABLE 'request' ADD 'request_server' TEXT NULL ;";
+    }
+
+    @Override
+    public String addModCommentField() {
+        return "ALTER TABLE 'request' ADD 'request_mod_comment' TEXT NULL ;";
     }
 
 }

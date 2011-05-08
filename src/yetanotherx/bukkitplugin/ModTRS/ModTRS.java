@@ -10,7 +10,6 @@ import com.griefcraft.lwc.Updater;
 
 //ModTRS import
 import java.sql.SQLException;
-import org.bukkit.entity.Player;
 import yetanotherx.bukkitplugin.ModTRS.command.CommandHandler;
 import yetanotherx.bukkitplugin.ModTRS.exception.ShutdownException;
 
@@ -19,7 +18,7 @@ import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSDatabase;
 
 
 /*
- * ModTRS Version 1.3 - Moderator Request Ticket System
+ * ModTRS Version 1.4 - Moderator Request Ticket System
  * Copyright (C) 2011 Yetanotherx <yetanotherx -a--t- gmail -dot- com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -38,37 +37,32 @@ import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSDatabase;
  * Note that this license applies to all the files in this package, unless
  * otherwise specified.
  */
-
 public class ModTRS extends JavaPlugin {
 
     /**
      * ModTRS logger class
      */
     public static final ModTRSLogger log = new ModTRSLogger();
-
     /**
      * Command handler instance
      */
     private CommandHandler commandHandler;
-
     /**
      * Event listener registration class
      */
     public ModTRSListeners listeners;
-
     /**
      * Database handler
      */
     public ModTRSDatabase databaseHandler;
-
     /**
      * Updater class
      */
     public Updater updater;
 
     public ModTRS() {
-	ModTRSSettings.load();
-	updater = new Updater(this);
+        ModTRSSettings.load();
+        updater = new Updater(this);
     }
 
     /**
@@ -76,15 +70,15 @@ public class ModTRS extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-	
-	try {
-	    if( databaseHandler != null && databaseHandler.getDatabase() != null ) {
-		log.debug("Closing database");
-		databaseHandler.getDatabase().close();
-	    }
-	} catch (SQLException e) {
+
+        try {
+            if (databaseHandler != null && databaseHandler.getDatabase() != null) {
+                log.debug("Closing database");
+                databaseHandler.getDatabase().close();
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
-	}
+        }
 
         log.info("Plugin disabled. (version " + this.getDescription().getVersion() + ")");
 
@@ -105,51 +99,50 @@ public class ModTRS extends JavaPlugin {
     @Override
     public void onEnable() {
 
-	try {
-	    ModTRSSettings.load();
+        try {
+            ModTRSSettings.load();
 
 
-	    log.debug("Checking for updates");
-	    System.setProperty("org.sqlite.lib.path", updater.getOSSpecificFolder());
+            log.debug("Checking for updates");
+            System.setProperty("org.sqlite.lib.path", updater.getOSSpecificFolder());
 
-            if( ModTRSSettings.database.get("type").equals("mysql") ) {
+            if (ModTRSSettings.database.get("type").equals("mysql")) {
                 updater.db_name = "mysql.jar";
             }
 
-	    updater.loadVersions();
+            updater.loadVersions();
 
             ModTRSUpdate.load(this);
 
-	    try {
-		this.databaseHandler = new ModTRSDatabase( this );
-	    }
-            catch( ShutdownException e ) {
+            try {
+                if (databaseHandler == null || databaseHandler.getDatabase() == null) {
+                    this.databaseHandler = new ModTRSDatabase(this);
+                }
+            } catch (ShutdownException e) {
                 throw e; //Passing it on...
-            }
-	    catch( Exception e ) {
-		String log_text = "SQL exception! Disabling plugin (version " + this.getDescription().getVersion() + ")";
-		log.severe(log_text);
+            } catch (Exception e) {
+                String log_text = "SQL exception! Disabling plugin (version " + this.getDescription().getVersion() + ")";
+                log.severe(log_text);
                 e.printStackTrace();
-		throw new ShutdownException(log_text);
+                throw new ShutdownException(log_text);
             }
 
-	    ModTRSPermissions.load(this);
+            ModTRSPermissions.load(this);
 
-	    ModTRSHelp.load(this);
-	    this.listeners = ModTRSListeners.load(this);
-	    this.commandHandler = CommandHandler.load(this);
+            ModTRSHelp.load(this);
+            this.listeners = ModTRSListeners.load(this);
+            this.commandHandler = CommandHandler.load(this);
 
-	    //Print that the plugin has been enabled!
-	    log.info("Plugin enabled! (version " + this.getDescription().getVersion() + ")");
-	    log.debug("Debug mode enabled!");
+            //Print that the plugin has been enabled!
+            log.info("Plugin enabled! (version " + this.getDescription().getVersion() + ")");
+            log.debug("Debug mode enabled!");
 
-	}
-	catch( ShutdownException e ) {
-	    log.severe("Caught a shutdown command! " + e.getMessage() );
+        } catch (ShutdownException e) {
+            log.severe("Caught a shutdown command! " + e.getMessage());
             e.printStackTrace();
-	    this.getServer().getPluginManager().disablePlugin(this);
-	    return;
-	}
+            this.getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
     }
 
     /**
@@ -157,7 +150,6 @@ public class ModTRS extends JavaPlugin {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
-	return this.commandHandler.onCommand(sender, command, commandLabel, args);
+        return this.commandHandler.onCommand(sender, command, commandLabel, args);
     }
-
 }

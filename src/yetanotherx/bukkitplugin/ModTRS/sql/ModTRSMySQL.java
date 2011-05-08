@@ -69,6 +69,13 @@ public class ModTRSMySQL implements IModTRSDatabase {
     }
 
     @Override
+    public Statement stat() throws SQLException {
+        this.dbExists();
+
+        return conn.createStatement();
+    }
+
+    @Override
     public void dbExists() throws SQLException {
     }
 
@@ -120,7 +127,7 @@ public class ModTRSMySQL implements IModTRSDatabase {
 
     @Override
     public String setRequestInfo() {
-        return "UPDATE request SET request_user_id = ? , request_mod_user_id = ? , request_timestamp = ? , request_mod_timestamp = ? , request_world = ? , request_x = ? , request_y = ? , request_z = ? , request_text = ? , request_status = ? WHERE request_id = ?";
+        return "UPDATE request SET request_user_id = ? , request_mod_user_id = ? , request_timestamp = ? , request_mod_timestamp = ? , request_world = ? , request_x = ? , request_y = ? , request_z = ? , request_text = ? , request_status = ? , request_server = ? , request_mod_comment = ? WHERE request_id = ?";
     }
 
     @Override
@@ -134,7 +141,12 @@ public class ModTRSMySQL implements IModTRSDatabase {
     }
 
     @Override
-    public String addModCommentAndServerFields() {
-        return "ALTER TABLE  `request` ADD  `request_server` TEXT NULL ,ADD  `request_mod_comment` TEXT NULL";
+    public String addModCommentField() {
+        return "ALTER TABLE  `request` ADD  `request_mod_comment` TEXT NULL";
+    }
+    
+    @Override
+    public String addServerField() {
+        return "ALTER TABLE  `request` ADD  `request_server` TEXT NULL ";
     }
 }

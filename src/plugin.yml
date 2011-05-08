@@ -1,6 +1,6 @@
 name: ModTRS
 main: yetanotherx.bukkitplugin.ModTRS.ModTRS
-version: 1.3
+version: 1.4
 commands:
     modreq:
         description: Request help from a moderator
