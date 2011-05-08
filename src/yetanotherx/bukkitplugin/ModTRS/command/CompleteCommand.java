@@ -58,10 +58,13 @@ public class CompleteCommand implements CommandExecutor {
                 }
 
                 String message = "";
-                if (args.length > 1 && !args[1].equals("-silent")) {
+                if (args.length > 1) {
                     String[] args2 = args.clone();
                     args2[0] = "";
-                    message = ModTRSFunction.implode(args2, " ");
+                    if(  args[1].equals("-silent") ) {
+                        args2[1] = "";
+                    }
+                    message = ModTRSFunction.implode(args2, " ").trim();
                 }
 
                 request.setModId(user.getId());

@@ -20,12 +20,10 @@ commands:
     unclaim:
         description: Unclaim a request
         usage: /<command> [id]
-    done:
-        description: Mark a request as complete
-        usage: /<command> [id]
     complete:
         description: Mark a request as complete
         usage: /<command> [id]
+        aliases: [done]
     reopen:
         description: Reopen a request
         usage: /<command> [id]
@@ -35,6 +33,7 @@ commands:
     mod-broadcast:
         description: Send a message to other moderators
         usage: /<command> [message]
+        aliases: [mb]
     modlist:
         description: List all currently online moderators
         usage: /<command>
