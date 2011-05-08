@@ -1,5 +1,6 @@
 package yetanotherx.bukkitplugin.ModTRS.command;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.bukkit.command.Command;
@@ -9,6 +10,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import com.griefcraft.lwc.Updater;
+import java.util.LinkedList;
+import java.util.List;
 
 import yetanotherx.bukkitplugin.ModTRS.validator.ModTRSValidatorHandler;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
@@ -67,8 +70,15 @@ public class CommandHandler implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 
-        String[] split = args;
         String commandName = command.getName().toLowerCase();
+
+        //What's this hackery? /command arg  arg2 threw an error. Strip unnecessary spaces
+        List<String> temp_list = new LinkedList<String>();
+        temp_list.addAll(Arrays.asList(args));
+        while( temp_list.contains("") ) {
+            temp_list.remove("");
+        }
+        args = temp_list.toArray(new String[0]);
 
         if (sender instanceof Player) {
             Player player = (Player) sender;
@@ -85,7 +95,7 @@ public class CommandHandler implements CommandExecutor {
              */
             if (commandName.equals("modreq")) {
 
-                if (split.length == 1 && split[0].equals("help")) {
+                if (args.length == 1 && args[0].equals("help")) {
 
                     if (!commands.containsKey("modreq-help")) {
                         return false;
@@ -98,7 +108,7 @@ public class CommandHandler implements CommandExecutor {
                     }
                     return commands.get("modreq-help").onCommand(sender, command, commandLabel, args);
 
-                } else if (split.length > 0) {
+                } else if (args.length > 0) {
 
                     try {
                         if (!commands.containsKey("modreq")) {
