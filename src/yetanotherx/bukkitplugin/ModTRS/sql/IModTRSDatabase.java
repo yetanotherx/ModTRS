@@ -29,8 +29,15 @@ public interface IModTRSDatabase {
      * Request commands
      */
     public String getRequestInfo();
+    public String getRequestInfoFromUserId();
     public String addRequestInfo();
     public String setRequestInfo();
     public String getOpenRequests();
+
+    /**
+     * Update commands
+     */
+    public String updateLocationFieldsToMediumint();
+    public String addModCommentAndServerFields();
 
 }

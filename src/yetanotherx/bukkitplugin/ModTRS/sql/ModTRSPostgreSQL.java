@@ -80,4 +80,19 @@ public class ModTRSPostgreSQL implements IModTRSDatabase {
     public String getOpenRequests() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public String updateLocationFieldsToMediumint() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public String addModCommentAndServerFields() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public String getRequestInfoFromUserId() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

@@ -80,7 +80,7 @@ public class ModTRSMySQL implements IModTRSDatabase {
 
     @Override
     public String createRequest() {
-        return "CREATE TABLE IF NOT EXISTS `request` ( `request_id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT, `request_user_id` INT NOT NULL, `request_mod_user_id` INT NOT NULL DEFAULT 0, `request_timestamp` BIGINT NOT NULL, `request_mod_timestamp` BIGINT NOT NULL DEFAULT 0, `request_world` TINYTEXT NOT NULL, `request_x` TINYINT NOT NULL, `request_y` TINYINT NOT NULL, `request_z` TINYINT NOT NULL, `request_text` TEXT NOT NULL, `request_status` TINYINT DEFAULT 0 )";
+        return "CREATE TABLE IF NOT EXISTS `request` (  `request_id` int(11) NOT NULL AUTO_INCREMENT,  `request_user_id` int(11) NOT NULL,  `request_mod_user_id` int(11) NOT NULL DEFAULT '0',  `request_timestamp` bigint(20) NOT NULL,  `request_mod_timestamp` bigint(20) NOT NULL DEFAULT '0',  `request_world` tinytext NOT NULL,  `request_x` mediumint(9) NOT NULL,  `request_y` mediumint(9) NOT NULL,  `request_z` mediumint(9) NOT NULL,  `request_text` text NOT NULL,  `request_status` tinyint(4) DEFAULT '0',  `request_server` text,  `request_mod_comment` text,  PRIMARY KEY (`request_id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1";
     }
 
     @Override
@@ -109,6 +109,11 @@ public class ModTRSMySQL implements IModTRSDatabase {
     }
 
     @Override
+    public String getRequestInfoFromUserId() {
+        return "SELECT * FROM request WHERE request_user_id = ? AND request_status < 2";
+    }
+
+    @Override
     public String addRequestInfo() {
         return "INSERT INTO request ( request_user_id , request_mod_user_id , request_timestamp , request_mod_timestamp , request_world , request_x , request_y , request_z , request_text ) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? )";
     }
@@ -121,5 +126,15 @@ public class ModTRSMySQL implements IModTRSDatabase {
     @Override
     public String getOpenRequests() {
         return "SELECT * FROM request";
+    }
+
+    @Override
+    public String updateLocationFieldsToMediumint() {
+        return "ALTER TABLE  `request` CHANGE  `request_x`  `request_x` MEDIUMINT NOT NULL ,CHANGE  `request_y`  `request_y` MEDIUMINT NOT NULL ,CHANGE  `request_z`  `request_z` MEDIUMINT NOT NULL";
+    }
+
+    @Override
+    public String addModCommentAndServerFields() {
+        return "ALTER TABLE  `request` ADD  `request_server` TEXT NULL ,ADD  `request_mod_comment` TEXT NULL";
     }
 }

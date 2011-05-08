@@ -19,6 +19,7 @@ public class ModTRSSettings {
     public static HashMap<String, String> databases = new HashMap<String, String>();
     public static List<String> blacklist = new ArrayList<String>();
     public static HashMap<String, String> database = new HashMap<String, String>();
+    public static int maxRequests = -1;
     /**
      * Bukkit config class
      */
@@ -49,6 +50,7 @@ public class ModTRSSettings {
             config.setProperty("modtrs.autoupdate", autoupdate);
             config.setProperty("modtrs.databases", databases);
             config.setProperty("modtrs.blacklist", blacklist);
+            config.setProperty("modtrs.max_requests", maxRequests);
             config.save();
         }
 
@@ -89,6 +91,15 @@ public class ModTRSSettings {
 
         blacklist = config.getStringList("modtrs.blacklist", new ArrayList<String>());
 
+
+        //Why do all this? Because Bukkit is weird and sets the property if it isn't found.
+        Integer o = castInt(config.getProperty("modtrs.max_requests"));
+        if (o == null) {
+            maxRequests = -1;
+        } else {
+            maxRequests = o;
+        }
+
     }
 
     private static HashMap<String, String> getDefaultDatabase() {
@@ -104,5 +115,23 @@ public class ModTRSSettings {
 
         return newDb;
 
+    }
+
+    private static Integer castInt(Object o) {
+        if (o == null) {
+            return null;
+        } else if (o instanceof Byte) {
+            return (int) (Byte) o;
+        } else if (o instanceof Integer) {
+            return (Integer) o;
+        } else if (o instanceof Double) {
+            return (int) (double) (Double) o;
+        } else if (o instanceof Float) {
+            return (int) (float) (Float) o;
+        } else if (o instanceof Long) {
+            return (int) (long) (Long) o;
+        } else {
+            return null;
+        }
     }
 }

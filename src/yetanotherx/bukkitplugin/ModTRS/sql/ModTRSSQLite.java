@@ -84,4 +84,14 @@ public class ModTRSSQLite extends ModTRSMySQL /* because the syntax is the same 
         return "CREATE TABLE IF NOT EXISTS 'request' ( 'request_id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, 'request_user_id' INTEGER NOT NULL, 'request_mod_user_id' INTEGER NOT NULL DEFAULT 0, 'request_timestamp' BIGINT NOT NULL, 'request_mod_timestamp' BIGINT NOT NULL DEFAULT 0, 'request_world' TINYTEXT NOT NULL, 'request_x' TINYINT NOT NULL, 'request_y' TINYINT NOT NULL, 'request_z' TINYINT NOT NULL, 'request_text' TEXT NOT NULL, 'request_status' TINYINT DEFAULT 0 )";
     }
 
+    @Override
+    public String updateLocationFieldsToMediumint() {
+        return "";
+    }
+
+    @Override
+    public String addModCommentAndServerFields() {
+        return "ALTER TABLE  `request` ADD  `request_server` TEXT NULL ,ADD  `request_mod_comment` TEXT NULL";
+    }
+
 }

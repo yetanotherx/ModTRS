@@ -41,6 +41,23 @@ public class ModTRSRequestTable {
 
     }
 
+    public static int getNumberOfRequestsFromUserId( ModTRS parent, int id ) throws SQLException {
+
+	PreparedStatement prep = parent.databaseHandler.getDatabase().prep( parent.databaseHandler.getDatabase().getRequestInfoFromUserId() );
+	prep.setInt(1, id);
+	ResultSet rs = prep.executeQuery();
+
+        int count = 0;
+	while( rs.next() ) {
+            count++;
+	}
+
+	rs.close();
+
+	return count;
+
+    }
+
     public static ArrayList<ModTRSRequest> getOpenRequests(ModTRS parent, String type) throws SQLException {
 
 	PreparedStatement prep = parent.databaseHandler.getDatabase().prep( parent.databaseHandler.getDatabase().getOpenRequests() );

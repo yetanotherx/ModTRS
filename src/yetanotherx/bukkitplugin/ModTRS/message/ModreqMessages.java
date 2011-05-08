@@ -64,13 +64,16 @@ public class ModreqMessages extends ModTRSMessageBase implements IModTRSMessage 
 
     }
 
-    public void sendAlreadyOpen( Player player ) {
-        player.sendMessage(this.getAlreadyOpen());
+    public void sendAlreadyOpen( Player player, int count ) {
+        player.sendMessage(this.getAlreadyOpen( count ));
     }
 
-    public String getAlreadyOpen() {
+    public String getAlreadyOpen(int count) {
 
-        return ChatColor.RED + "You already have an open mod request. Please wait for that to be completed.";
+        return MessageFormat.format(
+                ChatColor.RED + "You already have {0} open mod request(s). Please wait for them to be completed.",
+                new Object[] { count }
+        );
 
     }
 
