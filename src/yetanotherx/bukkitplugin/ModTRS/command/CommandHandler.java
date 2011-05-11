@@ -59,6 +59,7 @@ public class CommandHandler implements CommandExecutor {
         handler.registerCommand("hold", new HoldCommand(parent));
         handler.registerCommand("mod-broadcast", new BroadcastCommand(parent));
         handler.registerCommand("modlist", new ModlistCommand(parent));
+        handler.registerCommand("modtrs-reload", new ReloadCommand(parent));
 
         return handler;
     }
@@ -162,6 +163,8 @@ public class CommandHandler implements CommandExecutor {
                     return true;
                 } else if (args[0].equalsIgnoreCase("version")) {
                     player.sendMessage("[ModTRS] You're running " + parent.getDescription().getName() + " version " + parent.getDescription().getVersion());
+                } else if (args[0].equalsIgnoreCase("reload")) {
+                    return ( new ReloadCommand(parent) ).onCommand(sender, command, commandLabel, args);
                 } else if (args[0].equalsIgnoreCase("update")) {
                     ModTRS.log.info("Checking for updates");
                     Updater updater = new Updater(parent);

@@ -40,3 +40,6 @@ commands:
     modtrs:
         description: Command line only
         usage: /<command>
+    modtrs-reload:
+        description: Reload the configuration
+        usage: /<command>
