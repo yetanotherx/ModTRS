@@ -20,6 +20,8 @@ public class ModTRSSettings {
     public static List<String> blacklist = new ArrayList<String>();
     public static HashMap<String, String> database = new HashMap<String, String>();
     public static int maxRequests = -1;
+    public static int reqsPerPage = 5;
+
     /**
      * Bukkit config class
      */
@@ -51,6 +53,7 @@ public class ModTRSSettings {
             config.setProperty("modtrs.databases", databases);
             config.setProperty("modtrs.blacklist", blacklist);
             config.setProperty("modtrs.max_requests", maxRequests);
+            config.setProperty("modtrs.requests_per_page", reqsPerPage);
             config.save();
         }
 
@@ -98,6 +101,13 @@ public class ModTRSSettings {
             maxRequests = -1;
         } else {
             maxRequests = o;
+        }
+
+        o = castInt(config.getProperty("modtrs.requests_per_page"));
+        if (o == null) {
+            reqsPerPage = 5;
+        } else {
+            reqsPerPage = o;
         }
 
     }

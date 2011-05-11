@@ -24,6 +24,7 @@ public class Update1_4 extends ModTRSUpdateBase implements IModTRSUpdate {
             ModTRS.log.debug("Updating ModTRS to v1.4");
 
             ModTRSSettings.config.setProperty("modtrs.max_requests", -1);
+            ModTRSSettings.config.setProperty("modtrs.requests_per_page", 5);
 
             ModTRSSettings.config.save();
             ModTRSSettings.load();

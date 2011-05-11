@@ -30,7 +30,7 @@ public class CheckCommand implements CommandExecutor {
 
     public CheckCommand(ModTRS parent) {
 	this.parent = parent;
-	ModTRSValidatorHandler.getInstance().registerValidator( "check", new CheckValidator(this, parent) );    
+	ModTRSValidatorHandler.getInstance().registerValidator( "check", new CheckValidator(this, parent) );
     }
 
     @Override
@@ -67,17 +67,19 @@ public class CheckCommand implements CommandExecutor {
 		String ucfirst = type.toUpperCase().substring(0, 1) + type.substring(1);
 		ModTRSMessage.check.sendListIntro(player, requests.size(), ucfirst);
 
+                int reqsPerPage = ModTRSSettings.reqsPerPage;
+
 		int count = 0;
 		if( requests.isEmpty() ) {
                     ModTRSMessage.check.sendNoRequests(player);
 		}
 		for( ModTRSRequest request : requests ) {
-		    if( count < ( page * 5 ) - 5 ) {
+		    if( count < ( page * reqsPerPage ) - reqsPerPage ) {
 			count++;
 			continue;
 		    }
-		    if( count >= ( page * 5 ) ) {
-                        ModTRSMessage.check.sendMorePages(player, requests.size() - 5);
+		    if( count >= ( page * reqsPerPage ) ) {
+                        ModTRSMessage.check.sendMorePages(player, requests.size() - reqsPerPage);
 			break;
 		    }
 
