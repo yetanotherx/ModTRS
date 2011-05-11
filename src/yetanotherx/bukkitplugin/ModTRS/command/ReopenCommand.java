@@ -52,8 +52,9 @@ public class ReopenCommand implements CommandExecutor {
                     user = ModTRSUserTable.getUserFromName(parent, player.getName());
                 }
 
-                if( !request.getStatusText(false).equals("Closed") || !request.getStatusText(false).equals("On Hold") ) {
-                    //TODO: Deny
+                if( !request.getStatusText(false).equals("Closed") && !request.getStatusText(false).equals("On Hold") ) {
+                    ModTRSMessage.reopen.sendNotClosed(player);
+                    return true;
                 }
 
                 request.setModId(0);

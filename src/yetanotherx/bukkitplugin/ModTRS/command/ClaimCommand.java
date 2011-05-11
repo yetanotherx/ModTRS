@@ -56,10 +56,12 @@ public class ClaimCommand implements CommandExecutor {
 		}
 
                 if( request.getModId() != 0 ) {
-                    //TODO: Deny
+                    ModTRSMessage.claim.sendAlreadyClaimed(player);
+                    return true;
                 }
                 if( !request.getStatusText(false).equals("Open") ) {
-                    //TODO: Deny
+                    ModTRSMessage.claim.sendNotOpen(player);
+                    return true;
                 }
 
 		request.setModId(user.getId());
@@ -68,7 +70,7 @@ public class ClaimCommand implements CommandExecutor {
 		request.update( parent );
 		
 		ModTRSFunction.messageMods( ModTRSMessage.claim.getClaimedMods(user.getName(), request.getId() ), player.getServer() );
-
+                
 	    }
 	    else {
 		ModTRSMessage.general.sendNoSuchRequest(player, Integer.parseInt( args[0] ) );

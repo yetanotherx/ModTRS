@@ -55,4 +55,14 @@ public class ClaimMessages extends ModTRSMessageBase implements IModTRSMessage {
 
     }
 
+    public void sendAlreadyClaimed( Player player ) {
+        player.sendMessage( this.getAlreadyClaimed() );
+    }
+
+    public String getAlreadyClaimed() {
+
+        return ChatColor.RED + "This request has already been claimed. Use /unclaim or /reopen to reopen it.";
+
+    }
+
 }

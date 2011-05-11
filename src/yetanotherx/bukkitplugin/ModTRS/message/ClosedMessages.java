@@ -77,7 +77,7 @@ public class ClosedMessages extends ModTRSMessageBase implements IModTRSMessage 
 
     public String getNotOpen() {
 
-        return ChatColor.RED + "Only open or requests may be closed.";
+        return ChatColor.RED + "Only open or claimed requests may be closed.";
 
     }
 

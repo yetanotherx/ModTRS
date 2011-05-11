@@ -63,7 +63,8 @@ public class UnclaimCommand implements CommandExecutor {
 		}
 
                 if( !request.getStatusText(false).equals("Claimed") ) {
-                    //TODO: Deny
+                    ModTRSMessage.unclaim.sendNotClaimed(player);
+                    return true;
                 }
 
 

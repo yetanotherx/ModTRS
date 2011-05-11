@@ -55,7 +55,8 @@ public class HoldCommand implements CommandExecutor {
 		}
 
                 if( request.getStatusText(false).equals("Closed") || request.getStatusText(false).equals("On Hold") ) {
-                    //TODO: Deny
+                    ModTRSMessage.hold.sendNotOpen(player);
+                    return true;
                 }
 
 		request.setModId(user.getId());

@@ -54,7 +54,8 @@ public class CompleteCommand implements CommandExecutor {
                 }
 
                 if (request.getStatusText(false).equals("Closed")) {
-                    //TODO: Deny
+                    ModTRSMessage.closed.sendNotOpen(player);
+                    return true;
                 }
 
                 String message = "";
