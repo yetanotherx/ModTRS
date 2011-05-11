@@ -1,0 +1,16 @@
+{
+    "name": "ModTRS",
+    "author": "Yetanotherx",
+    "description": "Moderator Ticket Request System - Request help from a moderator!",
+    "website": "http://forums.bukkit.org/threads/11652/",
+    "categories": ["ADMIN"],
+    "dependencies": ["Permissions", "mysqldb"],
+    "versions": [{
+        "version": "1.3",
+        "location": "https://github.com/yetanotherx/ModTRS/raw/release1.3/ModTRS.jar",
+        "checksum": "b7b79dbf5b1fdd9ea7506a3250129854",
+        "branch": "stable",
+        "bukkit_min": 711,
+        "bukkit_max": 766
+    }]
+}
