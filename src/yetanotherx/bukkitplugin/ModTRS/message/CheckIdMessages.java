@@ -19,14 +19,19 @@ public class CheckIdMessages extends ModTRSMessageBase implements IModTRSMessage
 
     }
 
-    public void sendFiledBy( Player player, String user, String timestamp, int x, int y, int z ) {
-        player.sendMessage( this.getFiledBy( user, timestamp, x, y, z ) );
+    public void sendFiledBy( Player player, String user, String timestamp, int x, int y, int z, boolean online ) {
+        player.sendMessage( this.getFiledBy( user, timestamp, x, y, z, online ) );
     }
 
-    public String getFiledBy( String user, String timestamp, int x, int y, int z ) {
+    public String getFiledBy( String user, String timestamp, int x, int y, int z, boolean online ) {
+
+        ChatColor color = ChatColor.GREEN;
+        if( !online ) {
+            color = ChatColor.RED;
+        }
 
         return MessageFormat.format(
-                ChatColor.YELLOW + "Filed by " + ChatColor.GREEN + "{0}" + ChatColor.YELLOW + " at " + ChatColor.GREEN + " {1}" + ChatColor.YELLOW + " at " + ChatColor.GREEN + "{2}, {3}, {4}",
+                ChatColor.YELLOW + "Filed by " + color + "{0}" + ChatColor.YELLOW + " at " + ChatColor.GREEN + " {1}" + ChatColor.YELLOW + " at " + ChatColor.GREEN + "{2}, {3}, {4}",
                 new Object[] { user, timestamp, x, y, z }
         );
 

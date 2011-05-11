@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 
 //ModTRS imports
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
+import yetanotherx.bukkitplugin.ModTRS.ModTRSFunction;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSPermissions;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSSettings;
@@ -90,11 +91,12 @@ public class CheckCommand implements CommandExecutor {
 			substring = substring.substring(0, 20) + "...";
 		    }
 
+                    boolean online = ModTRSFunction.isUserOnline(ModTRSUserTable.getUserFromId(parent, request.getUserId()).getName(), player.getServer());
 		    if( request.getStatus() == 1 ) {
-                        ModTRSMessage.check.sendListItemClaimed(player, request.getId(), sdf.format(calendar.getTime()), ModTRSUserTable.getUserFromId(parent, request.getUserId()).getName(), ModTRSUserTable.getUserFromId(parent, request.getModId()).getName());
+                        ModTRSMessage.check.sendListItemClaimed(player, request.getId(), sdf.format(calendar.getTime()), ModTRSUserTable.getUserFromId(parent, request.getUserId()).getName(), ModTRSUserTable.getUserFromId(parent, request.getModId()).getName(), online);
 		    }
 		    else {
-                        ModTRSMessage.check.sendListItem(player, request.getId(), sdf.format(calendar.getTime()), ModTRSUserTable.getUserFromId(parent, request.getUserId()).getName(), substring);
+                        ModTRSMessage.check.sendListItem(player, request.getId(), sdf.format(calendar.getTime()), ModTRSUserTable.getUserFromId(parent, request.getUserId()).getName(), substring, online);
 		    }
 
 		    count++;

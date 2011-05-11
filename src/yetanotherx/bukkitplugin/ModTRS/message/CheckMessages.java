@@ -19,27 +19,36 @@ public class CheckMessages extends ModTRSMessageBase implements IModTRSMessage {
 
     }
 
-    public void sendListItem( Player player, int id, String timestamp, String user, String excerpt ) {
-        player.sendMessage(this.getListItem( id, timestamp, user, excerpt ));
+    public void sendListItem( Player player, int id, String timestamp, String user, String excerpt, boolean online ) {
+        player.sendMessage(this.getListItem( id, timestamp, user, excerpt, online ));
     }
 
-    public String getListItem( int id, String timestamp, String user, String excerpt) {
-
+    public String getListItem( int id, String timestamp, String user, String excerpt, boolean online ) {
+        ChatColor color = ChatColor.GREEN;
+        if( !online ) {
+            color = ChatColor.RED;
+        }
+        
         return MessageFormat.format(
-                ChatColor.GOLD + "#{0}. " + ChatColor.GREEN + "{1} " + ChatColor.GOLD + "by " + ChatColor.GREEN + "{2} " + ChatColor.GOLD + "- " + ChatColor.GRAY + "{3}",
+                ChatColor.GOLD + "#{0}. {1} by " + color + "{2} " + ChatColor.GOLD + "- " + ChatColor.GRAY + "{3}",
                 new Object[] {  id, timestamp, user, excerpt }
         );
 
     }
 
-    public void sendListItemClaimed( Player player, int id, String timestamp, String user, String mod ) {
-        player.sendMessage(this.getListItemClaimed( id, timestamp, user, mod ));
+    public void sendListItemClaimed( Player player, int id, String timestamp, String user, String mod, boolean online ) {
+        player.sendMessage(this.getListItemClaimed( id, timestamp, user, mod, online ));
     }
 
-    public String getListItemClaimed( int id, String timestamp, String user, String mod ) {
+    public String getListItemClaimed( int id, String timestamp, String user, String mod, boolean online ) {
+
+        ChatColor color = ChatColor.GREEN;
+        if( !online ) {
+            color = ChatColor.RED;
+        }
 
         return MessageFormat.format(
-                ChatColor.GOLD + "#{0}. " + ChatColor.GREEN + "{1} " + ChatColor.GOLD + "by " + ChatColor.GREEN + "{2} " + ChatColor.GOLD + "- " + ChatColor.LIGHT_PURPLE + "Claimed by {3}",
+                ChatColor.GOLD + "#{0}. {1} by " + color + "{2} " + ChatColor.GOLD + "- " + ChatColor.LIGHT_PURPLE + "Claimed by {3}",
                 new Object[] { id, timestamp, user, mod }
         );
 

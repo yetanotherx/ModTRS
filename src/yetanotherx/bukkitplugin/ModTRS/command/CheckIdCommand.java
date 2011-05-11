@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
+import yetanotherx.bukkitplugin.ModTRS.ModTRSFunction;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSMessage;
 import yetanotherx.bukkitplugin.ModTRS.ModTRSPermissions;
 import yetanotherx.bukkitplugin.ModTRS.sql.ModTRSRequest;
@@ -57,7 +58,9 @@ public class CheckIdCommand implements CommandExecutor {
 		    ModTRSUser modUser = ModTRSUserTable.getUserFromId(parent, request.getModId());
 
                     ModTRSMessage.checkid.sendCheckIdHeader(player, request.getId(), request.getStatusText(true) );
-		    ModTRSMessage.checkid.sendFiledBy(player, filedUser.getName(), sdf.format(calendar.getTime()), request.getX(), request.getY(), request.getZ());
+		    
+                    boolean online = ModTRSFunction.isUserOnline(filedUser.getName(), player.getServer());
+                    ModTRSMessage.checkid.sendFiledBy(player, filedUser.getName(), sdf.format(calendar.getTime()), request.getX(), request.getY(), request.getZ(), online);
 
 		    if( request.getModId() != 0 ) {
 			ModTRSMessage.checkid.sendHandledBy(player, modUser.getName(), sdf.format(calendarMod.getTime()));
