@@ -12,7 +12,7 @@
         "checksum": "f801d30ec396005e46440a1462ebf13b",
         "branch": "stable",
         "bukkit_min": 711,
-        "bukkit_max": 766
+        "bukkit_max": 860
     }, {
         "version": "1.4",
         "location": "https://github.com/yetanotherx/ModTRS/raw/release1.4/ModTRS.jar",
