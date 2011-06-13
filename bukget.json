@@ -1,31 +1,71 @@
 {
-    "name": "ModTRS",
-    "author": "Yetanotherx",
-    "description": "Moderator Ticket Request System - Request help from a moderator!",
-    "website": "http://forums.bukkit.org/threads/11652/",
-    "categories": ["ADMIN"],
-    "required_dependencies": [],
-    "optional_dependencies": ["GroupManager", "Permissions"],    
-    "versions": [{
-        "version": "1.4.1",
-        "location": "https://github.com/yetanotherx/ModTRS/raw/release1.4.1/ModTRS.jar",
-        "checksum": "f801d30ec396005e46440a1462ebf13b",
-        "branch": "stable",
-        "bukkit_min": 711,
-        "bukkit_max": 860
-    }, {
-        "version": "1.4",
-        "location": "https://github.com/yetanotherx/ModTRS/raw/release1.4/ModTRS.jar",
-        "checksum": "45da50414101157a6db78328f2b46cb2",
-        "branch": "stable",
-        "bukkit_min": 711,
-        "bukkit_max": 766
-    }, {
-        "version": "1.3",
-        "location": "https://github.com/yetanotherx/ModTRS/raw/release1.3/ModTRS.jar",
-        "checksum": "b7b79dbf5b1fdd9ea7506a3250129854",
-        "branch": "stable",
-        "bukkit_min": 711,
-        "bukkit_max": 766
-    }]
+    "website": "http://forums.bukkit.org/threads/11652/", 
+    "maintainer": "Yetanotherx", 
+    "description": "Moderator Ticket Request System - Request help from a moderator!", 
+    "versions": [
+        {
+            "required_dependencies": [], 
+            "engines": [
+                {
+                    "engine": "craftbukkit", 
+                    "build_max": 860, 
+                    "build_min": 711
+                }
+            ], 
+            "version": "1.4.1", 
+            "location": "https://github.com/yetanotherx/ModTRS/raw/release1.4.1/ModTRS.jar", 
+            "branch": "stable", 
+            "checksum": "f801d30ec396005e46440a1462ebf13b", 
+            "conflicts": [], 
+            "optional_dependencies": [
+                "GroupManager", 
+                "Permissions"
+            ]
+        }, 
+        {
+            "required_dependencies": [], 
+            "engines": [
+                {
+                    "engine": "craftbukkit", 
+                    "build_max": 766, 
+                    "build_min": 711
+                }
+            ], 
+            "version": "1.4", 
+            "location": "https://github.com/yetanotherx/ModTRS/raw/release1.4/ModTRS.jar", 
+            "branch": "stable", 
+            "checksum": "45da50414101157a6db78328f2b46cb2", 
+            "conflicts": [], 
+            "optional_dependencies": [
+                "GroupManager", 
+                "Permissions"
+            ]
+        }, 
+        {
+            "required_dependencies": [], 
+            "engines": [
+                {
+                    "engine": "craftbukkit", 
+                    "build_max": 766, 
+                    "build_min": 711
+                }
+            ], 
+            "version": "1.3", 
+            "location": "https://github.com/yetanotherx/ModTRS/raw/release1.3/ModTRS.jar", 
+            "branch": "stable", 
+            "checksum": "b7b79dbf5b1fdd9ea7506a3250129854", 
+            "conflicts": [], 
+            "optional_dependencies": [
+                "GroupManager", 
+                "Permissions"
+            ]
+        }
+    ], 
+    "authors": [
+        "Yetanotherx"
+    ], 
+    "categories": [
+        "ADMIN"
+    ], 
+    "name": "ModTRS"
 }
