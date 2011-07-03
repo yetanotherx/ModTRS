@@ -8,7 +8,7 @@
             "engines": [
                 {
                     "engine": "craftbukkit", 
-                    "build_max": 860, 
+                    "build_max": 953, 
                     "build_min": 711
                 }
             ], 
