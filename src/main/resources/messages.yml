@@ -1,0 +1,54 @@
+general.error.internal: '%red%An internal error occurred. Please contact an administrator.'
+general.error.permission: '%red%You do not have permission to use this command.'
+general.open_reqs: '%green%There are {0} open mod requests. Type /check to see them.'
+general.error.not_a_req: '%red%Request #{0} was not found.'
+
+checkid.intro: '%aqua%--------- Mod Request #{0} - {1} %aqua%---------'
+checkid.filedby: '%yellow%Filed by {0}{1} %yellow%at %green%{2} %yellow%at %green%{3}, {4}, {5}'
+checkid.handledby: '%yellow%Handled by %light_purple%{0} %yellow%at %light_purple%{1}'
+checkid.text: '%gray%{0}'
+checkid.mod_comment: '%gold%Mod comment - %gray%{0}'
+
+check.intro: '%aqua%--------- {0} Mod Requests - %yellow%{1} %aqua%---------'
+check.item.unclaimed: '%gold%#{0}. {1} by {2}{3} %gold%- %gray%{4}'
+check.item.claimed: '%gold%#{0}. {1} by {2}{3} %gold%- %light_purple%Claimed by {4}'
+check.more: '%red%{0} more mod request(s) available. Use /check p:{1} to go to the next page.'
+check.no_reqs: '%gold%There are no mod requests right now.'
+
+claim.mods: '%gold%{0} is now handling request #{1}.'
+claim.user: '%gold%{0} is handling your request.'
+claim.text: '%gold%Request text: {0}'
+claim.not_open: '%red%You can only claim open requests.'
+claim.already_claimed: '%red%This request has already been claimed. Use /unclaim or /reopen to reopen it.'
+
+closed.mods: '%gold%Request #{0} has been completed.'
+closed.user: '%gold%{0} has completed your request.'
+closed.user.offline: '%gold%The following request(s) have been completed while you were offline:'
+closed.text: '%gold%Request text: {0}'
+closed.mod_comment: '%gold%Mod comment - %gray%{0}'
+closed.not_open: '%red%Only open or claimed requests may be closed.'
+
+hold.held.mods: '%gold%Request #{0} is now on hold.'
+hold.not_open: '%red%Only open or claimed requests can be put on hold.'
+
+mod_broadcast.message: '%white%[%red%Mod broadcast %white%-%red% {0} %white%] %green% {1}'
+
+modlist.message: '%aqua%Moderators: %yellow%{0}'
+modlist.no_mods: '%aqua%There are no moderators online right now.'
+
+modreq.sent.user: '%gold%Thank you. Your message has been sent. A moderator should be with you shortly.'
+modreq.sent.mods: '%green%New mod request filed; use /check for more.'
+modreq.help.list_item: '%white%/{0} %gray%-%yellow% {1}'
+modreq.error.blacklisted: '%red%Your message is invalid. Please read the instructions.'
+modreq.error.banned: '%red%You have been banned from sending requests. Please contact an administrator.'
+modreq.error.general: '%red%Your message could not be sent at this time.'
+modreq.error.too_many: '%red%You already have {0} open mod request(s). Please wait for them to be completed.'
+modreq.error.throttled: '%red%You may not file another mod request for another {0} {1}.'
+
+reopen.reopened.mods: '%gold%Request #{0} has been reopened.'
+reopen.not_closed: '%red%Only closed or held requests may be reopened.'
+
+unclaim.unclaimed.user: '%gold%{0} is no longer handling your request. Please wait for another mod.'
+unclaim.unclaimed.mods: '%gold%Request #{0} is no longer assigned.'
+unclaim.not_claimed: '%red%You can only unclaim a claimed request.'
+unclaim.not_yours: '%red%You can only unclaim requests that you have claimed.'
