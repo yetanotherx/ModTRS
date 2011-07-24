@@ -19,7 +19,6 @@ public class ModTRSPermissions {
 
         PERMISSIONS,
         VANILLA,
-        NOTCH
     }
 
     /**
@@ -38,7 +37,7 @@ public class ModTRSPermissions {
 
                 ModTRS.log.info("Using Permissions version " + perm_plugin.getDescription().getVersion() + " for permission handling");
             } else {
-                handlerType = HandlerType.NOTCH;
+                handlerType = HandlerType.VANILLA;
 
                 ModTRS.log.info("Neither Permissions or GroupManager found. Using ops.txt for permission handling");
             }
@@ -60,7 +59,7 @@ public class ModTRSPermissions {
                 return Permissions.has(player, permission);
             default:
                 if (restricted) {
-                    return player.isOp();
+                    return player.hasPermission(permission);
                 }
                 return true;
 
