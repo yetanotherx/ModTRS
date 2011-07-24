@@ -1,5 +1,6 @@
 package yetanotherx.bukkitplugin.ModTRS.command;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -66,7 +67,7 @@ public class ModTRSCommandSender {
         if (console != null) {
             return "console";
         } else if (player != null) {
-            return player.getName();
+            return ChatColor.stripColor(player.getName());
         } else if (fake != null) {
             return fake.getName();
         }
