@@ -32,7 +32,7 @@ public class ModTRSRequestTable {
      * @return ModTRSRequest
      * @throws SQLException 
      */
-    public ModTRSRequest getRequest(int id) throws SQLException {
+    public ModTRSRequest getRequestFromId(int id) throws SQLException {
         return parent.getDatabase().find(ModTRSRequest.class).where().eq("id", String.valueOf(id)).findUnique();
     }
     
@@ -47,7 +47,7 @@ public class ModTRSRequestTable {
         if( user == null ) {
             return new ArrayList<ModTRSRequest>();
         }
-        return parent.getDatabase().find(ModTRSRequest.class).where().eq("userId", user.getId()).findList();
+        return this.getRequestsFromUserQuery(user.getId()).findList();
     }
     
     /**
@@ -62,7 +62,36 @@ public class ModTRSRequestTable {
         if( user == null ) {
             return new ArrayList<ModTRSRequest>();
         }
-        return parent.getDatabase().find(ModTRSRequest.class).where().eq("userId", user.getId()).eq("notifiedOfCompletion", 0).eq("status", 3).findList();
+        return this.getUnnotifiedRequestsFromUserQuery(user.getId()).findList();
+    }
+    
+    /**
+     * Returns a List of all the open {@link ModTRSRequest}s that a user has created
+     * @param username Username to lookup
+     * @return ArrayList of {@link ModTRSRequest}
+     * @throws SQLException 
+     */
+    public List<ModTRSRequest> getOpenRequestsFromUser(String username) throws SQLException {
+        ModTRSUser user = parent.getTableHandler().getUser().getUserFromName(username);
+        if( user == null ) {
+            return new ArrayList<ModTRSRequest>();
+        }
+        return this.getOpenRequestsFromUserQuery(user.getId()).findList();
+    }
+    
+    /**
+     * Returns a {@link PagingList} of all the open {@link ModTRSRequest}s that a user has created
+     * @param username Username to lookup
+     * @param max Results per page to show
+     * @return PagingList of {@link ModTRSRequest}
+     * @throws SQLException 
+     */
+    public PagingList<ModTRSRequest> getOpenRequestsFromUserPager(String username, int max) throws SQLException {
+        ModTRSUser user = parent.getTableHandler().getUser().getUserFromName(username);
+        if( user == null ) {
+            return null;
+        }
+        return this.getOpenRequestsFromUserQuery(user.getId()).findPagingList(max);
     }
     
     /**
@@ -76,7 +105,7 @@ public class ModTRSRequestTable {
         if( user == null ) {
             return 0;
         }
-        return parent.getDatabase().find(ModTRSRequest.class).where().eq("userId", user.getId()).findRowCount();
+        return this.getRequestsFromUserQuery(user.getId()).findRowCount();
     }
     
     /**
@@ -90,7 +119,7 @@ public class ModTRSRequestTable {
         if( user == null ) {
             return new ArrayList<ModTRSRequest>();
         }
-        return parent.getDatabase().find(ModTRSRequest.class).where().eq("userId", id).findList();
+        return this.getRequestsFromUserQuery(id).findList();
     }
     
     /**
@@ -105,7 +134,36 @@ public class ModTRSRequestTable {
         if( user == null ) {
             return new ArrayList<ModTRSRequest>();
         }
-        return parent.getDatabase().find(ModTRSRequest.class).where().eq("userId", id).eq("notifiedOfCompletion", 0).eq("status", 3).findList();
+        return getUnnotifiedRequestsFromUserQuery(id).findList();
+    }
+    
+    /**
+     * Returns a List of all the open {@link ModTRSRequest}s that a user ID has created
+     * @param id User ID to lookup
+     * @return ArrayList of {@link ModTRSRequest}
+     * @throws SQLException 
+     */
+    public List<ModTRSRequest> getOpenRequestsFromUser(int id) throws SQLException {
+        ModTRSUser user = parent.getTableHandler().getUser().getUserFromId(id);
+        if( user == null ) {
+            return new ArrayList<ModTRSRequest>();
+        }
+        return this.getOpenRequestsFromUserQuery(id).findList();
+    }
+    
+    /**
+     * Returns a {@link PagingList} of all the open {@link ModTRSRequest}s that a user ID has created
+     * @param id User ID to lookup
+     * @param max Results per page to show
+     * @return PagingList of {@link ModTRSRequest}
+     * @throws SQLException 
+     */
+    public PagingList<ModTRSRequest> getOpenRequestsFromUserPager(int id, int max) throws SQLException {
+        ModTRSUser user = parent.getTableHandler().getUser().getUserFromId(id);
+        if( user == null ) {
+            return null;
+        }
+        return this.getOpenRequestsFromUserQuery(id).findPagingList(max);
     }
     
     /**
@@ -119,7 +177,7 @@ public class ModTRSRequestTable {
         if( user == null ) {
             return 0;
         }
-        return parent.getDatabase().find(ModTRSRequest.class).where().eq("userId", user.getId()).findRowCount();
+        return this.getRequestsFromUserQuery(id).findRowCount();
     }
     
     /**
@@ -157,6 +215,18 @@ public class ModTRSRequestTable {
 
     }
     
+    private Query<ModTRSRequest> getRequestsFromUserQuery(int id) {
+        return parent.getDatabase().find(ModTRSRequest.class).where().eq("userId", id).query();
+    }
+    
+    private Query<ModTRSRequest> getUnnotifiedRequestsFromUserQuery(int id) {
+        return parent.getDatabase().find(ModTRSRequest.class).where().eq("userId", id).eq("notifiedOfCompletion", 0).eq("status", 3).query();
+    }
+    
+    private Query<ModTRSRequest> getOpenRequestsFromUserQuery(int id) {
+        return parent.getDatabase().find(ModTRSRequest.class).where().eq("userId", id).or(parent.getDatabase().getExpressionFactory().eq("status", "0"), parent.getDatabase().getExpressionFactory().eq("status", "1")).query();
+    }
+    
     /**
      * Returns a {@link Query} that can be executed to get a 
      * list of requests of a certain type
@@ -181,5 +251,6 @@ public class ModTRSRequestTable {
         return null;
 
     }
+    
 
 }

@@ -38,7 +38,7 @@ public class CheckCommand implements CommandExecutor {
         String[] parameters = this.getParameters(args);
         int page = Integer.parseInt(parameters[0]);
         String type = parameters[1];
-        
+
         ModTRSCommandSender player = new ModTRSCommandSender(sender);
 
         if (!parameters[2].isEmpty()) {
@@ -62,57 +62,66 @@ public class CheckCommand implements CommandExecutor {
         type = event.getRequestType();
         player = event.getSender();
 
-        if (!player.hasPerm("modtrs.command.check")) {
-            player.sendMessage(Message.parse("general.error.permission"));
-        } else {
-            try {
-                PagingList<ModTRSRequest> pager = parent.getTableHandler().getRequest().getRequestsPager(type, ModTRSSettings.reqsPerPage);
+        PagingList<ModTRSRequest> pager;
+        boolean isModerator = true;
 
-                String ucfirst = type.toUpperCase().substring(0, 1) + type.substring(1);
-                player.sendMessage(Message.parse("check.intro", pager.getTotalRowCount(), ucfirst));
+        try {
 
-                if (pager.getTotalRowCount() == 0) {
-                    player.sendMessage(Message.parse("check.no_reqs"));
+            if (!player.hasPerm("modtrs.command.check")) {
+                if (!player.hasPerm("modtrs.command.check.self", false)) {
+                    player.sendMessage(Message.parse("general.error.permission"));
+                    return true;
+                } else {
+                    isModerator = false;
+                    pager = parent.getTableHandler().getRequest().getOpenRequestsFromUserPager(player.getName(), ModTRSSettings.reqsPerPage);
                 }
-
-                int count = 0;
-                for (ModTRSRequest request : pager.getPage(page - 1).getList()) {
-                    count++;
-
-                    Calendar calendar = Calendar.getInstance();
-                    SimpleDateFormat sdf = new SimpleDateFormat(CommandHandler.TIMEDATE_FORMAT);
-                    calendar.setTimeInMillis(request.getTstamp());
-
-                    String substring = request.getText();
-
-                    if (substring.length() >= 20) {
-                        substring = substring.substring(0, 20) + "...";
-                    }
-
-                    boolean online = ModTRSFunctions.isUserOnline(parent.getTableHandler().getUser().getUserFromId(request.getUserId()).getName(), player.getServer());
-                    if (request.getStatus() == 1) {
-                        player.sendMessage(Message.parse("check.item.claimed", request.getId(), sdf.format(calendar.getTime()), ( online ) ? ChatColor.GREEN : ChatColor.RED, parent.getTableHandler().getUser().getUserFromId(request.getUserId()).getName(), parent.getTableHandler().getUser().getUserFromId(request.getModId()).getName()));
-                    } else {
-                        player.sendMessage(Message.parse("check.item.unclaimed", request.getId(), sdf.format(calendar.getTime()), ( online ) ? ChatColor.GREEN : ChatColor.RED, parent.getTableHandler().getUser().getUserFromId(request.getUserId()).getName(), substring));
-                    }
-                }
-
-                int reqs_left = pager.getTotalRowCount() - (page) * pager.getPageSize();
-                if (reqs_left > 0) {
-                    try {
-                        player.sendMessage(Message.parse("check.more", reqs_left, page + 1));
-                        
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                player.sendMessage(Message.parse("general.error.internal"));
+            } else {
+                pager = parent.getTableHandler().getRequest().getRequestsPager(type, ModTRSSettings.reqsPerPage);
             }
 
+            String ucfirst = type.toUpperCase().substring(0, 1) + type.substring(1);
+            player.sendMessage(Message.parse("check.intro", pager.getTotalRowCount(), ucfirst));
+
+            if (pager.getTotalRowCount() == 0) {
+                player.sendMessage(Message.parse("check.no_reqs"));
+            }
+
+            int count = 0;
+            for (ModTRSRequest request : pager.getPage(page - 1).getList()) {
+                count++;
+
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat(CommandHandler.TIMEDATE_FORMAT);
+                calendar.setTimeInMillis(request.getTstamp());
+
+                String substring = request.getText();
+
+                if (substring.length() >= 20) {
+                    substring = substring.substring(0, 20) + "...";
+                }
+
+                boolean online = ModTRSFunctions.isUserOnline(parent.getTableHandler().getUser().getUserFromId(request.getUserId()).getName(), player.getServer());
+                if (request.getStatus() == 1) {
+                    player.sendMessage(Message.parse("check.item.claimed", request.getId(), sdf.format(calendar.getTime()), (online) ? ChatColor.GREEN : ChatColor.RED, parent.getTableHandler().getUser().getUserFromId(request.getUserId()).getName(), parent.getTableHandler().getUser().getUserFromId(request.getModId()).getName()));
+                } else {
+                    player.sendMessage(Message.parse("check.item.unclaimed", request.getId(), sdf.format(calendar.getTime()), (online) ? ChatColor.GREEN : ChatColor.RED, parent.getTableHandler().getUser().getUserFromId(request.getUserId()).getName(), substring));
+                }
+            }
+
+            if( !isModerator ) {
+                return true;
+            }
+            int reqs_left = pager.getTotalRowCount() - (page) * pager.getPageSize();
+            if (reqs_left > 0) {
+                player.sendMessage(Message.parse("check.more", reqs_left, page + 1));
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            player.sendMessage(Message.parse("general.error.internal"));
         }
+
 
         return true;
 

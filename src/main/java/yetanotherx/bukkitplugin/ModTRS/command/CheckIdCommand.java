@@ -47,7 +47,7 @@ public class CheckIdCommand implements CommandExecutor {
         } else {
 
             try {
-                ModTRSRequest request = parent.getTableHandler().getRequest().getRequest(id);
+                ModTRSRequest request = parent.getTableHandler().getRequest().getRequestFromId(id);
 
                 if (request != null) {
 
