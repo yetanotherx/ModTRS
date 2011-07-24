@@ -3,6 +3,9 @@ general.error.permission: '%red%You do not have permission to use this command.'
 general.open_reqs: '%green%There are {0} open mod requests. Type /check to see them.'
 general.error.not_a_req: '%red%Request #{0} was not found.'
 
+ban.mods: '%gold%{0} has been banned from making mod requests.'
+ban.already_banned: '%red%{0} is already banned from making mod requests'
+
 checkid.intro: '%aqua%--------- Mod Request #{0} - {1} %aqua%---------'
 checkid.filedby: '%yellow%Filed by {0}{1} %yellow%at %green%{2} %yellow%at %green%{3}, {4}, {5}'
 checkid.handledby: '%yellow%Handled by %light_purple%{0} %yellow%at %light_purple%{1}'
@@ -47,6 +50,9 @@ modreq.error.throttled: '%red%You may not file another mod request for another {
 
 reopen.reopened.mods: '%gold%Request #{0} has been reopened.'
 reopen.not_closed: '%red%Only closed or held requests may be reopened.'
+
+unban.mods: '%gold%{0} has been unbanned from /modreq'
+unban.not_banned: '%red%{0} is not currently banned'
 
 unclaim.unclaimed.user: '%gold%{0} is no longer handling your request. Please wait for another mod.'
 unclaim.unclaimed.mods: '%gold%Request #{0} is no longer assigned.'

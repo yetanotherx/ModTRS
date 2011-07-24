@@ -2,6 +2,8 @@ package yetanotherx.bukkitplugin.ModTRS.event;
 
 public abstract class Listener {
     
+    public abstract void onCommandBan(CommandBanEvent event);
+    public abstract void onCommandUnban(CommandUnbanEvent event);
     public abstract void onCommandModBroadcast(CommandModBroadcastEvent event);
     public abstract void onCommandCheck(CommandCheckEvent event);
     public abstract void onCommandCheckId(CommandCheckIdEvent event);

@@ -17,6 +17,14 @@ public abstract class Event {
     public enum Type {
         
         /**
+         * Called when /modreq-ban is sent
+         */
+        COMMAND_BAN,
+        /**
+         * Called when /modreq-unban is sent
+         */
+        COMMAND_UNBAN,
+        /**
          * Called when /mod-broadcast is sent
          */
         COMMAND_MOD_BROADCAST,

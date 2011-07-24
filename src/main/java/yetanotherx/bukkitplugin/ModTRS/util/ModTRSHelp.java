@@ -3,7 +3,6 @@ package yetanotherx.bukkitplugin.ModTRS.util;
 import yetanotherx.bukkitplugin.ModTRS.command.ModTRSCommandSender;
 import java.util.ArrayList;
 
-import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 
 /**
  * Fix /modtrs help to only show commands the user has permission to use.
@@ -33,6 +32,8 @@ public class ModTRSHelp {
         helpCommands.add(new String[]{"done [#]", "Mark the request as completed", "modtrs.command.complete"});
         helpCommands.add(new String[]{"reopen [#]", "Reopen a closed or held request", "modtrs.command.complete"});
         helpCommands.add(new String[]{"hold [#]", "Put the request on hold", "modtrs.command.complete"});
+        helpCommands.add(new String[]{"modreq-ban [username]", "Prevent a user from using /modreq", "modtrs.command.ban"});
+        helpCommands.add(new String[]{"modreq-unban [username]", "Allow a user to use /modreq", "modtrs.command.unban"});
         helpCommands.add(new String[]{"mod-broadcast [message]", "Send a message to all moderators", "modtrs.command.broadcast"});
         helpCommands.add(new String[]{"modlist", "List all moderators", "modtrs.command.modlist", "anyone"});
         helpCommands.add(new String[]{"modtrs [reload|version]", "Various ModTRS functions", "modtrs.command.modtrs"});

@@ -33,6 +33,12 @@ commands:
     hold:
         description: Put request on hold
         usage: /<command> [id]
+    modreq-ban:
+        description: Ban a user from making mod requests
+        usage: /<command> [username]
+    modreq-unban:
+        description: Reallow a user to make mod requests
+        usage: /<command> [username]
     mod-broadcast:
         description: Send a message to other moderators
         usage: /<command> [message]

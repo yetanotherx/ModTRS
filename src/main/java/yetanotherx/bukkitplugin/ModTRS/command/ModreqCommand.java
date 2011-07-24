@@ -56,6 +56,11 @@ public class ModreqCommand implements CommandExecutor {
             }
 
             ModTRSUser user = parent.getAPI().getUserFromName(player.getName());
+            
+            if( user.getBanned() != 0 ) {
+                player.sendMessage(Message.parse("modreq.error.banned"));
+                return true;
+            }
 
             if (ModTRSSettings.maxRequests > 0) {
 
