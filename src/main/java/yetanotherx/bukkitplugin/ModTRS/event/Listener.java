@@ -1,22 +1,22 @@
 package yetanotherx.bukkitplugin.ModTRS.event;
 
-public abstract class Listener {
+public class Listener {
     
-    public abstract void onCommandBan(CommandBanEvent event);
-    public abstract void onCommandUnban(CommandUnbanEvent event);
-    public abstract void onCommandModBroadcast(CommandModBroadcastEvent event);
-    public abstract void onCommandCheck(CommandCheckEvent event);
-    public abstract void onCommandCheckId(CommandCheckIdEvent event);
-    public abstract void onCommandClaim(CommandClaimEvent event);
-    public abstract void onCommandComplete(CommandCompleteEvent event);
-    public abstract void onCommandHelp(CommandHelpEvent event);
-    public abstract void onCommandHold(CommandHoldEvent event);
-    public abstract void onCommandModlist(CommandModlistEvent event);
-    public abstract void onCommandModreq(CommandModreqEvent event);
-    public abstract void onCommandReload(CommandReloadEvent event);
-    public abstract void onCommandReopen(CommandReopenEvent event);
-    public abstract void onCommandTeleport(CommandTeleportEvent event);
-    public abstract void onCommandUnclaim(CommandUnclaimEvent event);
+    public void onCommandBan(CommandBanEvent event) {}
+    public void onCommandUnban(CommandUnbanEvent event) {}
+    public void onCommandModBroadcast(CommandModBroadcastEvent event) {}
+    public void onCommandCheck(CommandCheckEvent event) {}
+    public void onCommandCheckId(CommandCheckIdEvent event) {}
+    public void onCommandClaim(CommandClaimEvent event) {}
+    public void onCommandComplete(CommandCompleteEvent event) {}
+    public void onCommandHelp(CommandHelpEvent event) {}
+    public void onCommandHold(CommandHoldEvent event) {}
+    public void onCommandModlist(CommandModlistEvent event) {}
+    public void onCommandModreq(CommandModreqEvent event) {}
+    public void onCommandReload(CommandReloadEvent event) {}
+    public void onCommandReopen(CommandReopenEvent event) {}
+    public void onCommandTeleport(CommandTeleportEvent event) {}
+    public void onCommandUnclaim(CommandUnclaimEvent event) {}
     
     
 }

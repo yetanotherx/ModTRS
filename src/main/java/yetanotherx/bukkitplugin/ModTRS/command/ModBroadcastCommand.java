@@ -37,7 +37,7 @@ public class ModBroadcastCommand implements CommandExecutor {
 	    player.sendMessage(Message.parse("general.error.permission"));
 	}
 	else {
-	    ModTRSFunctions.messageMods( Message.parse("mod_broacast.message", player.getName(), joined), player.getServer() );
+	    ModTRSFunctions.messageMods( Message.parse("mod_broadcast.message", player.getName(), joined), player.getServer() );
 	}
 
 	return true;
