@@ -10,13 +10,13 @@ import yetanotherx.bukkitplugin.ModTRS.event.CommandModlistEvent;
 import yetanotherx.bukkitplugin.ModTRS.event.EventHandler;
 import yetanotherx.bukkitplugin.ModTRS.util.Message;
 import yetanotherx.bukkitplugin.ModTRS.util.ModTRSPermissions;
+import yetanotherx.bukkitplugin.ModTRS.validator.NoArgumentsValidator;
 import yetanotherx.bukkitplugin.ModTRS.validator.ValidatorHandler;
-import yetanotherx.bukkitplugin.ModTRS.validator.ModlistValidator;
 
 public class ModlistCommand implements CommandExecutor {
 
     public ModlistCommand(ModTRS parent) {
-        ValidatorHandler.getInstance().registerValidator("modlist", new ModlistValidator(this, parent));
+        ValidatorHandler.getInstance().registerValidator("modlist", new NoArgumentsValidator(this, parent));
     }
 
     @Override

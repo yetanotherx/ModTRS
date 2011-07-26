@@ -13,7 +13,7 @@ import yetanotherx.bukkitplugin.ModTRS.util.ModTRSFunctions;
 import yetanotherx.bukkitplugin.ModTRS.model.ModTRSRequest;
 import yetanotherx.bukkitplugin.ModTRS.model.ModTRSUser;
 import yetanotherx.bukkitplugin.ModTRS.util.Message;
-import yetanotherx.bukkitplugin.ModTRS.validator.CompleteValidator;
+import yetanotherx.bukkitplugin.ModTRS.validator.OneArgumentIntegerValidator;
 import yetanotherx.bukkitplugin.ModTRS.validator.ValidatorHandler;
 
 public class UnclaimCommand implements CommandExecutor {
@@ -22,7 +22,7 @@ public class UnclaimCommand implements CommandExecutor {
 
     public UnclaimCommand(ModTRS parent) {
         this.parent = parent;
-        ValidatorHandler.getInstance().registerValidator("unclaim", new CompleteValidator(this, parent));
+        ValidatorHandler.getInstance().registerValidator("unclaim", new OneArgumentIntegerValidator(this, parent));
 
     }
 

@@ -10,8 +10,8 @@ import yetanotherx.bukkitplugin.ModTRS.event.CommandReloadEvent;
 import yetanotherx.bukkitplugin.ModTRS.event.EventHandler;
 import yetanotherx.bukkitplugin.ModTRS.util.Message;
 import yetanotherx.bukkitplugin.ModTRS.util.ModTRSSettings;
+import yetanotherx.bukkitplugin.ModTRS.validator.NoArgumentsValidator;
 import yetanotherx.bukkitplugin.ModTRS.validator.ValidatorHandler;
-import yetanotherx.bukkitplugin.ModTRS.validator.ReloadValidator;
 
 public class ReloadCommand implements CommandExecutor {
 
@@ -19,7 +19,7 @@ public class ReloadCommand implements CommandExecutor {
     
     public ReloadCommand(ModTRS parent) {
         this.parent = parent;
-        ValidatorHandler.getInstance().registerValidator("modtrs-reload", new ReloadValidator(this, parent));
+        ValidatorHandler.getInstance().registerValidator("modtrs-reload", new NoArgumentsValidator(this, parent));
 
     }
 

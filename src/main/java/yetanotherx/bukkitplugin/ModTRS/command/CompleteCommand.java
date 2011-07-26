@@ -14,7 +14,7 @@ import yetanotherx.bukkitplugin.ModTRS.util.ModTRSFunctions;
 import yetanotherx.bukkitplugin.ModTRS.model.ModTRSRequest;
 import yetanotherx.bukkitplugin.ModTRS.model.ModTRSUser;
 import yetanotherx.bukkitplugin.ModTRS.util.Message;
-import yetanotherx.bukkitplugin.ModTRS.validator.CompleteValidator;
+import yetanotherx.bukkitplugin.ModTRS.validator.OneArgumentIntegerValidator;
 import yetanotherx.bukkitplugin.ModTRS.validator.ValidatorHandler;
 
 public class CompleteCommand implements CommandExecutor {
@@ -23,7 +23,7 @@ public class CompleteCommand implements CommandExecutor {
 
     public CompleteCommand(ModTRS parent) {
         this.parent = parent;
-        ValidatorHandler.getInstance().registerValidator("complete", new CompleteValidator(this, parent));
+        ValidatorHandler.getInstance().registerValidator("complete", new OneArgumentIntegerValidator(this, parent));
     }
 
     @Override

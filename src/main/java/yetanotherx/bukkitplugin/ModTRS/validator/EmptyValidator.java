@@ -4,17 +4,16 @@ import org.bukkit.command.CommandExecutor;
 
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 
-public class HelpValidator extends ValidatorBase implements Validator {
+public class EmptyValidator extends Validator {
 
-    public HelpValidator(CommandExecutor command, ModTRS parent) {
+    public EmptyValidator(CommandExecutor command, ModTRS parent) {
     }
 
     @Override
     public boolean isValid(String[] args) {
-	
-	//No validation needed
-	
-	return true;
-    }
 
+        //No validation needed
+
+        return true;
+    }
 }

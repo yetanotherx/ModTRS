@@ -4,7 +4,7 @@ import org.bukkit.command.CommandExecutor;
 
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 
-public class CheckValidator extends ValidatorBase implements Validator {
+public class CheckValidator extends Validator {
 
     public CheckValidator(CommandExecutor command, ModTRS parent) {
     }

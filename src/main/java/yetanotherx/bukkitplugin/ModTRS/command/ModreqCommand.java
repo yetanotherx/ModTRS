@@ -14,8 +14,8 @@ import yetanotherx.bukkitplugin.ModTRS.util.ModTRSSettings;
 import yetanotherx.bukkitplugin.ModTRS.model.ModTRSRequest;
 import yetanotherx.bukkitplugin.ModTRS.model.ModTRSUser;
 import yetanotherx.bukkitplugin.ModTRS.util.Message;
+import yetanotherx.bukkitplugin.ModTRS.validator.OneArgumentValidator;
 import yetanotherx.bukkitplugin.ModTRS.validator.ValidatorHandler;
-import yetanotherx.bukkitplugin.ModTRS.validator.ModreqValidator;
 
 public class ModreqCommand implements CommandExecutor {
 
@@ -23,7 +23,7 @@ public class ModreqCommand implements CommandExecutor {
 
     public ModreqCommand(ModTRS parent) {
         this.parent = parent;
-        ValidatorHandler.getInstance().registerValidator("modreq", new ModreqValidator(this, parent));
+        ValidatorHandler.getInstance().registerValidator("modreq", new OneArgumentValidator(this, parent));
     }
 
     @Override

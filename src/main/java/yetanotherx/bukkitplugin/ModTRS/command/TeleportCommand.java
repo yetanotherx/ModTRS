@@ -13,7 +13,7 @@ import yetanotherx.bukkitplugin.ModTRS.event.CommandTeleportEvent;
 import yetanotherx.bukkitplugin.ModTRS.event.EventHandler;
 import yetanotherx.bukkitplugin.ModTRS.model.ModTRSRequest;
 import yetanotherx.bukkitplugin.ModTRS.util.Message;
-import yetanotherx.bukkitplugin.ModTRS.validator.CompleteValidator;
+import yetanotherx.bukkitplugin.ModTRS.validator.OneArgumentIntegerValidator;
 import yetanotherx.bukkitplugin.ModTRS.validator.ValidatorHandler;
 
 public class TeleportCommand implements CommandExecutor {
@@ -22,7 +22,7 @@ public class TeleportCommand implements CommandExecutor {
 
     public TeleportCommand(ModTRS parent) {
         this.parent = parent;
-        ValidatorHandler.getInstance().registerValidator("tp-id", new CompleteValidator(this, parent));
+        ValidatorHandler.getInstance().registerValidator("tp-id", new OneArgumentIntegerValidator(this, parent));
 
     }
 

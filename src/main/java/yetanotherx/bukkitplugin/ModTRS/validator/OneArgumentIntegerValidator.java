@@ -4,9 +4,9 @@ import org.bukkit.command.CommandExecutor;
 
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 
-public class CompleteValidator extends ValidatorBase implements Validator {
+public class OneArgumentIntegerValidator extends Validator {
 
-    public CompleteValidator(CommandExecutor command, ModTRS parent) {
+    public OneArgumentIntegerValidator(CommandExecutor command, ModTRS parent) {
     }
     
     @Override

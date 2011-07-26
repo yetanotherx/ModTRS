@@ -6,7 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import yetanotherx.bukkitplugin.ModTRS.validator.HelpValidator;
+import yetanotherx.bukkitplugin.ModTRS.validator.EmptyValidator;
 import yetanotherx.bukkitplugin.ModTRS.validator.ValidatorHandler;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 import yetanotherx.bukkitplugin.ModTRS.event.CommandHelpEvent;
@@ -16,7 +16,7 @@ import yetanotherx.bukkitplugin.ModTRS.util.ModTRSHelp;
 public class HelpCommand implements CommandExecutor {
 
     public HelpCommand(ModTRS parent) {
-	ValidatorHandler.getInstance().registerValidator( "modreq-help", new HelpValidator(this, parent) );
+	ValidatorHandler.getInstance().registerValidator( "modreq-help", new EmptyValidator(this, parent) );
 	
     }
 

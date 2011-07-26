@@ -10,7 +10,7 @@ import yetanotherx.bukkitplugin.ModTRS.event.EventHandler;
 import yetanotherx.bukkitplugin.ModTRS.model.ModTRSUser;
 import yetanotherx.bukkitplugin.ModTRS.util.Message;
 import yetanotherx.bukkitplugin.ModTRS.util.ModTRSFunctions;
-import yetanotherx.bukkitplugin.ModTRS.validator.BanValidator;
+import yetanotherx.bukkitplugin.ModTRS.validator.OneArgumentValidator;
 import yetanotherx.bukkitplugin.ModTRS.validator.ValidatorHandler;
 
 public class BanCommand implements CommandExecutor {
@@ -19,7 +19,7 @@ public class BanCommand implements CommandExecutor {
 
     public BanCommand(ModTRS parent) {
         this.parent = parent;
-        ValidatorHandler.getInstance().registerValidator("modreq-ban", new BanValidator(this, parent));
+        ValidatorHandler.getInstance().registerValidator("modreq-ban", new OneArgumentValidator(this, parent));
     }
 
     @Override

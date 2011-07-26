@@ -4,18 +4,18 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import yetanotherx.bukkitplugin.ModTRS.validator.BroadcastValidator;
 import yetanotherx.bukkitplugin.ModTRS.validator.ValidatorHandler;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 import yetanotherx.bukkitplugin.ModTRS.util.ModTRSFunctions;
 import yetanotherx.bukkitplugin.ModTRS.event.EventHandler;
 import yetanotherx.bukkitplugin.ModTRS.event.CommandModBroadcastEvent;
 import yetanotherx.bukkitplugin.ModTRS.util.Message;
+import yetanotherx.bukkitplugin.ModTRS.validator.OneArgumentValidator;
 
 public class ModBroadcastCommand implements CommandExecutor {
 
     public ModBroadcastCommand(ModTRS parent) {
-	ValidatorHandler.getInstance().registerValidator( "mod-broadcast", new BroadcastValidator(this, parent) );
+	ValidatorHandler.getInstance().registerValidator( "mod-broadcast", new OneArgumentValidator(this, parent) );
     }
 
     @Override
