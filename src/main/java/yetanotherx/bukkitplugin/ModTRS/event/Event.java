@@ -15,7 +15,7 @@ public abstract class Event {
     public abstract Type getType();
 
     public enum Type {
-        
+
         /**
          * Called when /modreq-ban is sent
          */
@@ -35,7 +35,7 @@ public abstract class Event {
         /**
          * Called when /check-id is sent
          */
-        COMMAND_CHECK_ID, 
+        COMMAND_CHECK_ID,
         /**
          * Called when /claim is sent
          */
@@ -75,6 +75,10 @@ public abstract class Event {
         /**
          * Called when /unclaim is sent
          */
-        COMMAND_UNCLAIM
+        COMMAND_UNCLAIM, 
+        /**
+         * Called when a row is saved to the database
+         */
+        SAVE_ROW
     }
 }

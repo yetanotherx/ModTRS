@@ -38,7 +38,7 @@ public class ModTRSPermissions {
             } else {
                 handlerType = HandlerType.VANILLA;
 
-                ModTRS.log.info("Neither Permissions or GroupManager found. Using ops.txt for permission handling");
+                ModTRS.log.debug("Using native Bukkit permissions.");
             }
         }
 

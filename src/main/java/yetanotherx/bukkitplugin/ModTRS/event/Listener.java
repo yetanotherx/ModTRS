@@ -17,6 +17,6 @@ public class Listener {
     public void onCommandReopen(CommandReopenEvent event) {}
     public void onCommandTeleport(CommandTeleportEvent event) {}
     public void onCommandUnclaim(CommandUnclaimEvent event) {}
-    
+    public void onSaveRow(SaveRowEvent event) {}
     
 }

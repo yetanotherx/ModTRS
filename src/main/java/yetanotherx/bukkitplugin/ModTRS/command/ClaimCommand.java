@@ -65,7 +65,7 @@ public class ClaimCommand implements CommandExecutor {
                 request.setModId(user.getId());
                 request.setModTimestamp(System.currentTimeMillis());
                 request.setStatus(1);
-                parent.getDatabase().save(request);
+                parent.getAPI().saveRow(request);
 
                 ModTRSFunctions.messageMods(Message.parse("claim.mods", user.getName(), request.getId()), player.getServer());
                 

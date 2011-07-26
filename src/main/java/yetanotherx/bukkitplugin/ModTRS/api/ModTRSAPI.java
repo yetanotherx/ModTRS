@@ -8,6 +8,8 @@ import yetanotherx.bukkitplugin.ModTRS.model.ModTRSRequestTable;
 import yetanotherx.bukkitplugin.ModTRS.model.ModTRSUser;
 import yetanotherx.bukkitplugin.ModTRS.model.ModTRSUserTable;
 import yetanotherx.bukkitplugin.ModTRS.command.FakeCommandSender;
+import yetanotherx.bukkitplugin.ModTRS.event.EventHandler;
+import yetanotherx.bukkitplugin.ModTRS.event.SaveRowEvent;
 
 /**
  * API to interact with the ModTRS plugin
@@ -49,7 +51,14 @@ public class ModTRSAPI {
      */
     public void saveRow(Object model) {
         if( !(model instanceof ModTRSRequest) || !(model instanceof ModTRSUser) ) return;
-        parent.getDatabase().save(model);
+        
+        SaveRowEvent event = new SaveRowEvent(model);
+        EventHandler.getInstance().dispatch(event);
+        if (event.isCancelled()) {
+            return;
+        }
+        
+        parent.getDatabase().save(event.getModel());
     }
     
     /**
@@ -85,7 +94,7 @@ public class ModTRSAPI {
         if (user == null) {
             user = new ModTRSUser();
             user.setName(name);
-            parent.getDatabase().save(user);
+            this.saveRow(user);
             user = parent.getTableHandler().getUser().getUserFromName(name);
         }
         

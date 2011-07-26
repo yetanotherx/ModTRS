@@ -81,7 +81,7 @@ public class ModreqCommand implements CommandExecutor {
             request.setX(player.getLocation().getBlockX());
             request.setY(player.getLocation().getBlockY());
             request.setZ(player.getLocation().getBlockZ());
-            parent.getDatabase().save(request);
+            parent.getAPI().saveRow(request);
             player.sendMessage(Message.parse("modreq.sent.user"));
 
             if (ModTRSSettings.notifyMods) {

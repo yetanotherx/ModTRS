@@ -61,7 +61,7 @@ public class ReopenCommand implements CommandExecutor {
                 request.setModId(0);
                 request.setModTimestamp(0);
                 request.setStatus(0);
-                parent.getDatabase().save(request);
+                parent.getAPI().saveRow(request);
 
                 ModTRSFunctions.messageMods(Message.parse("reopen.reopened.mods", request.getId()), player.getServer());
 

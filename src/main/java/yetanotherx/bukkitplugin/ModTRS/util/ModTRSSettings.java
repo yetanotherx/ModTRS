@@ -21,7 +21,6 @@ public class ModTRSSettings {
     public static List<String> blacklist = new ArrayList<String>();
     public static int maxRequests = -1;
     public static int reqsPerPage = 5;
-    public static String locale = "en_US";
 
     /**
      * Bukkit config class
@@ -95,7 +94,6 @@ public class ModTRSSettings {
         logCommands = config.getBoolean("modtrs.log_commands", false);
         notifyMods = config.getBoolean("modtrs.notify_mods", true);
         blacklist = config.getStringList("modtrs.blacklist", new ArrayList<String>());
-        locale = config.getString("modtrs.locale", "en_US"); 
 
         //Why do all this? Because Bukkit is weird and sets the property if it isn't found.
         Integer o = castInt(config.getProperty("modtrs.max_requests"));

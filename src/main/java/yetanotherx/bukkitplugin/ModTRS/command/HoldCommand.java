@@ -61,7 +61,7 @@ public class HoldCommand implements CommandExecutor {
                 request.setModId(user.getId());
                 request.setModTimestamp(System.currentTimeMillis());
                 request.setStatus(2);
-                parent.getDatabase().save(request);
+                parent.getAPI().saveRow(request);
 
                 ModTRSFunctions.messageMods(Message.parse("hold.held.mods", request.getId()), player.getServer());
 

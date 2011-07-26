@@ -182,7 +182,7 @@ public class ModTRSRequest implements Serializable {
     }
 
     public void save(ModTRS parent) {
-        parent.getDatabase().save(this);
+        parent.getAPI().saveRow(this);
     }
 
 }

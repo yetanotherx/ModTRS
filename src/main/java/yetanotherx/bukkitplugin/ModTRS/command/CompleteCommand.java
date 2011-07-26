@@ -72,7 +72,7 @@ public class CompleteCommand implements CommandExecutor {
                 request.setModTimestamp(System.currentTimeMillis());
                 request.setModComment(message);
                 request.setStatus(3);
-                parent.getDatabase().save(request);
+                parent.getAPI().saveRow(request);
 
                 ModTRSFunctions.messageMods(Message.parse("closed.mods", request.getId()), player.getServer());
                 if (!message.isEmpty()) {
@@ -92,7 +92,7 @@ public class CompleteCommand implements CommandExecutor {
                         }
                     }
                     request.setNotifiedOfCompletion(1);
-                    parent.getDatabase().save(request);
+                    parent.getAPI().saveRow(request);
                 }
 
             } else {
