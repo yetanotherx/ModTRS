@@ -6,6 +6,7 @@ commands:
     modreq:
         description: Request help from a moderator
         usage: /<command> [message]
+        permission: modtrs.command.modreq
     check:
         description: List all the currently open requests. Use p:# to go to a page, and t:open/t:all to change the type of the request
         usage: /<command> [p:#] [t:open|all]
