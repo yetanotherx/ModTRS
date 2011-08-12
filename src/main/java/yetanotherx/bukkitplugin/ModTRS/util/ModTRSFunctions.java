@@ -1,5 +1,7 @@
 package yetanotherx.bukkitplugin.ModTRS.util;
 
+import java.util.Arrays;
+import java.util.List;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
@@ -42,6 +44,15 @@ public class ModTRSFunctions {
 	out = out.substring(0, out.length() - glue.length() );
 
 	return out;
+    }
+
+    public static String[] removeFirstArg(String[] args) {
+        if( args.length == 0 ) {
+            return args;
+        }
+        List<String> list = Arrays.asList(args);
+        list.remove(0);
+        return (String[]) list.toArray();
     }
 
 }

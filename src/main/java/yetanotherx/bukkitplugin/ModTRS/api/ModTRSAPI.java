@@ -50,7 +50,6 @@ public class ModTRSAPI {
      * @param model {@link ModTRSRequest} or {@link ModTRSUser} object
      */
     public void saveRow(Object model) {
-        if( !(model instanceof ModTRSRequest) || !(model instanceof ModTRSUser) ) return;
         
         SaveRowEvent event = new SaveRowEvent(model);
         EventHandler.getInstance().dispatch(event);

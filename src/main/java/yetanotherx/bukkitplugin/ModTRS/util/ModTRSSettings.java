@@ -7,8 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.bukkit.util.config.Configuration;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
+import yetanotherx.bukkitplugin.ModTRS.util.config.Configuration;
 
 public class ModTRSSettings {
 
@@ -21,7 +21,6 @@ public class ModTRSSettings {
     public static List<String> blacklist = new ArrayList<String>();
     public static int maxRequests = -1;
     public static int reqsPerPage = 5;
-
     /**
      * Bukkit config class
      */
@@ -44,36 +43,7 @@ public class ModTRSSettings {
         config.load();
 
         if (!file.exists()) {
-            InputStream input = parent.getClass().getResourceAsStream("/defaults/config.yml");
-            if (input != null) {
-                FileOutputStream output = null;
-
-                try {
-                    output = new FileOutputStream(file);
-                    byte[] buf = new byte[8192];
-                    int length = 0;
-                    while ((length = input.read(buf)) > 0) {
-                        output.write(buf, 0, length);
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        if (input != null) {
-                            input.close();
-                        }
-                    } catch (IOException e) {
-                    }
-
-                    try {
-                        if (output != null) {
-                            output.close();
-                        }
-                    } catch (IOException e) {
-                    }
-                }
-            }
+            saveConfigFromResource(file);
 
             config.load();
         }
@@ -112,7 +82,7 @@ public class ModTRSSettings {
 
     }
 
-    private static Integer castInt(Object o) {
+    public static Integer castInt(Object o) {
         if (o == null) {
             return null;
         } else if (o instanceof Byte) {
@@ -127,6 +97,39 @@ public class ModTRSSettings {
             return (int) (long) (Long) o;
         } else {
             return null;
+        }
+    }
+
+    public static void saveConfigFromResource(File file) {
+        InputStream input = ModTRS.class.getResourceAsStream("/defaults/config.yml");
+        if (input != null) {
+            FileOutputStream output = null;
+
+            try {
+                output = new FileOutputStream(file);
+                byte[] buf = new byte[8192];
+                int length = 0;
+                while ((length = input.read(buf)) > 0) {
+                    output.write(buf, 0, length);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (input != null) {
+                        input.close();
+                    }
+                } catch (IOException e) {
+                }
+
+                try {
+                    if (output != null) {
+                        output.close();
+                    }
+                } catch (IOException e) {
+                }
+            }
         }
     }
 }

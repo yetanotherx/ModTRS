@@ -22,6 +22,7 @@ public class CommandHandler implements CommandExecutor {
      * All the command executors
      */
     private HashMap<String, CommandExecutor> commands = new HashMap<String, CommandExecutor>();
+    private HashMap<CommandExecutor, HashMap<String, CommandExecutor>> subCommands = new HashMap<CommandExecutor, HashMap<String, CommandExecutor>>();
     /**
      * ModTRS plugin
      */
@@ -43,28 +44,43 @@ public class CommandHandler implements CommandExecutor {
         ModTRS.log.debug("Loading command handlers");
         CommandHandler handler = new CommandHandler(parent);
 
-        handler.registerCommand("modreq-help", new HelpCommand(parent));
-        handler.registerCommand("modreq", new ModreqCommand(parent));
+        ModreqCommand modreqCommand = new ModreqCommand(parent);
+        ModTRSCommand modTRSCommand = new ModTRSCommand(parent);
+
+        handler.registerCommand("modreq", modreqCommand);
+        handler.registerCommand("modtrs", modTRSCommand);
         handler.registerCommand("check", new CheckCommand(parent));
         handler.registerCommand("check-id", new CheckIdCommand(parent));
         handler.registerCommand("tp-id", new TeleportCommand(parent));
         handler.registerCommand("claim", new ClaimCommand(parent));
         handler.registerCommand("unclaim", new UnclaimCommand(parent));
-        handler.registerCommand("done", new CompleteCommand(parent));
         handler.registerCommand("complete", new CompleteCommand(parent));
         handler.registerCommand("reopen", new ReopenCommand(parent));
         handler.registerCommand("hold", new HoldCommand(parent));
         handler.registerCommand("mod-broadcast", new ModBroadcastCommand(parent));
         handler.registerCommand("modlist", new ModlistCommand(parent));
-        handler.registerCommand("modtrs-reload", new ReloadCommand(parent));
-        handler.registerCommand("modreq-ban", new BanCommand(parent));
-        handler.registerCommand("modreq-unban", new UnbanCommand(parent));
+
+        handler.registerSubCommand(modreqCommand, "help", new HelpCommand(parent));
+        handler.registerSubCommand(modreqCommand, "ban", new BanCommand(parent));
+        handler.registerSubCommand(modreqCommand, "unban", new UnbanCommand(parent));
+        handler.registerSubCommand(modTRSCommand, "reload", new ReloadCommand(parent));
+        handler.registerSubCommand(modTRSCommand, "version", new ReloadCommand(parent));
 
         return handler;
     }
 
     public void registerCommand(String name, CommandExecutor command) {
         commands.put(name, command);
+    }
+
+    public void registerSubCommand(CommandExecutor parent, String subcommand, CommandExecutor child) {
+        if (subCommands.containsKey(parent)) {
+            subCommands.get(parent).put(subcommand, child);
+        } else {
+            HashMap<String, CommandExecutor> tempMap = new HashMap<String, CommandExecutor>();
+            tempMap.put(subcommand, child);
+            subCommands.put(parent, tempMap);
+        }
     }
 
     @Override
@@ -89,80 +105,33 @@ public class CommandHandler implements CommandExecutor {
             ModTRS.log.info("Command: /" + command.getName().toLowerCase() + " " + ModTRSFunctions.implode(args, " "));
         }
 
-
-        /**
-         * What's this hackery?
-         * /modreq should go to ModreqCommand, but /modreq help should go to HelpCommand. Eww.
-         */
-        if (commandName.equals("modreq")) {
-
-            if (args.length == 1 && args[0].equals("help")) {
-
-                if (!commands.containsKey("modreq-help")) {
-                    return false;
-                }
-
-                if (ValidatorHandler.getInstance().hasValidator("modreq-help")) {
-                    if (!ValidatorHandler.getInstance().getValidator("modreq-help").isValid(args)) {
-                        return false;
-                    }
-                }
-                return commands.get("modreq-help").onCommand(sender, command, commandLabel, args);
-
-            } else if (args.length > 0) {
-
-                try {
-                    if (!commands.containsKey("modreq")) {
-                        return false;
-                    }
-
-                    if (ValidatorHandler.getInstance().hasValidator("modreq")) {
-                        if (!ValidatorHandler.getInstance().getValidator("modreq").isValid(args)) {
-                            return false;
-                        }
-                    }
-                    return commands.get("modreq").onCommand(sender, command, commandLabel, args);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    sender.sendMessage(Message.parse("modreq.error.general"));
-                    return true;
-                }
-
-            } else {
+        try {
+            if (!commands.containsKey(commandName)) {
                 return false;
             }
-        } else if (commandName.equals("modtrs")) {
 
-            if (args.length == 0) {
-                return true;
-            } else if (args[0].equalsIgnoreCase("version")) {
-                player.sendMessage("[ModTRS] You're running " + parent.getDescription().getName() + " version " + parent.getDescription().getVersion());
-            } else if (args[0].equalsIgnoreCase("reload")) {
-                return (new ReloadCommand(parent)).onCommand(sender, command, commandLabel, args);
+            CommandExecutor commandEx = commands.get(commandName);
+
+            if (args.length != 0 && subCommands.containsKey(commandEx)) {
+                if (subCommands.get(commandEx).containsKey(args[0])) {
+                    commandName = args[0];
+                    commandEx = subCommands.get(commandEx).get(args[0]);
+                    command = new FakeCommand(commandName);
+                    args = ModTRSFunctions.removeFirstArg(args);
+                }
             }
 
-        } else {
-            try {
-                if (!commands.containsKey(commandName)) {
-
+            if (ValidatorHandler.getInstance().hasValidator(commandName)) {
+                if (!ValidatorHandler.getInstance().getValidator(commandName).isValid(args)) {
                     return false;
                 }
-
-                if (ValidatorHandler.getInstance().hasValidator(commandName)) {
-                    if (!ValidatorHandler.getInstance().getValidator(commandName).isValid(args)) {
-                        return false;
-                    }
-                }
-                return commands.get(commandName).onCommand(sender, command, commandLabel, args);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                player.sendMessage(Message.parse("general.error.internal"));
-                return true;
             }
+            return commandEx.onCommand(sender, command, commandName, args);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            player.sendMessage(Message.parse("general.error.internal"));
+            return true;
         }
-
-
-        return true;
     }
 }

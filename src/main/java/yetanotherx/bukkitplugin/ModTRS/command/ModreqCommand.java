@@ -64,7 +64,7 @@ public class ModreqCommand implements CommandExecutor {
 
             if (ModTRSSettings.maxRequests > 0) {
 
-                int request_count = parent.getTableHandler().getRequest().getNumberOfRequestsFromUser(user.getId());
+                int request_count = parent.getTableHandler().getRequest().getNumberOfOpenRequestsFromUser(user.getId());
 
                 if (request_count >= ModTRSSettings.maxRequests) {
                     player.sendMessage(Message.parse("modreq.error.too_many", request_count));

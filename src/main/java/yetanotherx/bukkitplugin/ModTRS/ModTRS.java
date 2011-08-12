@@ -76,9 +76,9 @@ public class ModTRS extends JavaPlugin {
         try {
             ModTRSSettings.load(this);
             MessageHandler.getInstance().load(this);
+            this.setupDatabase();
             ModTRSUpdate.load(this);
             ModTRSPermissions.load(this);
-            this.setupDatabase();
             this.tableHandler = ModTRSTableHandler.load(this);
             this.listener = new ModTRSListener(this);
             this.commandHandler = CommandHandler.load(this);

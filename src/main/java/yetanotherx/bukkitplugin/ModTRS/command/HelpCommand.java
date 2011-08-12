@@ -16,7 +16,7 @@ import yetanotherx.bukkitplugin.ModTRS.util.ModTRSHelp;
 public class HelpCommand implements CommandExecutor {
 
     public HelpCommand(ModTRS parent) {
-	ValidatorHandler.getInstance().registerValidator( "modreq-help", new EmptyValidator(this, parent) );
+	ValidatorHandler.getInstance().registerValidator( "help", new EmptyValidator(this, parent) );
 	
     }
 

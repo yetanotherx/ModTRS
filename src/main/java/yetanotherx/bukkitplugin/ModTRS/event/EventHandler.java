@@ -84,6 +84,9 @@ public class EventHandler {
                 case COMMAND_UNCLAIM:
                     listener.onCommandUnclaim((CommandUnclaimEvent) event);
                     break;
+                case COMMAND_VERSION:
+                    listener.onCommandVersion((CommandVersionEvent) event);
+                    break;
                 case SAVE_ROW:
                     listener.onSaveRow((SaveRowEvent) event);
                     break;

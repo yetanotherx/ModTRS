@@ -109,6 +109,20 @@ public class ModTRSRequestTable {
     }
     
     /**
+     * Returns the number of {@link ModTRSRequest}s that a user has created
+     * @param username Username to lookup
+     * @return int
+     * @throws SQLException 
+     */
+    public int getNumberOfOpenRequestsFromUser(String username) throws SQLException {
+        ModTRSUser user = parent.getTableHandler().getUser().getUserFromName(username);
+        if( user == null ) {
+            return 0;
+        }
+        return this.getOpenRequestsFromUserQuery(user.getId()).findRowCount();
+    }
+    
+    /**
      * Returns a List of all the {@link ModTRSRequest}s that a user ID has created
      * @param id User ID to lookup
      * @return ArrayList of {@link ModTRSRequest}
@@ -178,6 +192,20 @@ public class ModTRSRequestTable {
             return 0;
         }
         return this.getRequestsFromUserQuery(id).findRowCount();
+    }
+    
+    /**
+     * Returns the number of {@link ModTRSRequest}s that a user ID has created
+     * @param id User ID to lookup
+     * @return int
+     * @throws SQLException 
+     */
+    public int getNumberOfOpenRequestsFromUser(int id) throws SQLException {
+        ModTRSUser user = parent.getTableHandler().getUser().getUserFromId(id);
+        if( user == null ) {
+            return 0;
+        }
+        return this.getOpenRequestsFromUserQuery(id).findRowCount();
     }
     
     /**

@@ -19,7 +19,7 @@ public class BanCommand implements CommandExecutor {
 
     public BanCommand(ModTRS parent) {
         this.parent = parent;
-        ValidatorHandler.getInstance().registerValidator("modreq-ban", new OneArgumentValidator(this, parent));
+        ValidatorHandler.getInstance().registerValidator("ban", new OneArgumentValidator(this, parent));
     }
 
     @Override

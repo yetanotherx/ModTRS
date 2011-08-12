@@ -19,7 +19,7 @@ public class ReloadCommand implements CommandExecutor {
     
     public ReloadCommand(ModTRS parent) {
         this.parent = parent;
-        ValidatorHandler.getInstance().registerValidator("modtrs-reload", new NoArgumentsValidator(this, parent));
+        ValidatorHandler.getInstance().registerValidator("reload", new NoArgumentsValidator(this, parent));
 
     }
 

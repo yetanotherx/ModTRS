@@ -17,11 +17,11 @@ public abstract class Event {
     public enum Type {
 
         /**
-         * Called when /modreq-ban is sent
+         * Called when /modreq ban is sent
          */
         COMMAND_BAN,
         /**
-         * Called when /modreq-unban is sent
+         * Called when /modreq unban is sent
          */
         COMMAND_UNBAN,
         /**
@@ -45,7 +45,7 @@ public abstract class Event {
          */
         COMMAND_COMPLETE,
         /**
-         * Called when /help is sent
+         * Called when /modreq help is sent
          */
         COMMAND_HELP,
         /**
@@ -61,7 +61,7 @@ public abstract class Event {
          */
         COMMAND_MODREQ,
         /**
-         * Called when /reload is sent
+         * Called when /modtrs reload is sent
          */
         COMMAND_RELOAD,
         /**
@@ -76,6 +76,10 @@ public abstract class Event {
          * Called when /unclaim is sent
          */
         COMMAND_UNCLAIM, 
+        /**
+         * Called when /modtrs version is sent
+         */
+        COMMAND_VERSION,
         /**
          * Called when a row is saved to the database
          */

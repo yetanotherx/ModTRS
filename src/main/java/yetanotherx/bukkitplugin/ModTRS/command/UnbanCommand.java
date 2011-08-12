@@ -19,7 +19,7 @@ public class UnbanCommand implements CommandExecutor {
 
     public UnbanCommand(ModTRS parent) {
         this.parent = parent;
-        ValidatorHandler.getInstance().registerValidator("modreq-unban", new OneArgumentValidator(this, parent));
+        ValidatorHandler.getInstance().registerValidator("unban", new OneArgumentValidator(this, parent));
     }
 
     @Override
