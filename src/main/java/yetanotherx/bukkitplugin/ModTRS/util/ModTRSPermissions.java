@@ -53,6 +53,7 @@ public class ModTRSPermissions {
     }
     
     public static boolean has(Player player, String permission, boolean restricted) {
+        if (player.isOp()) return true;
         switch (ModTRSPermissions.getHandlerType()) {
             case PERMISSIONS:
                 return Permissions.has(player, permission);
