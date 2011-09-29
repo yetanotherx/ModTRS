@@ -25,7 +25,7 @@ public class ModTRSFunctions {
      * Returns true if a user is online
      */
     public static boolean isUserOnline( String username, Server server ) {
-	return server.getPlayer(username) != null;
+	return server.getPlayer(username).isOnline();
     }
     
     /**
