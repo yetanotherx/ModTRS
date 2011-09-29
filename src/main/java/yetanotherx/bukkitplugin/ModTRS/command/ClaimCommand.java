@@ -32,7 +32,7 @@ public class ClaimCommand implements CommandExecutor {
 
         ModTRSCommandSender player = new ModTRSCommandSender(sender);
 
-        CommandClaimEvent event = new CommandClaimEvent(Integer.parseInt(args[0]), player);
+        CommandClaimEvent event = new CommandClaimEvent(Integer.parseInt(args[0].replace(",", "")), player);
         EventHandler.getInstance().dispatch(event);
         if (event.isCancelled()) {
             return true;

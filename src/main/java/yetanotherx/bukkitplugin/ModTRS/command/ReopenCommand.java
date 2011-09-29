@@ -31,7 +31,7 @@ public class ReopenCommand implements CommandExecutor {
 
         ModTRSCommandSender player = new ModTRSCommandSender(sender);
 
-        CommandReopenEvent event = new CommandReopenEvent(Integer.parseInt(args[0]), player);
+        CommandReopenEvent event = new CommandReopenEvent(Integer.parseInt(args[0].replace(",", "")), player);
         EventHandler.getInstance().dispatch(event);
         if (event.isCancelled()) {
             return true;

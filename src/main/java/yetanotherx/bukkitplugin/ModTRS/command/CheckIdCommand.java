@@ -33,7 +33,7 @@ public class CheckIdCommand implements CommandExecutor {
 
         ModTRSCommandSender player = new ModTRSCommandSender(sender);
 
-        CommandCheckIdEvent event = new CommandCheckIdEvent(Integer.parseInt(args[0]), player);
+        CommandCheckIdEvent event = new CommandCheckIdEvent(Integer.parseInt(args[0].replace(",", "")), player);
         EventHandler.getInstance().dispatch(event);
         if (event.isCancelled()) {
             return true;

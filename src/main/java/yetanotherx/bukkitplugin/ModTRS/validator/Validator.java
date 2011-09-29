@@ -8,7 +8,7 @@ public abstract class Validator {
      */
     protected boolean isInteger( String arg ) {
 	try {
-	    Integer.parseInt(arg);
+	    Integer.parseInt(arg.replace(",", ""));
 	    return true;
 	}
 	catch( Exception e ) {

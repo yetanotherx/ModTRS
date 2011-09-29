@@ -31,7 +31,7 @@ public class HoldCommand implements CommandExecutor {
 
         ModTRSCommandSender player = new ModTRSCommandSender(sender);
 
-        CommandHoldEvent event = new CommandHoldEvent(Integer.parseInt(args[0]), player);
+        CommandHoldEvent event = new CommandHoldEvent(Integer.parseInt(args[0].replace(",", "")), player);
         EventHandler.getInstance().dispatch(event);
         if (event.isCancelled()) {
             return true;

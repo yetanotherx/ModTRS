@@ -6,7 +6,6 @@ commands:
     modreq:
         description: Request help from a moderator
         usage: /<command> [message]
-        permission: modtrs.command.modreq
     check:
         description: List all the currently open requests. Use p:# to go to a page, and t:open/t:all to change the type of the request
         usage: /<command> [p:#] [t:open|all]
@@ -50,3 +49,43 @@ commands:
     modtrs:
         description: Command line only
         usage: /<command>
+permissions:
+    modtrs:
+        description: Grants all permissions for ModTRS.
+        children:
+            modtrs.command.ban: false 
+            modtrs.command.check: false 
+            modtrs.command.check.self: true
+            modtrs.command.complete: false 
+            modtrs.command.broadcast: false 
+            modtrs.command.modlist: true
+            modtrs.command.modreq: true
+            modtrs.mod: false 
+            modtrs.command.reload: false 
+            modtrs.command.teleport: false 
+            modtrs.command.unban: false 
+            modtrs.command.version: true
+    modtrs.command.ban:
+        description: Permission to use /modreq-ban
+    modtrs.command.check: 
+        description: Permission to use /check to see all open requests
+    modtrs.command.check.self:
+        description: Permission to use /check to see your own requests
+    modtrs.command.complete: 
+        description: Permission to use /done, /claim, /unclaim, /hold
+    modtrs.command.broadcast:
+        description: Permission to use /mod-broadcast
+    modtrs.command.modlist:
+        description: Permission to use /modlist
+    modtrs.command.modreq:
+        description: Permission to use /modreq
+    modtrs.mod:
+        description: Give this to all moderators. This is used for /modlist and /mb
+    modtrs.command.reload:
+        description: Permission to use /modtrs reload
+    modtrs.command.teleport:
+        description: Permission to use /tp-id
+    modtrs.command.unban:
+        description: Permission to use /modreq-unban
+    modtrs.command.version:
+        description: Permission to use /modtrs version

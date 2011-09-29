@@ -31,7 +31,7 @@ public class UnclaimCommand implements CommandExecutor {
 
         ModTRSCommandSender player = new ModTRSCommandSender(sender);
 
-        CommandUnclaimEvent event = new CommandUnclaimEvent(Integer.parseInt(args[0]), player);
+        CommandUnclaimEvent event = new CommandUnclaimEvent(Integer.parseInt(args[0].replace(",", "")), player);
         EventHandler.getInstance().dispatch(event);
         if (event.isCancelled()) {
             return true;

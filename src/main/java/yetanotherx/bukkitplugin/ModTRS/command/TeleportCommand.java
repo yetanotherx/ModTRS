@@ -31,7 +31,7 @@ public class TeleportCommand implements CommandExecutor {
 
         ModTRSCommandSender player = new ModTRSCommandSender(sender);
 
-        CommandTeleportEvent event = new CommandTeleportEvent(Integer.parseInt(args[0]), player);
+        CommandTeleportEvent event = new CommandTeleportEvent(Integer.parseInt(args[0].replace(",", "")), player);
         EventHandler.getInstance().dispatch(event);
         if (event.isCancelled()) {
             return true;

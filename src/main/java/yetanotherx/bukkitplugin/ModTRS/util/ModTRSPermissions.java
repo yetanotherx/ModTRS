@@ -12,7 +12,7 @@ public class ModTRSPermissions {
      * Permission handlers
      */
     private static PermissionHandler Permissions;
-    private static HandlerType handlerType;
+    private static HandlerType handlerType = HandlerType.VANILLA;
 
     public enum HandlerType {
 

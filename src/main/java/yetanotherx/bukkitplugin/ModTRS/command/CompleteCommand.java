@@ -31,7 +31,7 @@ public class CompleteCommand implements CommandExecutor {
 
         ModTRSCommandSender player = new ModTRSCommandSender(sender);
 
-        CommandCompleteEvent event = new CommandCompleteEvent(Integer.parseInt(args[0]), player);
+        CommandCompleteEvent event = new CommandCompleteEvent(Integer.parseInt(args[0].replace(",", "")), player);
         EventHandler.getInstance().dispatch(event);
         if (event.isCancelled()) {
             return true;

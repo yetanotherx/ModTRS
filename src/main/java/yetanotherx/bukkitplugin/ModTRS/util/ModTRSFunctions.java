@@ -1,5 +1,6 @@
 package yetanotherx.bukkitplugin.ModTRS.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.bukkit.Server;
@@ -50,9 +51,9 @@ public class ModTRSFunctions {
         if( args.length == 0 ) {
             return args;
         }
-        List<String> list = Arrays.asList(args);
+        ArrayList<String> list = new ArrayList<String>(Arrays.asList(args));
         list.remove(0);
-        return (String[]) list.toArray();
+        return list.toArray(new String[0]);
     }
 
 }

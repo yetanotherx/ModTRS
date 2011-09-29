@@ -64,7 +64,7 @@ public class CommandHandler implements CommandExecutor {
         handler.registerSubCommand(modreqCommand, "ban", new BanCommand(parent));
         handler.registerSubCommand(modreqCommand, "unban", new UnbanCommand(parent));
         handler.registerSubCommand(modTRSCommand, "reload", new ReloadCommand(parent));
-        handler.registerSubCommand(modTRSCommand, "version", new ReloadCommand(parent));
+        handler.registerSubCommand(modTRSCommand, "version", new VersionCommand(parent));
 
         return handler;
     }

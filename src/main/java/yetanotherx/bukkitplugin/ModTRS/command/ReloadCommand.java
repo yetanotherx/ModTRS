@@ -36,7 +36,7 @@ public class ReloadCommand implements CommandExecutor {
 
         player = event.getSender();
 
-        if (!player.hasPerm("modtrs.command.reload", false)) {
+        if (!player.hasPerm("modtrs.command.reload")) {
             player.sendMessage(Message.parse("general.error.permission"));
             return true;
         }

@@ -31,37 +31,40 @@ public class ModTRSListener extends PlayerListener {
             return;
         }
 
-        if (player.hasPerm("modtrs.mod")) {
 
-            try {
+        try {
+            if (player.hasPerm("modtrs.mod")) {
                 int count = parent.getTableHandler().getRequest().getRequestsPager("open", 1).getTotalRowCount();
                 if (count != 0) {
                     player.sendMessage(Message.parse("general.open_reqs", count));
                 }
-
-                List<ModTRSRequest> reqs = parent.getTableHandler().getRequest().getUnnotifiedRequestsFromUser(player.getName());
-                if (reqs.size() > 0) {
-                    player.sendMessage(Message.parse("closed.user.offline"));
-                }
-
-                int iter = 0;
-                for (ModTRSRequest req : reqs) {
-                    if (iter > 0) {
-                        player.sendMessage(ChatColor.GOLD + "----------------");
-                    }
-                    player.sendMessage(Message.parse("closed.text", req.getText()));
-                    
-                    if( !req.getModComment().isEmpty() ) {
-                        player.sendMessage(Message.parse("closed.mod_comment", req.getModComment()));
-                    }
-                    
-                    iter++;
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
             }
 
+            List<ModTRSRequest> reqs = parent.getTableHandler().getRequest().getUnnotifiedRequestsFromUser(player.getName());
+            if (reqs.size() > 0) {
+                player.sendMessage(Message.parse("closed.user.offline"));
+            }
+
+            int iter = 0;
+            for (ModTRSRequest req : reqs) {
+                if (iter > 0) {
+                    player.sendMessage(ChatColor.GOLD + "----------------");
+                }
+                player.sendMessage(Message.parse("closed.text", req.getText()));
+
+                if (!req.getModComment().isEmpty()) {
+                    player.sendMessage(Message.parse("closed.mod_comment", req.getModComment()));
+                }
+
+                req.setNotifiedOfCompletion(1);
+                req.save(parent);
+
+                iter++;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 }

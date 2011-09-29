@@ -9,7 +9,7 @@ import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 import yetanotherx.bukkitplugin.ModTRS.event.CommandVersionEvent;
 import yetanotherx.bukkitplugin.ModTRS.event.EventHandler;
 import yetanotherx.bukkitplugin.ModTRS.util.Message;
-import yetanotherx.bukkitplugin.ModTRS.validator.OneArgumentValidator;
+import yetanotherx.bukkitplugin.ModTRS.validator.NoArgumentsValidator;
 
 public class VersionCommand implements CommandExecutor {
 
@@ -17,7 +17,7 @@ public class VersionCommand implements CommandExecutor {
     
     public VersionCommand(ModTRS parent) {
         this.parent = parent;
-	ValidatorHandler.getInstance().registerValidator( "version", new OneArgumentValidator(this, parent) );
+	ValidatorHandler.getInstance().registerValidator( "version", new NoArgumentsValidator(this, parent) );
     }
 
     @Override
