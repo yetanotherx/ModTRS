@@ -8,6 +8,24 @@
         "engines": [
         {
             "engine": "craftbukkit", 
+            "build_max": 1185, 
+            "build_min": 1185
+        }
+        ], 
+        "version": "2.1", 
+        "location": "https://github.com/downloads/yetanotherx/ModTRS/ModTRS.jar", 
+        "branch": "stable", 
+        "checksum": "f3a133e5307c34d78c42e4495a8557ab", 
+        "conflicts": [], 
+        "optional_dependencies": [
+        "Permissions"
+        ]
+    },
+    {
+        "required_dependencies": [], 
+        "engines": [
+        {
+            "engine": "craftbukkit", 
             "build_max": 1000, 
             "build_min": 1000
         }

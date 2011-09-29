@@ -1,6 +1,6 @@
 name: ModTRS
 main: yetanotherx.bukkitplugin.ModTRS.ModTRS
-version: 2.0beta
+version: 2.1
 database: true
 commands:
     modreq:

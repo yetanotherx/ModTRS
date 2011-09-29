@@ -20,7 +20,7 @@ import yetanotherx.bukkitplugin.ModTRS.listener.ModTRSListener;
 
 
 /*
- * ModTRS Version 2.0 - Moderator Request Ticket System
+ * ModTRS Version 2.1 - Moderator Request Ticket System
  * Copyright (C) 2011 Yetanotherx <yetanotherx -a--t- gmail -dot- com>
  *
  * This program is free software: you can redistribute it and/or modify
