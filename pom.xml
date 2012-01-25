@@ -14,12 +14,12 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.1-R4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.sk89q</groupId>
             <artifactId>dummypermscompat</artifactId>
-            <version>1.2</version>
+            <version>1.6</version>
         </dependency>
         <dependency>
             <groupId>javax.persistence</groupId>
@@ -40,7 +40,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>ModTRS</finalName>
+        <finalName>${project.name}</finalName>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <defaultGoal>clean install</defaultGoal>
         <plugins>
@@ -108,13 +108,7 @@
     <repositories>
         <repository>
             <id>bukkit-repo</id>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <url>http://repo.bukkit.org/artifactory/repo</url>
+            <url>http://repo.bukkit.org/content/groups/public</url>
         </repository>
         <repository>
             <id>sk89q-mvn2</id>
