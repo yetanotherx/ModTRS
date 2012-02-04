@@ -41,6 +41,11 @@ public class ModlistCommand implements CommandExecutor {
         String mods = "";
 
         for (Player user : players) {
+            // Skip invisible mods
+            if (sender instanceof Player && !((Player)sender).canSee(user)) {
+                continue;
+            }
+
             if (ModTRSPermissions.has(user, "modtrs.mod")) {
                 mods = mods + user.getName() + ", ";
             }
