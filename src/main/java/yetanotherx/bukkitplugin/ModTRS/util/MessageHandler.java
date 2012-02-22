@@ -5,7 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
-import org.bukkit.util.config.Configuration;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.InvalidConfigurationException;
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 
 public class MessageHandler {
@@ -16,19 +18,18 @@ public class MessageHandler {
     private MessageHandler() {
     }
 
-    public void load(ModTRS parent) {
+    public void load(ModTRS parent)
+        throws IOException, InvalidConfigurationException {
         ModTRS.log.debug("Loading messages...");
 
-        File dataDirectory = new File("plugins" + File.separator + "ModTRS" + File.separator);
+        File dataDirectory = parent.getDataFolder();
 
         dataDirectory.mkdirs();
 
-        File customMessagesFile = new File("plugins" + File.separator + "ModTRS", "messages.yml");
-        Configuration customMessagesConf = new Configuration(customMessagesFile);
-        customMessagesConf.load();
+        File customMessagesFile = new File(dataDirectory, "messages.yml");
         
         if (!customMessagesFile.exists()) {
-            InputStream input = parent.getClass().getResourceAsStream("/defaults/messages.yml");
+            InputStream input = parent.getResource("messages.yml");
             if (input != null) {
                 FileOutputStream output = null;
 
@@ -58,21 +59,22 @@ public class MessageHandler {
                     }
                 }
             }
-
-            customMessagesConf.load();
         }
-        
-        File defaultMessagesFile = new File(parent.getClass().getResource("/defaults/messages.yml").getFile());
-        Configuration defaultMessagesConf = new Configuration(defaultMessagesFile);
-        defaultMessagesConf.load();
 
-        for( String key : defaultMessagesConf.getKeys() ) {
-            if( customMessagesConf.getProperty(key) == null ) {
-                customMessagesConf.setProperty(key, defaultMessagesConf.getString(key));
+        FileConfiguration customMessagesConf = new YamlConfiguration();
+        customMessagesConf.load(customMessagesFile);
+        
+        InputStream defaultMessagesFile = parent.getResource("messages.yml");
+        FileConfiguration defaultMessagesConf = new YamlConfiguration();
+        defaultMessagesConf.load(defaultMessagesFile);
+
+        for( String key : defaultMessagesConf.getKeys(true) ) {
+            if( customMessagesConf.getString(key) == null ) {
+                customMessagesConf.set(key, defaultMessagesConf.getString(key));
             }
         }
         
-        this.customMessages = customMessagesConf.getAll();
+        this.customMessages = customMessagesConf.getValues(true);
 
         ModTRS.log.debug("Messages loaded");
     }

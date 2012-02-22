@@ -31,11 +31,11 @@ public class ModTRSSettings {
      */
     public static void load(ModTRS parent) {
 
-        File dataDirectory = new File("plugins" + File.separator + "ModTRS" + File.separator);
+        File dataDirectory = parent.getDataFolder();
 
         dataDirectory.mkdirs();
 
-        File file = new File("plugins" + File.separator + "ModTRS", "config.yml");
+        File file = new File(dataDirectory, "config.yml");
 
         ModTRS.log.debug("Loading config file: " + file.getPath());
 
@@ -101,7 +101,7 @@ public class ModTRSSettings {
     }
 
     public static void saveConfigFromResource(File file) {
-        InputStream input = ModTRS.class.getResourceAsStream("/defaults/config.yml");
+        InputStream input = ModTRS.class.getResourceAsStream("config.yml");
         if (input != null) {
             FileOutputStream output = null;
 

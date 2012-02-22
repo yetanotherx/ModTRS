@@ -14,7 +14,7 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.1-R4-SNAPSHOT</version>
+            <version>1.1-R5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.sk89q</groupId>
@@ -91,16 +91,7 @@
                 <filtering>true</filtering>
                 <directory>${basedir}/src/main/resources/</directory>
                 <includes>
-                    <include>plugin.yml</include>
-                </includes>
-            </resource>
-            <resource>
-                <targetPath>defaults/</targetPath>
-                <filtering>true</filtering>
-                <directory>${basedir}/src/main/resources/</directory>
-                <includes>
-                    <include>config.yml</include>
-                    <include>messages.yml</include>
+                    <include>*.yml</include>
                 </includes>
             </resource>
         </resources>
