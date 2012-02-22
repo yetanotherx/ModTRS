@@ -84,7 +84,7 @@ public class ModTRS extends JavaPlugin {
             this.commandHandler = CommandHandler.load(this);
             this.api = ModTRSAPI.load(this);
             
-            this.getServer().getPluginManager().registerEvent( Event.Type.PLAYER_JOIN, this.listener, Event.Priority.Monitor, this );
+            this.getServer().getPluginManager().registerEvents(this.listener, this);
 
             log.info("Plugin enabled! (version " + this.getDescription().getVersion() + ")");
             log.debug("Debug mode enabled!");

@@ -3,7 +3,9 @@ package yetanotherx.bukkitplugin.ModTRS.listener;
 import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerListener;
+import org.bukkit.event.Listener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 
 import yetanotherx.bukkitplugin.ModTRS.ModTRS;
 import yetanotherx.bukkitplugin.ModTRS.model.ModTRSRequest;
@@ -11,7 +13,7 @@ import yetanotherx.bukkitplugin.ModTRS.util.Message;
 import yetanotherx.bukkitplugin.ModTRS.command.ModTRSCommandSender;
 import yetanotherx.bukkitplugin.ModTRS.util.ModTRSSettings;
 
-public class ModTRSListener extends PlayerListener {
+public class ModTRSListener implements Listener {
 
     private ModTRS parent;
 
@@ -22,7 +24,7 @@ public class ModTRSListener extends PlayerListener {
     /**
      * Simply notifies a user that there are open requests when they join
      */
-    @Override
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerJoin(PlayerJoinEvent event) {
 
         ModTRSCommandSender player = new ModTRSCommandSender(event.getPlayer());
